@@ -1,0 +1,11 @@
+query GetMenu($name: String) {
+  menu(id: $name, idType: NAME) {
+    name
+    menuItems {
+      nodes {
+        path
+        label
+      }
+    }
+  }
+}

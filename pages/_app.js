@@ -1,7 +1,30 @@
-import '../styles/globals.css'
+import { ApolloProvider } from '@apollo/client'
+import { ThemeProvider } from '@material-tailwind/react'
+import { client } from '@/lib/apollo'
+import { DefaultSeo } from 'next-seo'
+import SEO from '../next-seo.config'
+import { useRouter } from 'next/router'
+import '@/styles/main.scss'
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  const router = useRouter()
+  const asPath = router ? router.asPath : '/'
+
+  const theme = {}
+
+  return (
+    <>
+      <DefaultSeo
+        {...SEO}
+        canonical={`${process.env.NEXT_PUBLIC_FRONTEND_URL}${asPath}`}
+      />
+      <ApolloProvider client={client}>
+        <ThemeProvider value={theme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </ApolloProvider>
+    </>
+  )
 }
 
 export default MyApp

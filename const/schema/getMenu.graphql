@@ -1,4 +1,4 @@
-query GetMenu($name: String) {
+query GetMenu($name: ID!) {
   menu(id: $name, idType: NAME) {
     name
     menuItems {

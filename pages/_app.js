@@ -5,6 +5,9 @@ import { DefaultSeo } from 'next-seo'
 import SEO from '../next-seo.config'
 import { useRouter } from 'next/router'
 import '@/styles/main.scss'
+import { config } from '@fortawesome/fontawesome-svg-core'
+config.autoAddCss = false
+import '@fortawesome/fontawesome-svg-core/styles.css'
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter()

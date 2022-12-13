@@ -1,9 +1,35 @@
-import { gql } from '@apollo/client'
 import { client } from '@/lib/apollo'
 import Layout from '@/components/common/Layout'
 import { NextSeo } from 'next-seo'
+import GET_POSTS_QUERY from '@/const/schema/getPosts.graphql'
 
-export default function Page() {
+export default function Page({
+  latestPosts,
+  latestNews,
+  latestComparisons,
+  latestReviews,
+  latestGuides,
+  latestAccessories,
+  latestSafes,
+  latestOptics,
+  latestHolsters,
+  popularHandguns,
+  popularRifles,
+  popularShotguns,
+}) {
+  console.log(latestPosts)
+  console.log(latestNews)
+  console.log(latestComparisons)
+  console.log(latestReviews)
+  console.log(latestGuides)
+  console.log(latestAccessories)
+  console.log(latestSafes)
+  console.log(latestOptics)
+  console.log(latestHolsters)
+  console.log(popularHandguns)
+  console.log(popularRifles)
+  console.log(popularShotguns)
+
   return (
     <>
       <NextSeo
@@ -21,28 +47,10 @@ export async function getStaticProps() {
    * Latest Posts
    */
   const { data: latestPostsData } = await client.query({
-    query: gql`
-      query LatestPosts {
-        posts(last: 7) {
-          nodes {
-            slug
-            title
-            author {
-              node {
-                name
-              }
-            }
-            date
-            excerpt
-            featuredImage {
-              node {
-                link
-              }
-            }
-          }
-        }
-      }
-    `,
+    query: GET_POSTS_QUERY,
+    variables: {
+      last: 7,
+    },
   })
 
   const latestPosts = latestPostsData?.posts?.nodes.length
@@ -53,28 +61,11 @@ export async function getStaticProps() {
    * Latest News
    */
   const { data: latestNewsData } = await client.query({
-    query: gql`
-      query PostsByCategory {
-        posts(last: 5, where: { categoryName: "News" }) {
-          nodes {
-            slug
-            title
-            author {
-              node {
-                name
-              }
-            }
-            date
-            excerpt
-            featuredImage {
-              node {
-                link
-              }
-            }
-          }
-        }
-      }
-    `,
+    query: GET_POSTS_QUERY,
+    variables: {
+      last: 5,
+      category: 'News',
+    },
   })
 
   const latestNews = latestNewsData?.posts?.nodes.length
@@ -85,28 +76,11 @@ export async function getStaticProps() {
    * Latest Comparisons
    */
   const { data: latestComparisonsData } = await client.query({
-    query: gql`
-      query PostsByTag {
-        posts(last: 10, where: { tag: "Comparison" }) {
-          nodes {
-            slug
-            title
-            author {
-              node {
-                name
-              }
-            }
-            date
-            excerpt
-            featuredImage {
-              node {
-                link
-              }
-            }
-          }
-        }
-      }
-    `,
+    query: GET_POSTS_QUERY,
+    variables: {
+      last: 10,
+      tag: 'Comparison',
+    },
   })
 
   const latestComparisons = latestComparisonsData?.posts?.nodes.length
@@ -117,28 +91,11 @@ export async function getStaticProps() {
    * Latest Reviews
    */
   const { data: latestReviewsData } = await client.query({
-    query: gql`
-      query PostsByCategory {
-        posts(last: 5, where: { categoryName: "Reviews" }) {
-          nodes {
-            slug
-            title
-            author {
-              node {
-                name
-              }
-            }
-            date
-            excerpt
-            featuredImage {
-              node {
-                link
-              }
-            }
-          }
-        }
-      }
-    `,
+    query: GET_POSTS_QUERY,
+    variables: {
+      last: 5,
+      category: 'Reviews',
+    },
   })
 
   const latestReviews = latestReviewsData?.posts?.nodes.length
@@ -149,28 +106,11 @@ export async function getStaticProps() {
    * Latest Guides
    */
   const { data: latestGuidesData } = await client.query({
-    query: gql`
-      query PostsByCategory {
-        posts(last: 5, where: { categoryName: "Guides" }) {
-          nodes {
-            slug
-            title
-            author {
-              node {
-                name
-              }
-            }
-            date
-            excerpt
-            featuredImage {
-              node {
-                link
-              }
-            }
-          }
-        }
-      }
-    `,
+    query: GET_POSTS_QUERY,
+    variables: {
+      last: 5,
+      category: 'Guides',
+    },
   })
 
   const latestGuides = latestGuidesData?.posts?.nodes.length
@@ -181,28 +121,11 @@ export async function getStaticProps() {
    * Latest Range Gear & Accessories
    */
   const { data: latestAccessoriesData } = await client.query({
-    query: gql`
-      query PostsByTag {
-        posts(last: 10, where: { tag: "accessories" }) {
-          nodes {
-            slug
-            title
-            author {
-              node {
-                name
-              }
-            }
-            date
-            excerpt
-            featuredImage {
-              node {
-                link
-              }
-            }
-          }
-        }
-      }
-    `,
+    query: GET_POSTS_QUERY,
+    variables: {
+      last: 10,
+      tag: 'accessories',
+    },
   })
 
   const latestAccessories = latestAccessoriesData?.posts?.nodes.length
@@ -213,28 +136,11 @@ export async function getStaticProps() {
    * Latest Gun & Ammo Safes
    */
   const { data: latestSafesData } = await client.query({
-    query: gql`
-      query PostsByTag {
-        posts(last: 10, where: { tag: "gun safes" }) {
-          nodes {
-            slug
-            title
-            author {
-              node {
-                name
-              }
-            }
-            date
-            excerpt
-            featuredImage {
-              node {
-                link
-              }
-            }
-          }
-        }
-      }
-    `,
+    query: GET_POSTS_QUERY,
+    variables: {
+      last: 10,
+      tag: 'gun safes',
+    },
   })
 
   const latestSafes = latestSafesData?.posts?.nodes.length
@@ -245,28 +151,11 @@ export async function getStaticProps() {
    * Latest Scopes and Optics
    */
   const { data: latestOpticsData } = await client.query({
-    query: gql`
-      query PostsByTag {
-        posts(last: 10, where: { tag: "optics" }) {
-          nodes {
-            slug
-            title
-            author {
-              node {
-                name
-              }
-            }
-            date
-            excerpt
-            featuredImage {
-              node {
-                link
-              }
-            }
-          }
-        }
-      }
-    `,
+    query: GET_POSTS_QUERY,
+    variables: {
+      last: 10,
+      tag: 'optics',
+    },
   })
 
   const latestOptics = latestOpticsData?.posts?.nodes.length
@@ -277,28 +166,11 @@ export async function getStaticProps() {
    * Latest Holsters and Concealed Carry
    */
   const { data: latestHolstersData } = await client.query({
-    query: gql`
-      query PostsByTag {
-        posts(last: 10, where: { tag: "holsters & carry" }) {
-          nodes {
-            slug
-            title
-            author {
-              node {
-                name
-              }
-            }
-            date
-            excerpt
-            featuredImage {
-              node {
-                link
-              }
-            }
-          }
-        }
-      }
-    `,
+    query: GET_POSTS_QUERY,
+    variables: {
+      last: 10,
+      tag: 'holsters & carry',
+    },
   })
 
   const latestHolsters = latestHolstersData?.posts?.nodes.length

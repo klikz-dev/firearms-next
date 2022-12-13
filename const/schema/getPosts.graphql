@@ -1,0 +1,20 @@
+query LatestPosts($last: Int, $category: String, $tag: String) {
+  posts(last: $last, where: { categoryName: $category, tag: $tag }) {
+    nodes {
+      slug
+      title
+      author {
+        node {
+          name
+        }
+      }
+      date
+      excerpt
+      featuredImage {
+        node {
+          link
+        }
+      }
+    }
+  }
+}

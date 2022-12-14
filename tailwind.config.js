@@ -11,6 +11,7 @@ module.exports = withMT({
       fontFamily: {
         display: ['Oswald', 'sans-serif'],
       },
+      colors: {},
     },
   },
   plugins: [],

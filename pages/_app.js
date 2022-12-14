@@ -56,6 +56,63 @@ function MyApp({ Component, pageProps }) {
         },
       },
     },
+    button: {
+      defaultProps: {
+        color: 'black',
+      },
+      valid: {
+        colors: ['black'],
+      },
+      styles: {
+        variants: {
+          filled: {
+            black: {
+              font: 'font-display',
+              background: 'bg-black',
+              color: 'text-white',
+              border: 'rounded-none',
+            },
+          },
+        },
+        sizes: {
+          sm: {
+            fontSize: 'text-base',
+            padding: 'px-4 py-2',
+          },
+          md: {
+            fontSize: 'text-lg',
+            padding: 'px-8 py-3',
+          },
+          lg: {
+            fontSize: 'text-2xl',
+            width: 'px-32 py-6',
+          },
+        },
+      },
+    },
+    input: {
+      styles: {
+        variants: {
+          standard: {
+            base: {
+              input: {
+                border: 'border-none',
+              },
+              label: {
+                text: 'italic',
+              },
+            },
+            sizes: {
+              lg: {
+                input: {
+                  text: '!text-lg',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
   }
 
   return (

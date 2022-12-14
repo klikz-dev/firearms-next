@@ -1,4 +1,4 @@
-query GetPage($slug: !ID) {
+query GetPage($slug: ID!) {
   page(id: $slug, idType: URI) {
     content
     slug
@@ -6,17 +6,24 @@ query GetPage($slug: !ID) {
     pageContent {
       content {
         ... on Page_Pagecontent_Content_Hero {
-          fieldGroupName
           subtitle
           link {
             ... on Post {
               slug
+              date
             }
           }
           title
+          background {
+            altText
+            sourceUrl
+            mediaDetails {
+              width
+              height
+            }
+          }
         }
         ... on Page_Pagecontent_Content_LatestPosts {
-          fieldGroupName
           title
           category {
             name
@@ -41,7 +48,6 @@ query GetPage($slug: !ID) {
           buttonText
           title
           imagePosition
-          fieldGroupName
           content
           image {
             altText
@@ -49,7 +55,6 @@ query GetPage($slug: !ID) {
           }
         }
         ... on Page_Pagecontent_Content_IconGroup {
-          fieldGroupName
           style
           title
           icon {
@@ -62,7 +67,6 @@ query GetPage($slug: !ID) {
           }
         }
       }
-      fieldGroupName
     }
   }
 }

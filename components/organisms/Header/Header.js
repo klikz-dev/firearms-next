@@ -4,10 +4,12 @@ import Container from '@/components/atoms/Container'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from '@/components/atoms/Link'
 import Logo from '@/components/molecules/Logo'
-import { IconButton, Input } from '@material-tailwind/react'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import GradientBorder from '@/components/atoms/GradientBorder'
 import Social from '@/components/molecules/Social'
+import Input from '@/components/atoms/Input'
+import Button from '@/components/atoms/Button'
+import { useState } from 'react'
 
 export default function Header() {
   const { data } = useQuery(GET_MENU_QUERY, {
@@ -16,6 +18,8 @@ export default function Header() {
     },
   })
   const { menu } = data ?? {}
+
+  const [search, setSearch] = useState('')
 
   return (
     <header>
@@ -30,13 +34,19 @@ export default function Header() {
           <Logo />
 
           <div className={'w-80 flex flex-row items-center'}>
-            <Input label='Search' variant='standard' />
-            <IconButton
-              size='sm'
+            <Input
+              placeholder='Search'
+              className={'bg-zinc-100 rounded-full'}
+              value={search}
+              setValue={setSearch}
+            />
+            <Button
+              size='icon'
               className={'rounded-full bg-red-700 hover:bg-red-600 shrink-0'}
+              href={search !== '' ? `/search?q=${search}` : undefined}
             >
               <FontAwesomeIcon icon={faSearch} className={'text-white'} />
-            </IconButton>
+            </Button>
           </div>
         </div>
       </Container>

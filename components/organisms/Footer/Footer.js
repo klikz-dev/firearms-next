@@ -1,6 +1,5 @@
 import { useQuery } from '@apollo/client'
 import GET_MENU_QUERY from '@/const/schema/getMenu.graphql'
-import { Button, Input, Typography } from '@material-tailwind/react'
 import Container from '@/components/atoms/Container'
 import GradientBorder from '@/components/atoms/GradientBorder'
 import { about } from '@/const/setting/footer'
@@ -9,6 +8,9 @@ import Link from '@/components/atoms/Link'
 import Image from '@/components/atoms/Image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons'
+import Input from '@/components/atoms/Input'
+import Button from '@/components/atoms/Button'
+import { useState } from 'react'
 
 export default function Footer() {
   const { data } = useQuery(GET_MENU_QUERY, {
@@ -19,7 +21,8 @@ export default function Footer() {
   const { menu } = data ?? {}
 
   const menuItems = menu?.menuItems?.nodes?.filter((item) => !item.parentId)
-  console.log(menuItems)
+
+  const [email, setEmail] = useState('')
 
   return (
     <footer>
@@ -33,12 +36,9 @@ export default function Footer() {
           />
 
           <div className={'absolute w-full h-full top-0 left-0'}>
-            <Typography
-              variant={'paragraph'}
-              className={'mt-40 text-white text-center text-lg mb-6'}
-            >
+            <p className={'mt-40 text-white text-center text-lg mb-6'}>
               Get discounts from top brands & our latest reviews!
-            </Typography>
+            </p>
 
             <div
               className={
@@ -50,10 +50,10 @@ export default function Footer() {
                 className={'mt-1 border-r border-gray-500 p-2'}
               />
               <Input
-                variant={'standard'}
-                size={'lg'}
-                color={'blue-gray'}
-                label={'Email address'}
+                placeholder={'Email address'}
+                value={email}
+                setValue={setEmail}
+                type={'email'}
               />
             </div>
 
@@ -71,13 +71,11 @@ export default function Footer() {
           <div className={'w-5/12'}>
             <div className={'inline-block mb-6'}>
               <GradientBorder height={1} />
-              <Typography variant={'h4'}>About Us</Typography>
+              <h4>About Us</h4>
               <GradientBorder height={1} />
             </div>
 
-            <Typography variant={'paragraph'} className={'mb-8'}>
-              {about}
-            </Typography>
+            <p className={'mb-8'}>{about}</p>
 
             <Social className={'mb-6'} />
           </div>
@@ -86,7 +84,7 @@ export default function Footer() {
             <div key={i1} className={'w-1/6'}>
               <div className={'inline-block mb-6'}>
                 <GradientBorder height={1} />
-                <Typography variant={'h4'}>{menuItem.label}</Typography>
+                <h4>{menuItem.label}</h4>
                 <GradientBorder height={1} />
               </div>
 
@@ -102,9 +100,9 @@ export default function Footer() {
 
       <Container>
         <div className={'border-t border-gray-500 grid grid-cols-2 gap-4 py-6'}>
-          <Typography variant={'small'} color={'gray'}>
+          <p className={'text-sm text-gray-600'}>
             Copyright © 2022 American Firearms LLC. All rights reserved.
-          </Typography>
+          </p>
 
           <div className='flex flex-row'>
             {[
@@ -123,7 +121,7 @@ export default function Footer() {
                 key={index}
                 className={'px-2 border-r border-gray-500 text-sm'}
               >
-                <Link href={link.path} className={'text-gray-700'}>
+                <Link href={link.path} className={'text-gray-600'}>
                   {link.label}
                 </Link>
               </div>

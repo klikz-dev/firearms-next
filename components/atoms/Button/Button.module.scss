@@ -1,0 +1,42 @@
+.button {
+  @apply inline-flex items-center justify-center cursor-pointer font-semibold;
+
+  /* SIZES */
+  &.icon {
+    @apply p-1 w-8 h-8;
+  }
+
+  &.sm {
+    @apply px-4 py-1.5;
+  }
+
+  &.md {
+    @apply px-8 py-2;
+  }
+
+  &.lg {
+    @apply px-16 py-4;
+  }
+
+  &.full {
+    @apply w-full py-2;
+  }
+
+  /* Colors */
+  &.black {
+    @apply text-white bg-black hover:bg-zinc-800;
+  }
+
+  &.red {
+    @apply text-white bg-red-700 hover:bg-red-500;
+  }
+
+  /** Disabled **/
+  &.disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+}
+
+.icon {
+  @apply mr-3;
+}

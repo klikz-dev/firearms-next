@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1,
+.h1 {
+  @apply text-5xl font-display uppercase;
+}
+
+h2,
+.h2 {
+  @apply text-4xl font-display uppercase;
+}
+
+h3,
+.h3 {
+  @apply text-3xl font-display uppercase;
+}
+
+h4,
+.h4 {
+  @apply text-2xl font-display uppercase;
+}
+
+h5,
+.h5 {
+  @apply text-xl font-display uppercase;
+}
+
+h6,
+.h6 {
+  @apply text-lg font-display uppercase;
+}
+
+p,
+.p {
+  @apply text-base;
+}

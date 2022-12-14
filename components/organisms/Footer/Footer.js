@@ -42,7 +42,7 @@ export default function Footer() {
 
             <div
               className={
-                'max-w-2xl mx-auto bg-white px-6 py-5 mb-4 flex flex-row gap-2 items-center'
+                'max-w-2xl mx-auto bg-white px-6 py-4 mb-6 flex flex-row gap-2 items-center'
               }
             >
               <FontAwesomeIcon

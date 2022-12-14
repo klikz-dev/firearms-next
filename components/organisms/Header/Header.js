@@ -43,7 +43,9 @@ export default function Header() {
 
       <Container>
         <div
-          className={'flex flex-row justify-between items-center py-3 border-t'}
+          className={
+            'flex flex-row justify-between items-center py-3 border-t border-gray-400'
+          }
         >
           {menu?.menuItems?.nodes?.map((menuItem, index) => (
             <Link key={index} href={menuItem.path} className={'uppercase'}>

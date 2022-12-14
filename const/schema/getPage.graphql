@@ -1,0 +1,68 @@
+query GetPage($slug: !ID) {
+  page(id: $slug, idType: URI) {
+    content
+    slug
+    title
+    pageContent {
+      content {
+        ... on Page_Pagecontent_Content_Hero {
+          fieldGroupName
+          subtitle
+          link {
+            ... on Post {
+              slug
+            }
+          }
+          title
+        }
+        ... on Page_Pagecontent_Content_LatestPosts {
+          fieldGroupName
+          title
+          category {
+            name
+            slug
+            posts {
+              nodes {
+                slug
+                title
+                content
+                featuredImage {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+              }
+            }
+          }
+        }
+        ... on Page_Pagecontent_Content_2ColImageText {
+          buttonLink
+          buttonText
+          title
+          imagePosition
+          fieldGroupName
+          content
+          image {
+            altText
+            sourceUrl
+          }
+        }
+        ... on Page_Pagecontent_Content_IconGroup {
+          fieldGroupName
+          style
+          title
+          icon {
+            label
+            text
+            image {
+              altText
+              sourceUrl
+            }
+          }
+        }
+      }
+      fieldGroupName
+    }
+  }
+}

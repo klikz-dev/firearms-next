@@ -9,7 +9,7 @@ module.exports = withMT({
   theme: {
     extend: {
       fontFamily: {
-        display: ['Oswald'],
+        display: ['Oswald', 'sans-serif'],
       },
     },
   },

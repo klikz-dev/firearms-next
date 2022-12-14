@@ -1,12 +1,13 @@
 import { useQuery } from '@apollo/client'
 import GET_MENU_QUERY from '@/const/schema/getMenu.graphql'
 import Container from '@/components/atoms/Container'
-import { socialIcons } from '@/const/setting/social'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from '@/components/atoms/Link'
 import Logo from '@/components/molecules/Logo'
 import { IconButton, Input } from '@material-tailwind/react'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import GradientBorder from '@/components/atoms/GradientBorder'
+import Social from '@/components/molecules/Social'
 
 export default function Header() {
   const { data } = useQuery(GET_MENU_QUERY, {
@@ -18,28 +19,13 @@ export default function Header() {
 
   return (
     <header>
-      <div className={'h-1 bg-gradient-to-r from-red-800 to-red-400'}></div>
+      <GradientBorder height={4} />
 
       <Container>
         <div
           className={'flex flex-row justify-between items-center gap-2 py-3'}
         >
-          <div className={'flex flex-row gap-2 w-80'}>
-            {socialIcons.map((social, index) => (
-              <Link
-                key={index}
-                href={social.link}
-                className={
-                  'w-8 h-8 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-50'
-                }
-              >
-                <FontAwesomeIcon
-                  icon={social.icon}
-                  className={'text-red-700'}
-                />
-              </Link>
-            ))}
-          </div>
+          <Social />
 
           <Logo />
 

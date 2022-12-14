@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import NextLink from 'next/link'
 import PropTypes from 'prop-types'
 
@@ -12,7 +13,10 @@ export default function TextLink({
   return urlExternal || href.includes('recommends') || href.includes('http') ? (
     <a
       href={href}
-      className={className}
+      className={classNames(
+        className,
+        'border-b border-white hover:border-red-800 font-display'
+      )}
       style={style}
       target='_blank'
       rel='noreferrer'
@@ -21,7 +25,15 @@ export default function TextLink({
       {children}
     </a>
   ) : (
-    <NextLink href={href} className={className} style={style} {...props}>
+    <NextLink
+      href={href}
+      className={classNames(
+        className,
+        'border-b border-white hover:border-red-800 font-display'
+      )}
+      style={style}
+      {...props}
+    >
       {children}
     </NextLink>
   )

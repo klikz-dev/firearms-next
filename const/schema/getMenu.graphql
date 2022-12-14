@@ -3,8 +3,15 @@ query GetMenu($name: ID!) {
     name
     menuItems {
       nodes {
-        path
         label
+        childItems {
+          nodes {
+            label
+            path
+          }
+        }
+        parentId
+        path
       }
     }
   }

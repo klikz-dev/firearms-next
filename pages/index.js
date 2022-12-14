@@ -2,6 +2,7 @@ import { client } from '@/lib/apollo'
 import Layout from '@/components/common/Layout'
 import { NextSeo } from 'next-seo'
 import GET_POSTS_QUERY from '@/const/schema/getPosts.graphql'
+import { Typography } from '@material-tailwind/react'
 
 export default function Page({
   latestPosts,

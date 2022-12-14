@@ -17,18 +17,18 @@ export default function Page({
   popularRifles,
   popularShotguns,
 }) {
-  console.log(latestPosts)
-  console.log(latestNews)
-  console.log(latestComparisons)
-  console.log(latestReviews)
-  console.log(latestGuides)
-  console.log(latestAccessories)
-  console.log(latestSafes)
-  console.log(latestOptics)
-  console.log(latestHolsters)
-  console.log(popularHandguns)
-  console.log(popularRifles)
-  console.log(popularShotguns)
+  // console.log(latestPosts)
+  // console.log(latestNews)
+  // console.log(latestComparisons)
+  // console.log(latestReviews)
+  // console.log(latestGuides)
+  // console.log(latestAccessories)
+  // console.log(latestSafes)
+  // console.log(latestOptics)
+  // console.log(latestHolsters)
+  // console.log(popularHandguns)
+  // console.log(popularRifles)
+  // console.log(popularShotguns)
 
   return (
     <>

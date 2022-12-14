@@ -7,7 +7,11 @@ module.exports = withMT({
   ],
   darkMode: 'media',
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        display: ['Oswald'],
+      },
+    },
   },
   plugins: [],
 })

@@ -1,23 +1,31 @@
 import classNames from 'classnames'
 import NextLink from 'next/link'
 import PropTypes from 'prop-types'
+import styles from './Link.module.scss'
 
 export default function TextLink({
-  className,
-  style,
+  color,
+  size,
   href,
   urlExternal,
+  className,
   children,
   ...props
 }) {
+  const textClassNames =
+    'border-b border-white hover:border-red-800 font-display'
+
+  const buttonClassNames = classNames(
+    styles.button,
+    styles[color],
+    styles[size],
+    className
+  )
+
   return urlExternal || href.includes('recommends') || href.includes('http') ? (
     <a
       href={href}
-      className={classNames(
-        className,
-        'border-b border-white hover:border-red-800 font-display'
-      )}
-      style={style}
+      className={color === 'text' ? textClassNames : buttonClassNames}
       target='_blank'
       rel='noreferrer'
       {...props}
@@ -27,11 +35,7 @@ export default function TextLink({
   ) : (
     <NextLink
       href={href}
-      className={classNames(
-        className,
-        'border-b border-white hover:border-red-800 font-display'
-      )}
-      style={style}
+      className={color === 'text' ? textClassNames : buttonClassNames}
       {...props}
     >
       {children}
@@ -40,14 +44,16 @@ export default function TextLink({
 }
 
 TextLink.propTypes = {
-  attributes: PropTypes.object,
-  className: PropTypes.string,
+  color: PropTypes.oneOf(['text', 'black', 'red']),
+  size: PropTypes.oneOf(['sm', 'md', 'lg', 'full']),
   href: PropTypes.string.isRequired,
   urlExternal: PropTypes.bool,
-  style: PropTypes.object,
+  className: PropTypes.string,
+  props: PropTypes.object,
 }
 
 TextLink.defaultProps = {
-  disabled: false,
+  color: 'black',
+  size: 'md',
   urlExternal: false,
 }

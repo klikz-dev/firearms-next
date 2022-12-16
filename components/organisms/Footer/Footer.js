@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client'
 import GET_MENU_QUERY from '@/const/schema/getMenu.graphql'
 import Container from '@/components/atoms/Container'
-import GradientBorder from '@/components/atoms/GradientBorder'
 import { about } from '@/const/setting/footer'
 import Social from '@/components/molecules/Social'
 import Link from '@/components/atoms/Link'
@@ -11,6 +10,7 @@ import { faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons'
 import Input from '@/components/atoms/Input'
 import Button from '@/components/atoms/Button'
 import { useState } from 'react'
+import Title from '@/components/molecules/Title'
 
 export default function Footer() {
   const { data } = useQuery(GET_MENU_QUERY, {
@@ -69,11 +69,9 @@ export default function Footer() {
       <Container>
         <div className={'flex flex-col lg:flex-row justify-between gap-4 py-4'}>
           <div className={'w-5/12'}>
-            <div className={'inline-block mb-6'}>
-              <GradientBorder height={1} />
+            <Title>
               <h4>About Us</h4>
-              <GradientBorder height={1} />
-            </div>
+            </Title>
 
             <p className={'mb-8'}>{about}</p>
 
@@ -82,11 +80,9 @@ export default function Footer() {
 
           {menuItems?.map((menuItem, i1) => (
             <div key={i1} className={'w-1/6'}>
-              <div className={'inline-block mb-6'}>
-                <GradientBorder height={1} />
+              <Title>
                 <h4>{menuItem.label}</h4>
-                <GradientBorder height={1} />
-              </div>
+              </Title>
 
               {menuItem.childItems?.nodes?.map((child, i2) => (
                 <div key={i2} className={'block mb-2'}>

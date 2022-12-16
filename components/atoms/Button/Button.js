@@ -1,21 +1,18 @@
 import React from 'react'
-import NextLink from 'next/link'
 import PropTypes from 'prop-types'
-import cn from 'classnames'
+import classNames from 'classnames'
 import styles from './Button.module.scss'
 
 export default function Button({
   color,
   size,
-  href,
-  urlExternal,
   onClick,
-  className,
   disabled,
+  className,
   children,
   ...props
 }) {
-  const buttonClassNames = cn(
+  const buttonClassNames = classNames(
     styles.button,
     styles[color],
     styles[size],
@@ -23,48 +20,29 @@ export default function Button({
     className
   )
 
-  if (href) {
-    return urlExternal || href.includes('recommends') ? (
-      <a
-        href={href}
-        className={buttonClassNames}
-        target='_blank'
-        rel='noreferrer'
-        {...props}
-      >
-        {children}
-      </a>
-    ) : (
-      <NextLink href={href} className={buttonClassNames} {...props}>
-        {children}
-      </NextLink>
-    )
-  } else {
-    return React.createElement(
-      `button`,
-      {
-        className: buttonClassNames,
-        onClick,
-        disabled,
-        ...props,
-      },
-      <span>{children}</span>
-    )
-  }
+  return (
+    <button
+      className={buttonClassNames}
+      onClick={onClick}
+      disabled={disabled}
+      {...props}
+    >
+      {children}
+    </button>
+  )
 }
 
 Button.propTypes = {
   color: PropTypes.oneOf(['black', 'red']),
-  disabled: PropTypes.bool,
-  href: PropTypes.string,
-  urlExternal: PropTypes.bool,
-  onClick: PropTypes.func,
   size: PropTypes.oneOf(['sm', 'md', 'lg', 'full']),
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool,
+  className: PropTypes.string,
+  props: PropTypes.object,
 }
 
 Button.defaultProps = {
   color: 'black',
   size: 'md',
   disabled: false,
-  urlExternal: false,
 }

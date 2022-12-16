@@ -6,9 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import moment from 'moment'
 
 export default function Hero({ title, subtitle, link, background }) {
-  console.log(link)
   return (
-    <div className={'relative'}>
+    <div className={'relative mb-16'}>
       <Image
         src={background.sourceUrl}
         width={2000}

@@ -8,7 +8,7 @@ export default function LatestPosts({ title, category }) {
   const { name, posts, slug } = category ?? {}
 
   return (
-    <Container className={'mb-20'}>
+    <Container className={'py-20'}>
       <div className={'flex flex-row justify-between items-center'}>
         <Title>
           <h2>{title}</h2>

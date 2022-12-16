@@ -14,10 +14,8 @@ export default function TwoColImageText({
   image,
   imagePosition,
 }) {
-  console.log(image)
-
   return (
-    <div className={'bg-zinc-200/60 py-20 mb-20'}>
+    <div className={'bg-zinc-200/60 py-20'}>
       <Container>
         <div
           className={classNames(
@@ -26,11 +24,11 @@ export default function TwoColImageText({
           )}
         >
           <div className={'w-1/2'}>
-            <Title className={'mb-8'}>
+            <Title className={'mb-12'}>
               <h2>{title}</h2>
             </Title>
 
-            <HTMLContent className={'mb-8'}>{content}</HTMLContent>
+            <HTMLContent className={'mb-12'}>{content}</HTMLContent>
 
             <Link href={buttonLink}>
               <Button color={'red'}>{buttonText}</Button>
@@ -38,14 +36,12 @@ export default function TwoColImageText({
           </div>
 
           <div className={'w-1/2'}>
-            <div className={'relative h-96 mb-3'}>
-              <Image
-                src={image?.sourceUrl}
-                fill={true}
-                cover={true}
-                alt={image?.altText}
-              />
-            </div>
+            <Image
+              src={image?.sourceUrl}
+              width={700}
+              height={700}
+              alt={image?.altText}
+            />
           </div>
         </div>
       </Container>

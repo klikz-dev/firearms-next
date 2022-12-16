@@ -56,7 +56,6 @@ query GetPage($slug: ID!) {
           }
         }
         ... on Page_Pagecontent_Content_IconGroup {
-          style
           title
           icon {
             label
@@ -65,6 +64,7 @@ query GetPage($slug: ID!) {
               altText
               sourceUrl
             }
+            link
           }
         }
       }

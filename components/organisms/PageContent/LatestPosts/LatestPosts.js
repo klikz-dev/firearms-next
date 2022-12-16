@@ -8,10 +8,10 @@ export default function LatestPosts({ title, category }) {
   const { name, posts, slug } = category ?? {}
 
   return (
-    <Container className={'mb-16'}>
+    <Container className={'mb-20'}>
       <div className={'flex flex-row justify-between items-center'}>
         <Title>
-          <h3>{title}</h3>
+          <h2>{title}</h2>
         </Title>
 
         <Link

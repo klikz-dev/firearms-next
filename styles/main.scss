@@ -15,7 +15,7 @@ h1,
 
 h2,
 .h2 {
-  @apply text-4xl font-display font-bold uppercase;
+  @apply text-4xl font-display font-semibold uppercase;
 }
 
 h3,
@@ -35,7 +35,7 @@ h5,
 
 h6,
 .h6 {
-  @apply text-lg font-display font-medium uppercase;
+  @apply text-lg font-display uppercase;
 }
 
 a {

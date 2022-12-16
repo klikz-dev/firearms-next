@@ -5,7 +5,7 @@ import Image from '@/components/atoms/Image'
 
 export default function Hero({ title, subtitle, link, background }) {
   return (
-    <div className={'relative mb-16'}>
+    <div className={'relative mb-20'}>
       <Image
         src={background.sourceUrl}
         width={2000}

@@ -1,0 +1,15 @@
+.root {
+  * {
+    @apply mb-2.5;
+  }
+
+  a {
+    @apply underline text-red-700;
+  }
+
+  menu,
+  ol,
+  ul {
+    @apply list-disc list-outside pl-6;
+  }
+}

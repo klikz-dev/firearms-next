@@ -28,7 +28,7 @@ query GetPage($slug: ID!) {
           category {
             name
             slug
-            posts {
+            posts(first: 4) {
               nodes {
                 slug
                 title
@@ -39,6 +39,7 @@ query GetPage($slug: ID!) {
                     sourceUrl
                   }
                 }
+                date
               }
             }
           }

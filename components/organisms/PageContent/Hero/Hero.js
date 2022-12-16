@@ -1,9 +1,7 @@
 import Button from '@/components/atoms/Button'
 import Container from '@/components/atoms/Container'
+import Date from '@/components/atoms/Date'
 import Image from '@/components/atoms/Image'
-import { faClock } from '@fortawesome/free-regular-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import moment from 'moment'
 
 export default function Hero({ title, subtitle, link, background }) {
   return (
@@ -22,18 +20,7 @@ export default function Hero({ title, subtitle, link, background }) {
               'max-w-sm h-full flex flex-col justify-center items-start'
             }
           >
-            {link && (
-              <div
-                className={
-                  'flex flex-row items-center gap-2 text-white text-sm mb-2'
-                }
-              >
-                <FontAwesomeIcon icon={faClock} />
-                <p className={'text-sm'}>
-                  {moment(link.date).format('MMMM DD, YYYY')}
-                </p>
-              </div>
-            )}
+            {link && <Date date={link.date} className={'text-white'} />}
             <h2 className={'text-white'}>{title}</h2>
 
             <div className={'h-1 bg-white w-12 my-5'} />

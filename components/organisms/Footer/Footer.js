@@ -96,7 +96,7 @@ export default function Footer() {
 
       <Container>
         <div className={'border-t border-gray-500 grid grid-cols-2 gap-4 py-6'}>
-          <p className={'text-sm text-gray-600'}>
+          <p className={'text-sm font-display text-gray-600'}>
             Copyright © 2022 American Firearms LLC. All rights reserved.
           </p>
 
@@ -115,9 +115,16 @@ export default function Footer() {
             ].map((link, index) => (
               <div
                 key={index}
-                className={'px-2 border-r border-gray-500 text-sm'}
+                className={
+                  'px-2 border-r border-gray-500 text-sm last:border-none'
+                }
               >
-                <Link href={link.path} className={'text-gray-600'}>
+                <Link
+                  href={link.path}
+                  className={
+                    'text-xs text-gray-600 uppercase border-b border-white hover:border-red-700'
+                  }
+                >
                   {link.label}
                 </Link>
               </div>

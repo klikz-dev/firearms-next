@@ -2,38 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './_font.scss';
+
 html {
   scroll-behavior: smooth;
 }
 
 h1,
 .h1 {
-  @apply text-5xl font-display uppercase;
+  @apply text-5xl font-display font-bold uppercase;
 }
 
 h2,
 .h2 {
-  @apply text-4xl font-display uppercase;
+  @apply text-4xl font-display font-bold uppercase;
 }
 
 h3,
 .h3 {
-  @apply text-3xl font-display uppercase;
+  @apply text-3xl font-display font-semibold uppercase;
 }
 
 h4,
 .h4 {
-  @apply text-2xl font-display uppercase;
+  @apply text-2xl font-display font-medium uppercase;
 }
 
 h5,
 .h5 {
-  @apply text-xl font-display uppercase;
+  @apply text-xl font-display font-medium uppercase;
 }
 
 h6,
 .h6 {
-  @apply text-lg font-display uppercase;
+  @apply text-lg font-display font-medium uppercase;
+}
+
+a {
+  @apply font-display;
 }
 
 p,

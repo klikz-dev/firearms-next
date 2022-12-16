@@ -36,7 +36,7 @@ export default function Header() {
           <div className={'w-80 flex flex-row items-center'}>
             <Input
               placeholder='Search'
-              className={'bg-zinc-100 rounded-full'}
+              className={'bg-zinc-200/60 rounded-full'}
               value={search}
               setValue={setSearch}
             />
@@ -58,7 +58,11 @@ export default function Header() {
           }
         >
           {menu?.menuItems?.nodes?.map((menuItem, index) => (
-            <Link key={index} href={menuItem.path} className={'uppercase'}>
+            <Link
+              key={index}
+              href={menuItem.path}
+              className={'uppercase border-b border-white hover:border-red-700'}
+            >
               {menuItem.label}
             </Link>
           ))}

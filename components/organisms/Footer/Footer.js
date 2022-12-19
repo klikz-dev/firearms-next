@@ -58,7 +58,7 @@ export default function Footer() {
             </div>
 
             <div className={'text-center'}>
-              <Button variant={'filled'} color='black' size={'lg'}>
+              <Button color='black' size={'lg'}>
                 Submit
               </Button>
             </div>

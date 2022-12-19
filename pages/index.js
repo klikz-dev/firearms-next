@@ -2,13 +2,45 @@ import { client } from '@/lib/apollo'
 import Layout from '@/components/common/Layout'
 import { NextSeo } from 'next-seo'
 import GET_PAGE_QUERY from '@/const/schema/getPage.graphql'
+import GET_POSTS_QUERY from '@/const/schema/getPosts.graphql'
 import Hero from '@/components/organisms/PageContent/Hero'
 import LatestPosts from '@/components/organisms/PageContent/LatestPosts'
 import TwoColImageText from '@/components/organisms/PageContent/TwoColImageText'
 import IconGroup from '@/components/organisms/PageContent/IconGroup'
+import Sidebar from '@/components/organisms/Sidebar'
+import {
+  PostCardHorizontal,
+  PostCardOverlay,
+  PostCardVertical,
+} from '@/components/molecules/PostCard'
+import { useState } from 'react'
+import Button from '@/components/atoms/Button'
+import Container from '@/components/atoms/Container'
+import Title from '@/components/molecules/Title'
 
-export default function Page({ pageData }) {
+export default function Page({ pageData, postsData }) {
   const { content } = pageData?.page?.pageContent ?? {}
+  const { posts } = postsData ?? {}
+
+  const [postList, setPostList] = useState(posts?.nodes?.slice(4, 10))
+  const [hasNextPage, setHasNextPage] = useState(posts?.pageInfo?.hasNextPage)
+  const [endCursor, setEndCursor] = useState(posts?.pageInfo?.endCursor)
+
+  async function loadMorePosts() {
+    const { data: postsData, error } = await client.query({
+      query: GET_POSTS_QUERY,
+      variables: {
+        first: 10,
+        after: endCursor,
+      },
+    })
+
+    if (!error) {
+      setPostList([...postList, ...postsData.posts.nodes])
+      setHasNextPage(postsData.posts?.pageInfo.hasNextPage)
+      setEndCursor(postsData.posts?.pageInfo.endCursor)
+    }
+  }
 
   return (
     <>
@@ -36,6 +68,48 @@ export default function Page({ pageData }) {
               return <div key={index}></div>
           }
         })}
+
+        <Container className={'py-20'}>
+          <Title>
+            <h3>{'Popular Posts'}</h3>
+          </Title>
+
+          <div className={'grid grid-cols-3 gap-12'}>
+            <div className={'col-span-2'}>
+              <div className={'mb-4'}>
+                <PostCardOverlay post={posts?.nodes?.[0]} />
+              </div>
+
+              <div className={'grid grid-cols-2 gap-4 mb-6'}>
+                <PostCardVertical post={posts?.nodes?.[1]} />
+                <PostCardVertical post={posts?.nodes?.[2]} />
+              </div>
+
+              {postList?.map((post, index) => (
+                <PostCardHorizontal
+                  key={index}
+                  post={post}
+                  className={'mb-6'}
+                />
+              ))}
+
+              <div>
+                <Button
+                  size={'full'}
+                  onClick={() => loadMorePosts()}
+                  disabled={!hasNextPage}
+                  className={'my-12'}
+                >
+                  {'Load More'}
+                </Button>
+              </div>
+            </div>
+
+            <div className={'col-span-1'}>
+              <Sidebar />
+            </div>
+          </div>
+        </Container>
       </Layout>
     </>
   )
@@ -43,16 +117,26 @@ export default function Page({ pageData }) {
 
 export async function getStaticProps() {
   /**
-   * Latest Posts
+   * Page Content
    */
-  const { data: pageData, error } = await client.query({
+  const { data: pageData, pageError } = await client.query({
     query: GET_PAGE_QUERY,
     variables: {
       slug: 'homepage',
     },
   })
 
-  if (error) {
+  /**
+   * Popular Posts
+   */
+  const { data: postsData } = await client.query({
+    query: GET_POSTS_QUERY,
+    variables: {
+      first: 10,
+    },
+  })
+
+  if (pageError) {
     return {
       notFound: true,
     }
@@ -61,6 +145,7 @@ export async function getStaticProps() {
   return {
     props: {
       pageData,
+      postsData,
     },
     revalidate: 10,
   }

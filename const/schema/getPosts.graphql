@@ -1,5 +1,14 @@
-query LatestPosts($last: Int, $category: String, $tag: String) {
-  posts(last: $last, where: { categoryName: $category, tag: $tag }) {
+query LatestPosts(
+  $first: Int
+  $after: String
+  $category: String
+  $tag: String
+) {
+  posts(
+    first: $first
+    after: $after
+    where: { categoryName: $category, tag: $tag }
+  ) {
     nodes {
       slug
       title
@@ -12,9 +21,14 @@ query LatestPosts($last: Int, $category: String, $tag: String) {
       excerpt
       featuredImage {
         node {
-          link
+          sourceUrl
+          altText
         }
       }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
     }
   }
 }

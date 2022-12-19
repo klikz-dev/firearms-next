@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import Image from '@/components/atoms/Image'
 
-export default function Background({ image, alt, overlay }) {
+export default function Background({ image, alt }) {
   const renderHTTPImage = (image) => {
     if (image?.startsWith('//')) {
       return `https:${image}`
@@ -18,7 +18,6 @@ export default function Background({ image, alt, overlay }) {
           alt={alt}
           fill={true}
           cover={true}
-          overlay={overlay}
         />
       )}
     </div>
@@ -27,9 +26,4 @@ export default function Background({ image, alt, overlay }) {
 
 Background.propTypes = {
   image: PropTypes.string,
-  overlay: PropTypes.bool,
-}
-
-Background.defaultProps = {
-  overlay: true,
 }

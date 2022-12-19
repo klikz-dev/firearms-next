@@ -4,8 +4,6 @@ import Link from '@/components/atoms/Link'
 import Title from '@/components/molecules/Title'
 
 export default function IconGroup({ title, icon }) {
-  console.log(icon)
-
   return (
     <div className={'bg-zinc-200/60 py-20'}>
       <Container>

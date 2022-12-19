@@ -7,12 +7,12 @@ export default function Date({ date, className }) {
   return (
     <div
       className={classNames(
-        'flex flex-row items-center gap-2 text-sm mb-2',
+        'flex flex-row items-center gap-2 text-xs mb-2',
         className
       )}
     >
       <FontAwesomeIcon icon={faClock} />
-      <p className={'text-sm'}>{moment(date).format('MMMM DD, YYYY')}</p>
+      <p className={'text-xs'}>{moment(date).format('MMMM DD, YYYY')}</p>
     </div>
   )
 }

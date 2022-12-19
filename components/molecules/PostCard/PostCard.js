@@ -8,23 +8,25 @@ import Background from '../Background'
 
 export function PostCardOverlay({ post, className }) {
   return (
-    <div
-      className={classNames(
-        'relative h-96 flex flex-col justify-end',
-        className
-      )}
-    >
-      <Background
-        image={post.featuredImage.node.sourceUrl}
-        alt={post.featuredImage.node.altText}
-      />
+    <Link href={`/posts/${post.slug}`}>
+      <div
+        className={classNames(
+          'relative h-96 flex flex-col justify-end',
+          className
+        )}
+      >
+        <Background
+          image={post.featuredImage.node.sourceUrl}
+          alt={post.featuredImage.node.altText}
+        />
 
-      <div className={'p-8'}>
-        <Date date={post.date} className={'text-white'} />
-        <h4 className={'text-white mb-4'}>{post.title}</h4>
-        <GradientBorder height={2} className={'w-36'} />
+        <div className={'p-8'}>
+          <Date date={post.date} className={'text-white'} />
+          <h4 className={'text-white mb-4'}>{post.title}</h4>
+          <GradientBorder height={2} className={'w-36'} />
+        </div>
       </div>
-    </div>
+    </Link>
   )
 }
 

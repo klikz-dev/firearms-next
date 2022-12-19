@@ -18,7 +18,19 @@ import Button from '@/components/atoms/Button'
 import Container from '@/components/atoms/Container'
 import Title from '@/components/molecules/Title'
 
-export default function Page({ pageData, postsData }) {
+export default function Page({
+  pageData,
+  postsData,
+  reviews,
+  news,
+  comparison,
+  ammo,
+  guides,
+  accessories,
+  gunSafes,
+  scopesOptics,
+  holstersCarry,
+}) {
   const { content } = pageData?.page?.pageContent ?? {}
   const { posts } = postsData ?? {}
 
@@ -106,7 +118,17 @@ export default function Page({ pageData, postsData }) {
             </div>
 
             <div className={'col-span-1'}>
-              <Sidebar />
+              <Sidebar
+                reviews={reviews}
+                news={news}
+                comparison={comparison}
+                ammo={ammo}
+                guides={guides}
+                accessories={accessories}
+                gunSafes={gunSafes}
+                scopesOptics={scopesOptics}
+                holstersCarry={holstersCarry}
+              />
             </div>
           </div>
         </Container>
@@ -136,6 +158,105 @@ export async function getStaticProps() {
     },
   })
 
+  /**
+   * Category - Reviews
+   */
+  const { data: reviews } = await client.query({
+    query: GET_POSTS_QUERY,
+    variables: {
+      first: 3,
+      category: 'reviews',
+    },
+  })
+
+  /**
+   * Category - News
+   */
+  const { data: news } = await client.query({
+    query: GET_POSTS_QUERY,
+    variables: {
+      first: 3,
+      category: 'news',
+    },
+  })
+
+  /**
+   * Tag - Comparison
+   */
+  const { data: comparison } = await client.query({
+    query: GET_POSTS_QUERY,
+    variables: {
+      first: 3,
+      tag: 'comparison',
+    },
+  })
+
+  /**
+   * Tag - Ammo
+   */
+  const { data: ammo } = await client.query({
+    query: GET_POSTS_QUERY,
+    variables: {
+      first: 3,
+      tag: 'ammo',
+    },
+  })
+
+  /**
+   * Category - Guides
+   */
+  const { data: guides } = await client.query({
+    query: GET_POSTS_QUERY,
+    variables: {
+      first: 3,
+      category: 'guides',
+    },
+  })
+
+  /**
+   * Tag - Accessories
+   */
+  const { data: accessories } = await client.query({
+    query: GET_POSTS_QUERY,
+    variables: {
+      first: 3,
+      tag: 'accessories',
+    },
+  })
+
+  /**
+   * Category - Gun Safes
+   */
+  const { data: gunSafes } = await client.query({
+    query: GET_POSTS_QUERY,
+    variables: {
+      first: 3,
+      category: 'gun-safes',
+    },
+  })
+
+  /**
+   * Category - Scopes Optics
+   */
+  const { data: scopesOptics } = await client.query({
+    query: GET_POSTS_QUERY,
+    variables: {
+      first: 3,
+      category: 'scopes-optics',
+    },
+  })
+
+  /**
+   * Tag - Holsters Carry
+   */
+  const { data: holstersCarry } = await client.query({
+    query: GET_POSTS_QUERY,
+    variables: {
+      first: 3,
+      tag: 'holsters-carry',
+    },
+  })
+
   if (pageError) {
     return {
       notFound: true,
@@ -146,7 +267,16 @@ export async function getStaticProps() {
     props: {
       pageData,
       postsData,
+      reviews,
+      news,
+      comparison,
+      ammo,
+      guides,
+      accessories,
+      gunSafes,
+      scopesOptics,
+      holstersCarry,
     },
-    revalidate: 10,
+    revalidate: 30,
   }
 }

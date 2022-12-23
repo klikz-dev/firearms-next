@@ -17,7 +17,7 @@ export default function Background({ image, alt }) {
           src={renderHTTPImage(image)}
           alt={alt}
           fill={true}
-          cover={true}
+          className={'object-cover'}
         />
       )}
     </div>

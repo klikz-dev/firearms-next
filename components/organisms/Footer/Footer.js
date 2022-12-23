@@ -1,7 +1,5 @@
-import { useQuery } from '@apollo/client'
-import GET_MENU_QUERY from '@/const/schema/getMenu.graphql'
 import Container from '@/components/atoms/Container'
-import { about } from '@/const/setting/footer'
+import { about, menu } from '@/const/setting/footer'
 import Social from '@/components/molecules/Social'
 import Link from '@/components/atoms/Link'
 import Image from '@/components/atoms/Image'
@@ -14,15 +12,6 @@ import Title from '@/components/molecules/Title'
 import NewspaperImage from '@/images/newsletter.png'
 
 export default function Footer() {
-  const { data } = useQuery(GET_MENU_QUERY, {
-    variables: {
-      name: 'Footer ',
-    },
-  })
-  const { menu } = data ?? {}
-
-  const menuItems = menu?.menuItems?.nodes?.filter((item) => !item.parentId)
-
   const [email, setEmail] = useState('')
 
   return (
@@ -74,15 +63,20 @@ export default function Footer() {
             <Social className={'mb-6'} />
           </div>
 
-          {menuItems?.map((menuItem, i1) => (
+          {menu?.map((menuItem, i1) => (
             <div key={i1} className={'w-1/6'}>
               <Title>
                 <h4>{menuItem.label}</h4>
               </Title>
 
-              {menuItem.childItems?.nodes?.map((child, i2) => (
+              {menuItem.subMenus?.map((subMenu, i2) => (
                 <div key={i2} className={'block mb-2'}>
-                  <Link href={child.path}>{child.label}</Link>
+                  <Link
+                    href={subMenu.path}
+                    className={'border-b border-white hover:border-red-700'}
+                  >
+                    {subMenu.label}
+                  </Link>
                 </div>
               ))}
             </div>

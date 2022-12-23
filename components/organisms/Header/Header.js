@@ -1,5 +1,3 @@
-import { useQuery } from '@apollo/client'
-import GET_MENU_QUERY from '@/const/schema/getMenu.graphql'
 import Container from '@/components/atoms/Container'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from '@/components/atoms/Link'
@@ -10,15 +8,9 @@ import Social from '@/components/molecules/Social'
 import Input from '@/components/atoms/Input'
 import Button from '@/components/atoms/Button'
 import { useState } from 'react'
+import { menu } from '@/const/setting/header'
 
 export default function Header() {
-  const { data } = useQuery(GET_MENU_QUERY, {
-    variables: {
-      name: 'Header',
-    },
-  })
-  const { menu } = data ?? {}
-
   const [search, setSearch] = useState('')
 
   return (
@@ -36,7 +28,7 @@ export default function Header() {
           <div className={'w-80 flex flex-row items-center'}>
             <Input
               placeholder='Search'
-              className={'bg-zinc-200/60 rounded-full'}
+              className={'bg-zinc-200/60 rounded-full px-5 py-2'}
               value={search}
               setValue={setSearch}
             />
@@ -57,7 +49,7 @@ export default function Header() {
             'flex flex-row justify-between items-center py-3 border-t border-gray-400'
           }
         >
-          {menu?.menuItems?.nodes?.map((menuItem, index) => (
+          {menu?.map((menuItem, index) => (
             <Link
               key={index}
               href={menuItem.path}

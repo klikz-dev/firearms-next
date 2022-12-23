@@ -10,11 +10,11 @@ export default function Title({
 }) {
   return (
     <div className={classNames('inline-block mb-6', className)}>
-      {topBorder && <GradientBorder height={1} />}
+      {topBorder && <GradientBorder height={2} />}
 
-      {children}
+      <div className={'py-1.5'}>{children}</div>
 
-      {bottomBorder && <GradientBorder height={1} />}
+      {bottomBorder && <GradientBorder height={2} />}
     </div>
   )
 }

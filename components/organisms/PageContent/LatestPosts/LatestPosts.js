@@ -30,7 +30,6 @@ export default function LatestPosts({ title, category }) {
                 <Image
                   src={post?.featuredImage?.node?.sourceUrl}
                   fill={true}
-                  cover={true}
                   alt={post?.featuredImage?.node?.altText}
                 />
               </div>

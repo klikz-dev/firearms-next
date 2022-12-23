@@ -11,7 +11,7 @@ export default function Social({ className }) {
           key={index}
           href={social.link}
           className={
-            'w-8 h-8 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-50'
+            'w-8 h-8 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
           }
         >
           <FontAwesomeIcon icon={social.icon} className={'text-red-700'} />

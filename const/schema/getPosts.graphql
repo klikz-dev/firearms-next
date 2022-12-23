@@ -1,9 +1,4 @@
-query LatestPosts(
-  $first: Int
-  $after: String
-  $category: String
-  $tag: String
-) {
+query GetPosts($first: Int, $after: String, $category: String, $tag: String) {
   posts(
     first: $first
     after: $after

@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import cn from 'classnames'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import { PropTypes } from 'prop-types'
 
 export default function DisplayImage({

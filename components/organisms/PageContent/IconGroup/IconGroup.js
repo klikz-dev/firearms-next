@@ -27,8 +27,8 @@ export default function IconGroup({ title, icon }) {
                   <Image
                     src={icon.image?.sourceUrl}
                     fill={true}
-                    cover={true}
                     alt={icon.image?.altText}
+                    className={'object-cover'}
                   />
                 </div>
 

@@ -8,9 +8,10 @@ export default function Hero({ title, subtitle, link, background }) {
     <div className={'relative'}>
       <Image
         src={background.sourceUrl}
-        width={2000}
-        height={1000}
+        width={background.mediaDetails?.width}
+        height={background.mediaDetails?.height}
         alt={background.altText}
+        className={'w-full'}
       />
 
       <div className={'absolute top-0 left-0 w-full h-full'}>

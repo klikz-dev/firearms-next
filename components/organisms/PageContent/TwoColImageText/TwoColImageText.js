@@ -38,8 +38,8 @@ export default function TwoColImageText({
           <div className={'w-1/2'}>
             <Image
               src={image?.sourceUrl}
-              width={700}
-              height={700}
+              width={image?.mediaDetails?.width}
+              height={image?.mediaDetails?.height}
               alt={image?.altText}
             />
           </div>

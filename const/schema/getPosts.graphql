@@ -23,6 +23,10 @@ query LatestPosts(
         node {
           sourceUrl
           altText
+          mediaDetails {
+            width
+            height
+          }
         }
       }
     }

@@ -37,6 +37,10 @@ query GetPage($slug: ID!) {
                   node {
                     altText
                     sourceUrl
+                    mediaDetails {
+                      width
+                      height
+                    }
                   }
                 }
                 date
@@ -53,6 +57,10 @@ query GetPage($slug: ID!) {
           image {
             altText
             sourceUrl
+            mediaDetails {
+              width
+              height
+            }
           }
         }
         ... on Page_Pagecontent_Content_IconGroup {
@@ -63,6 +71,10 @@ query GetPage($slug: ID!) {
             image {
               altText
               sourceUrl
+              mediaDetails {
+                width
+                height
+              }
             }
             link
           }

@@ -2,6 +2,7 @@ import Button from '@/components/atoms/Button'
 import Date from '@/components/atoms/Date'
 import GradientBorder from '@/components/atoms/GradientBorder'
 import HTMLContent from '@/components/atoms/HTMLContent'
+import Image from '@/components/atoms/Image'
 import Link from '@/components/atoms/Link'
 import classNames from 'classnames'
 import Background from '../Background'
@@ -34,9 +35,11 @@ export function PostCardHorizontal({ post, className }) {
   return (
     <div className={classNames('border flex flex-row', className)}>
       <div className={'relative w-2/5 h-72 flex flex-col justify-end'}>
-        <Background
-          image={post.featuredImage.node.sourceUrl}
+        <Image
+          src={post.featuredImage.node.sourceUrl}
+          fill={true}
           alt={post.featuredImage.node.altText}
+          className={'object-cover'}
         />
       </div>
 

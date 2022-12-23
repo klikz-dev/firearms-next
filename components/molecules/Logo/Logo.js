@@ -1,13 +1,10 @@
 import Image from '@/components/atoms/Image'
+import logo from '@/images/logo.png'
 
 export default function Logo() {
   return (
-    <Image
-      className={'w-full'}
-      src={'/images/logo.png'}
-      width={200}
-      height={100}
-      alt={'American Firearms'}
-    />
+    <div className={'w-48'}>
+      <Image src={logo} alt={'American Firearms'} />
+    </div>
   )
 }

@@ -11,6 +11,7 @@ import Input from '@/components/atoms/Input'
 import Button from '@/components/atoms/Button'
 import { useState } from 'react'
 import Title from '@/components/molecules/Title'
+import NewspaperImage from '@/images/newsletter.png'
 
 export default function Footer() {
   const { data } = useQuery(GET_MENU_QUERY, {
@@ -28,12 +29,7 @@ export default function Footer() {
     <footer>
       <Container className={'mb-8'}>
         <div className='relative'>
-          <Image
-            src={'/images/newsletter.png'}
-            alt={'Newsletter'}
-            width={1280}
-            height={500}
-          />
+          <Image src={NewspaperImage} alt={'Newsletter'} />
 
           <div className={'absolute w-full h-full top-0 left-0'}>
             <p className={'mt-40 text-white text-center text-lg mb-6'}>

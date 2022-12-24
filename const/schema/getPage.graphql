@@ -1,5 +1,8 @@
 query GetPage($slug: ID!) {
   page(id: $slug, idType: URI) {
+    seo {
+      fullHead
+    }
     content
     slug
     title

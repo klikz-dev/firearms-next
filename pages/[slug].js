@@ -2,22 +2,30 @@ import { client } from '@/lib/apollo'
 import GET_PAGE_QUERY from '@/const/schema/getPage.graphql'
 import GET_PAGE_SLUGS_QUERY from '@/const/schema/getPageSlugs.graphql'
 import Layout from '@/components/common/Layout'
-import { NextSeo } from 'next-seo'
+import PageContent from '@/components/organisms/PageContent'
+import { useRouter } from 'next/router'
+import Container from '@/components/atoms/Container'
+import Loading from '@/components/atoms/Loading'
+import HTMLReactParser from 'html-react-parser'
 
-export default function Page({ postString, category, posts }) {
-  const post = postString?.length > 0 ? JSON.parse(postString) : {}
+export default function Page({ pageData }) {
+  const { content } = pageData?.page?.pageContent ?? {}
+
+  const router = useRouter()
+  if (router.isFallback) {
+    return (
+      <Layout>
+        <Container>
+          <Loading />
+        </Container>
+      </Layout>
+    )
+  }
 
   return (
-    <>
-      <NextSeo
-        title={post.fields?.seoTitle}
-        description={post.fields?.seoDescription}
-      />
-
-      <Layout>
-        {post && <Post post={post} category={category} posts={posts} />}
-      </Layout>
-    </>
+    <Layout seo={HTMLReactParser(pageData?.page?.seo?.fullHead)}>
+      <PageContent content={content} />
+    </Layout>
   )
 }
 
@@ -58,6 +66,6 @@ export async function getStaticPaths() {
     paths: data.pages.nodes.map((node) => ({
       params: node,
     })),
-    fallback: 'blocking',
+    fallback: true,
   }
 }

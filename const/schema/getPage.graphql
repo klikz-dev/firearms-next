@@ -100,6 +100,23 @@ query GetPage($slug: ID!) {
             }
           }
         }
+        ... on Page_Pagecontent_Content_Authors {
+          authors {
+            bio
+            facebook
+            name
+            photo {
+              altText
+              mediaDetails {
+                height
+                width
+              }
+              sourceUrl
+            }
+            title
+            twitter
+          }
+        }
       }
     }
   }

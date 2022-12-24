@@ -1,3 +1,4 @@
+import Authors from './Authors'
 import Hero from './Hero'
 import IconGroup from './IconGroup'
 import IconHighlights from './IconHighlights'
@@ -27,6 +28,9 @@ export default function PageContent({ content }) {
 
           case 'Page_Pagecontent_Content_IconHighlights':
             return <IconHighlights key={index} {...section} />
+
+          case 'Page_Pagecontent_Content_Authors':
+            return <Authors key={index} {...section} />
 
           default:
             return <div key={index}></div>

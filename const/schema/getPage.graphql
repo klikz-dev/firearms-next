@@ -79,6 +79,27 @@ query GetPage($slug: ID!) {
             link
           }
         }
+        ... on Page_Pagecontent_Content_Text {
+          buttonLink
+          buttonText
+          text
+          title
+        }
+        ... on Page_Pagecontent_Content_IconHighlights {
+          title
+          icons {
+            label
+            text
+            icon {
+              altText
+              mediaDetails {
+                height
+                width
+              }
+              sourceUrl
+            }
+          }
+        }
       }
     }
   }

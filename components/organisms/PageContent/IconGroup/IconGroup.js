@@ -16,24 +16,24 @@ export default function IconGroup({ title, icon }) {
             <Link key={index} href={icon.link} className={'border-t border-b'}>
               <div
                 className={
-                  'p-8 flex flex-col justify-center items-center bg-white border-t border-b-8 border-white hover:border-red-700 hover:shadow-lg'
+                  'h-full p-8 flex flex-col justify-center items-center bg-white border-t border-b-8 border-white hover:border-red-700 hover:shadow-lg'
                 }
               >
-                <div
-                  className={
-                    'relative w-32 h-32 mb-3 rounded-full overflow-hidden'
-                  }
-                >
+                <div className={'relative rounded-full overflow-hidden'}>
                   <Image
                     src={icon.image?.sourceUrl}
-                    fill={true}
+                    width={icon.image?.mediaDetails?.width}
+                    height={icon.image?.mediaDetails?.height}
                     alt={icon.image?.altText}
-                    className={'object-cover'}
+                    className={'object-contain'}
                   />
                 </div>
 
-                <h6>{icon.label}</h6>
-                <p className={'text-xs text-gray-600'}>{icon.text}</p>
+                {icon.label && <h6 className={'my-3'}>{icon.label}</h6>}
+
+                {icon.text && (
+                  <p className={'text-xs text-gray-600'}>{icon.text}</p>
+                )}
               </div>
             </Link>
           ))}

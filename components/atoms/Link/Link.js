@@ -8,6 +8,10 @@ export default function TextLink({
   children,
   ...props
 }) {
+  if (!href) {
+    return <></>
+  }
+
   return urlExternal || href.includes('recommends') || href.includes('http') ? (
     <a
       href={href}

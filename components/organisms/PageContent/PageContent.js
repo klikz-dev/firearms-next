@@ -1,6 +1,8 @@
 import Hero from './Hero'
 import IconGroup from './IconGroup'
+import IconHighlights from './IconHighlights'
 import LatestPosts from './LatestPosts'
+import Text from './Text'
 import TwoColImageText from './TwoColImageText'
 
 export default function PageContent({ content }) {
@@ -19,6 +21,12 @@ export default function PageContent({ content }) {
 
           case 'Page_Pagecontent_Content_IconGroup':
             return <IconGroup key={index} {...section} />
+
+          case 'Page_Pagecontent_Content_Text':
+            return <Text key={index} {...section} />
+
+          case 'Page_Pagecontent_Content_IconHighlights':
+            return <IconHighlights key={index} {...section} />
 
           default:
             return <div key={index}></div>

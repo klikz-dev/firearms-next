@@ -28,11 +28,13 @@ export default function TwoColImageText({
               <h2>{title}</h2>
             </Title>
 
-            <HTMLContent className={'mb-12'}>{content}</HTMLContent>
+            <HTMLContent>{content}</HTMLContent>
 
-            <Link href={buttonLink}>
-              <Button color={'red'}>{buttonText}</Button>
-            </Link>
+            {buttonLink && (
+              <Link href={buttonLink} className={'mt-12'}>
+                <Button color={'red'}>{buttonText}</Button>
+              </Link>
+            )}
           </div>
 
           <div className={'w-1/2'}>

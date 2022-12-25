@@ -1,0 +1,90 @@
+query GetPost($slug: ID!) {
+  post(id: $slug, idType: SLUG) {
+    author {
+      node {
+        name
+        avatar {
+          url
+        }
+      }
+    }
+    content
+    date
+    featuredImage {
+      node {
+        altText
+        mediaDetails {
+          height
+          width
+        }
+        sourceUrl
+      }
+    }
+    postContent {
+      contents {
+        ... on Post_Postcontent_Contents_Heading {
+          text
+        }
+        ... on Post_Postcontent_Contents_Text {
+          body
+        }
+        ... on Post_Postcontent_Contents_Image {
+          description
+          image {
+            altText
+            mediaDetails {
+              height
+              width
+            }
+            sourceUrl
+          }
+        }
+        ... on Post_Postcontent_Contents_Table {
+          tableHeader
+          row {
+            columns
+            fieldGroupName
+          }
+        }
+        ... on Post_Postcontent_Contents_PerformanceScoreboard {
+          board {
+            fieldGroupName
+            performance
+            score
+          }
+        }
+        ... on Post_Postcontent_Contents_Youtube {
+          url
+        }
+        ... on Post_Postcontent_Contents_Cta {
+          buttonText
+          link
+          price
+          title
+          image {
+            altText
+            sourceUrl
+            mediaDetails {
+              height
+              width
+            }
+          }
+        }
+        ... on Post_Postcontent_Contents_AmazonProduct {
+          productId
+        }
+        ... on Post_Postcontent_Contents_Faq {
+          qA {
+            answer
+            fieldGroupName
+            question
+          }
+        }
+      }
+    }
+    seo {
+      fullHead
+    }
+    title
+  }
+}

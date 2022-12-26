@@ -2,7 +2,7 @@ import Link from '@/components/atoms/Link'
 
 export default function TOCNav({ tocNavs }) {
   return (
-    <div>
+    <div className='mb-12'>
       <div className={'px-5 py-3 bg-gradient-to-r from-red-800 to-red-500'}>
         <h5 className={'text-white'}>{'In This Article'}</h5>
       </div>

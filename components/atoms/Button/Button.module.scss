@@ -28,7 +28,11 @@
   }
 
   &.red {
-    @apply text-white bg-red-700 hover:bg-red-500;
+    @apply text-white bg-gradient-to-r from-red-800 to-red-500 hover:from-red-900 hover:to-red-600;
+  }
+
+  &.yellow {
+    @apply text-white bg-gradient-to-r bg-yellow-600 hover:bg-yellow-500;
   }
 
   /** Disabled **/

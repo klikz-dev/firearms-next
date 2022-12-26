@@ -9,7 +9,7 @@ export default function TextLink({
   ...props
 }) {
   if (!href) {
-    return <></>
+    return <div>{children}</div>
   }
 
   return urlExternal || href.includes('recommends') || href.includes('http') ? (
@@ -30,7 +30,7 @@ export default function TextLink({
 }
 
 TextLink.propTypes = {
-  href: PropTypes.string.isRequired,
+  href: PropTypes.string,
   urlExternal: PropTypes.bool,
   className: PropTypes.string,
   props: PropTypes.object,

@@ -4,7 +4,8 @@
 
 @import './_font.scss';
 
-html {
+html,
+body {
   scroll-behavior: smooth;
 }
 

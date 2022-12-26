@@ -9,12 +9,16 @@ export default function DisplayImage({
   style,
   ...props
 }) {
+  if (!src) {
+    return <></>
+  }
+
   return (
     <Image
       src={src}
       width={width}
       height={height}
-      alt={alt}
+      alt={alt ?? 'Image'}
       className={className}
       style={style}
       {...props}

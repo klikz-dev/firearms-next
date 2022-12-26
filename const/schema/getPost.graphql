@@ -48,12 +48,10 @@ query GetPost($slug: ID!) {
           tableHeader
           row {
             columns
-            fieldGroupName
           }
         }
         ... on Post_Postcontent_Contents_PerformanceScoreboard {
           board {
-            fieldGroupName
             performance
             score
           }
@@ -81,7 +79,6 @@ query GetPost($slug: ID!) {
         ... on Post_Postcontent_Contents_Faq {
           qA {
             answer
-            fieldGroupName
             question
           }
         }

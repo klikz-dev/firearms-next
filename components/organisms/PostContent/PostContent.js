@@ -1,3 +1,5 @@
+import TOCNav from '@/components/molecules/TOCNav'
+import convertToSlug from '@/functions/convertToSlug'
 import AmazonProduct from './AmazonProduct'
 import CTA from './CTA'
 import FAQ from './FAQ'
@@ -9,8 +11,19 @@ import Text from './Text'
 import Youtube from './Youtube'
 
 export default function PostContent({ contents }) {
+  const tocNavs = contents
+    .filter(
+      (content) => content.__typename === 'Post_Postcontent_Contents_Heading'
+    )
+    .map((content) => ({
+      id: convertToSlug(content.text),
+      label: content.text,
+    }))
+
   return (
     <>
+      <TOCNav tocNavs={tocNavs} />
+
       {contents?.map((section, index) => {
         switch (section.__typename) {
           case 'Post_Postcontent_Contents_Heading':

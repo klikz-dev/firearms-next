@@ -1,5 +1,10 @@
 query GetPost($slug: ID!) {
   post(id: $slug, idType: SLUG) {
+    title
+    slug
+    seo {
+      fullHead
+    }
     author {
       node {
         name
@@ -82,9 +87,5 @@ query GetPost($slug: ID!) {
         }
       }
     }
-    seo {
-      fullHead
-    }
-    title
   }
 }

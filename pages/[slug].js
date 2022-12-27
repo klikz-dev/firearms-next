@@ -7,9 +7,12 @@ import { useRouter } from 'next/router'
 import Container from '@/components/atoms/Container'
 import Loading from '@/components/atoms/Loading'
 import HTMLReactParser from 'html-react-parser'
+import Sidebar from '@/components/organisms/Sidebar'
+import Hero from '@/components/organisms/PageContent/Hero'
+import TOCNav from '@/components/molecules/PostInnerMenu'
 
 export default function Page({ pageData }) {
-  const { content } = pageData?.page?.pageContent ?? {}
+  const { layout, hero, content } = pageData?.page?.pageContent ?? {}
 
   const router = useRouter()
   if (router.isFallback) {
@@ -24,7 +27,31 @@ export default function Page({ pageData }) {
 
   return (
     <Layout seo={HTMLReactParser(pageData?.page?.seo?.fullHead)}>
-      <PageContent content={content} />
+      <Hero {...hero} />
+
+      {layout === 'full' && <PageContent content={content} />}
+
+      {layout === 'sidebar' && (
+        <div className={'max-w-7xl mx-auto grid grid-cols-3 gap-16'}>
+          <div className={'col-span-2'}>
+            <PageContent content={content} />
+          </div>
+          <div className={'col-span-1 pt-20'}>
+            <Sidebar />
+          </div>
+        </div>
+      )}
+
+      {layout === 'toc' && (
+        <div className={'max-w-7xl mx-auto grid grid-cols-3 gap-16'}>
+          <div className={'col-span-2'}>
+            <PageContent content={content} />
+          </div>
+          <div className={'col-span-1 pt-20'}>
+            <TOCNav />
+          </div>
+        </div>
+      )}
     </Layout>
   )
 }

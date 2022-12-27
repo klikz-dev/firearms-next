@@ -1,4 +1,4 @@
-import TOCNav from '@/components/molecules/TOCNav'
+import PostInnerMenu from '@/components/molecules/PostInnerMenu'
 import convertToSlug from '@/functions/convertToSlug'
 import AmazonProduct from './AmazonProduct'
 import CTA from './CTA'
@@ -13,7 +13,7 @@ import Youtube from './Youtube'
 export default function PostContent({ contents }) {
   console.log(contents)
 
-  const tocNavs = contents
+  const menus = contents
     .filter(
       (content) => content.__typename === 'Post_Postcontent_Contents_Heading'
     )
@@ -24,7 +24,7 @@ export default function PostContent({ contents }) {
 
   return (
     <>
-      <TOCNav tocNavs={tocNavs} />
+      <PostInnerMenu menus={menus} />
 
       {contents?.map((section, index) => {
         switch (section.__typename) {

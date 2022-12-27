@@ -7,25 +7,28 @@ query GetPage($slug: ID!) {
     slug
     title
     pageContent {
-      content {
-        ... on Page_Pagecontent_Content_Hero {
-          subtitle
-          link {
-            ... on Post {
-              slug
-              date
-            }
-          }
-          title
-          background {
-            altText
-            sourceUrl
-            mediaDetails {
-              width
-              height
-            }
+      layout
+      hero {
+        title
+        subtitle
+        backgroundImage {
+          altText
+          sourceUrl
+          mediaDetails {
+            width
+            height
           }
         }
+        redBackground
+        link {
+          ... on Post {
+            id
+            slug
+            date
+          }
+        }
+      }
+      content {
         ... on Page_Pagecontent_Content_LatestPosts {
           title
           category {
@@ -118,6 +121,22 @@ query GetPage($slug: ID!) {
             }
             title
             twitter
+          }
+        }
+        ... on Page_Pagecontent_Content_CategorySection {
+          title
+          text
+          image {
+            altText
+            mediaDetails {
+              height
+              width
+            }
+            sourceUrl
+          }
+          links {
+            link
+            text
           }
         }
       }

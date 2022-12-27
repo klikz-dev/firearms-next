@@ -1,5 +1,5 @@
 import Authors from './Authors'
-import Hero from './Hero'
+import CategorySection from './CategorySection'
 import IconGroup from './IconGroup'
 import IconHighlights from './IconHighlights'
 import LatestPosts from './LatestPosts'
@@ -11,9 +11,6 @@ export default function PageContent({ content }) {
     <>
       {content?.map((section, index) => {
         switch (section?.__typename) {
-          case 'Page_Pagecontent_Content_Hero':
-            return <Hero key={index} {...section} />
-
           case 'Page_Pagecontent_Content_LatestPosts':
             return <LatestPosts key={index} {...section} />
 
@@ -31,6 +28,9 @@ export default function PageContent({ content }) {
 
           case 'Page_Pagecontent_Content_Authors':
             return <Authors key={index} {...section} />
+
+          case 'Page_Pagecontent_Content_CategorySection':
+            return <CategorySection key={index} index={index} {...section} />
 
           default:
             return <div key={index}></div>

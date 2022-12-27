@@ -9,7 +9,8 @@ import Loading from '@/components/atoms/Loading'
 import HTMLReactParser from 'html-react-parser'
 import Sidebar from '@/components/organisms/Sidebar'
 import Hero from '@/components/organisms/PageContent/Hero'
-import TOCNav from '@/components/molecules/PostInnerMenu'
+import TOCNav from '@/components/organisms/TOCNav'
+import convertToSlug from '@/functions/convertToSlug'
 
 export default function Page({ pageData }) {
   const { layout, hero, content } = pageData?.page?.pageContent ?? {}
@@ -24,6 +25,14 @@ export default function Page({ pageData }) {
       </Layout>
     )
   }
+
+  const toc_items = content
+    ?.filter(
+      (item) => item.__typename === 'Page_Pagecontent_Content_CategorySection'
+    )
+    ?.map((item) => {
+      return { id: convertToSlug(item.title), label: item.title }
+    })
 
   return (
     <Layout seo={HTMLReactParser(pageData?.page?.seo?.fullHead)}>
@@ -48,7 +57,7 @@ export default function Page({ pageData }) {
             <PageContent content={content} />
           </div>
           <div className={'col-span-1 pt-20'}>
-            <TOCNav />
+            {toc_items?.length > 0 && <TOCNav toc_items={toc_items} />}
           </div>
         </div>
       )}

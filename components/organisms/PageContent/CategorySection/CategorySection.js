@@ -2,12 +2,13 @@ import Container from '@/components/atoms/Container'
 import GradientBorder from '@/components/atoms/GradientBorder'
 import Image from '@/components/atoms/Image'
 import Link from '@/components/atoms/Link'
+import convertToSlug from '@/functions/convertToSlug'
 import { faCrosshairs } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function CategorySection({ index, title, text, image, links }) {
   return (
-    <Container className={'py-20 border-b-2 pb-8'}>
+    <Container className={'py-20 border-b-2 pb-8'} id={convertToSlug(title)}>
       <Image
         src={image?.sourceUrl}
         width={image?.mediaDetails?.width}

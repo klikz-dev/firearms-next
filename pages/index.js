@@ -14,9 +14,10 @@ import Container from '@/components/atoms/Container'
 import Title from '@/components/molecules/Title'
 import PageContent from '@/components/organisms/PageContent'
 import HTMLReactParser from 'html-react-parser'
+import Hero from '@/components/organisms/PageContent/Hero'
 
 export default function Page({ pageData, postsData }) {
-  const { content } = pageData?.page?.pageContent ?? {}
+  const { hero, content } = pageData?.page?.pageContent ?? {}
   const { posts } = postsData ?? {}
 
   const [postList, setPostList] = useState(posts?.nodes?.slice(4, 10))
@@ -41,6 +42,8 @@ export default function Page({ pageData, postsData }) {
 
   return (
     <Layout seo={HTMLReactParser(pageData?.page?.seo?.fullHead)}>
+      <Hero {...hero} />
+
       <PageContent content={content} />
 
       <Container className={'py-20'}>

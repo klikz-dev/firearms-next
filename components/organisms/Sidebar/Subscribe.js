@@ -38,7 +38,9 @@ export default function Subscribe() {
           value={email}
           setValue={setEmail}
           type={'email'}
-          className={'bg-transparent text-sm'}
+          className={
+            'bg-transparent text-sm placeholder:text-white/60 text-white'
+          }
         />
       </div>
 

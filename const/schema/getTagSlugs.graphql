@@ -1,0 +1,7 @@
+query GetTagSlugs($first: Int) {
+  tags(first: $first) {
+    nodes {
+      slug
+    }
+  }
+}

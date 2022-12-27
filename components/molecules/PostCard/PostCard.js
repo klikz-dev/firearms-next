@@ -68,8 +68,8 @@ export function PostCardVertical({ post, className }) {
     <div className={classNames('border', className)}>
       <div className={'relative h-56 flex flex-col justify-end'}>
         <Background
-          image={post.featuredImage.node.sourceUrl}
-          alt={post.featuredImage.node.altText}
+          image={post.featuredImage?.node.sourceUrl}
+          alt={post.featuredImage?.node.altText}
         />
       </div>
 

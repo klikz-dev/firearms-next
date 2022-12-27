@@ -1,0 +1,7 @@
+query GetCategorySlugs($first: Int) {
+  categories(first: $first) {
+    nodes {
+      slug
+    }
+  }
+}

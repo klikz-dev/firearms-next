@@ -11,8 +11,6 @@ import Text from './Text'
 import Youtube from './Youtube'
 
 export default function PostContent({ contents }) {
-  console.log(contents)
-
   const menus = contents
     .filter(
       (content) => content.__typename === 'Post_Postcontent_Contents_Heading'

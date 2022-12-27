@@ -1,0 +1,27 @@
+query GetTag($slug: ID!) {
+  tag(id: $slug, idType: SLUG) {
+    name
+    description
+    seo {
+      fullHead
+    }
+    posts(first: 100) {
+      nodes {
+        date
+        excerpt
+        featuredImage {
+          node {
+            altText
+            mediaDetails {
+              height
+              width
+            }
+            sourceUrl
+          }
+        }
+        slug
+        title
+      }
+    }
+  }
+}

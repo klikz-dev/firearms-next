@@ -70,7 +70,7 @@ export default function Header() {
                       <>
                         <Popover.Button
                           className={classNames(
-                            'group uppercase font-display inline-flex items-center gap-1 border-b border-white hover:border-red-700',
+                            'group uppercase font-display inline-flex items-center gap-1 border-b border-white hover:border-red-700 ring-0 outline-none',
                             open && 'border-red-700'
                           )}
                         >

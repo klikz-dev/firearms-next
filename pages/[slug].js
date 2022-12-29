@@ -13,6 +13,7 @@ import TOCNav from '@/components/organisms/TOCNav'
 import convertToSlug from '@/functions/convertToSlug'
 
 export default function Page({ pageData }) {
+  console.log(pageData)
   const { layout, hero, content } = pageData?.page?.pageContent ?? {}
 
   const router = useRouter()

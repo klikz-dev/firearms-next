@@ -7,31 +7,31 @@ export const menu = [
     subMenus: [
       {
         label: 'Rifle Reviews',
-        path: '/',
+        path: '/category/rifles/',
       },
       {
         label: 'Handgun Reviews',
-        path: '/',
+        path: '/category/handguns/',
       },
       {
         label: 'The American Firearms Guide to Shotgunning',
-        path: '/',
+        path: '/shotgun-reviews/',
       },
       {
         label: 'Ammunition Reviews',
-        path: '/',
+        path: '/tag/ammo/',
       },
       {
         label: 'Tactical Gear Reviews',
-        path: '/',
+        path: '/tag/tactical/',
       },
       {
         label: 'Range Gear Reviews',
-        path: '/',
+        path: '/category/shooting-accessories',
       },
       {
         label: 'Hands-On Reviews',
-        path: '/',
+        path: '/tag/hands-on/',
       },
     ],
   },
@@ -40,31 +40,31 @@ export const menu = [
     subMenus: [
       {
         label: 'About Us',
-        path: '/',
+        path: '/about-us/',
       },
       {
         label: 'Advertise',
-        path: '/',
+        path: '/advertise/',
       },
       {
         label: 'Contact Us',
-        path: '/',
+        path: '/contact-us/',
       },
       {
         label: 'Disclosure',
-        path: '/',
+        path: '/disclosure/',
       },
       {
         label: 'Terms of Service',
-        path: '/',
+        path: '/terms-service',
       },
       {
         label: 'Privacy Policy',
-        path: '/',
+        path: '/privacy-policy',
       },
       {
         label: 'Editorial Process',
-        path: '/',
+        path: '/how-we-test-review-gear/',
       },
     ],
   },
@@ -73,27 +73,27 @@ export const menu = [
     subMenus: [
       {
         label: 'Firearm News',
-        path: '/',
+        path: '/category/news/',
       },
       {
         label: 'Firearm Safety',
-        path: '/',
+        path: '/safety/',
       },
       {
         label: 'Firearm History',
-        path: '/',
+        path: '/gun-history',
       },
       {
         label: 'Firearms Statistics',
-        path: '/',
+        path: '/statistics/',
       },
       {
         label: 'A Firearms Glossary',
-        path: '/',
+        path: '/firearms-glossary/',
       },
       {
         label: 'Gun Cleaning 101',
-        path: '/',
+        path: '/gun-cleaning-101-how-to-clean-lubricate-gun/',
       },
     ],
   },

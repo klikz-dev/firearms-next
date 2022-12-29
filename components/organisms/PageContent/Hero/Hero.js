@@ -10,15 +10,16 @@ export default function Hero({
   backgroundImage,
   redBackground,
 }) {
+  console.log(redBackground)
   if (redBackground) {
     return (
       <div className={'relative'}>
         <div className={'flex flex-row justify-end'}>
           <div className={'relative h-96 w-3/5'}>
             <Image
-              src={backgroundImage.sourceUrl}
+              src={backgroundImage?.sourceUrl}
               fill={true}
-              alt={backgroundImage.altText}
+              alt={backgroundImage?.altText}
               className={'object-cover'}
             />
           </div>
@@ -55,10 +56,10 @@ export default function Hero({
   return (
     <div className={'relative'}>
       <Image
-        src={backgroundImage.sourceUrl}
-        width={backgroundImage.mediaDetails?.width}
-        height={backgroundImage.mediaDetails?.height}
-        alt={backgroundImage.altText}
+        src={backgroundImage?.sourceUrl}
+        width={backgroundImage?.mediaDetails?.width}
+        height={backgroundImage?.mediaDetails?.height}
+        alt={backgroundImage?.altText}
         className={'w-full'}
       />
 

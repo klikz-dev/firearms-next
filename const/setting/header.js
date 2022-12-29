@@ -20,28 +20,28 @@ export const menu = [
       },
       {
         label: 'Handgun Guide',
-        path: '/handgun-reviews/',
+        path: '/category/handguns/',
       },
       {
         label: 'Rifle Guide',
-        path: '/rifle-reviews/',
+        path: '/category/rifles/',
       },
     ],
   },
   {
     label: 'Reviews',
-    path: '/reviews',
+    path: '/category/reviews',
   },
   {
     label: 'Interviews',
-    path: '/interviews',
+    path: '/category/videos',
   },
   {
     label: 'Best Ofs',
     subMenus: [
       {
         label: 'Ammo & Reloading',
-        path: '/ammunition-reviews/',
+        path: '/tag/ammo/',
       },
       {
         label: 'Holsters & CCW',
@@ -49,7 +49,7 @@ export const menu = [
       },
       {
         label: 'Gun Safes & Storage',
-        path: '/gun-safe-reviews/',
+        path: '/category/gun-safes/',
       },
       {
         label: 'Firearms',
@@ -57,25 +57,25 @@ export const menu = [
       },
       {
         label: 'Gunsmithing',
-        path: '/gunsmithing-tools-reviews/',
+        path: '/tag/gunsmithing/',
       },
       {
         label: 'Range Gear',
-        path: '/category/reviews/',
+        path: '/category/shooting-accessories',
       },
       {
         label: 'Scopes & Optics',
-        path: '/category/reviews/scopes-optics/',
+        path: '/category/scopes-optics/',
       },
       {
         label: 'Tactical Gear',
-        path: '/tactical-gear-reviews/',
+        path: '/tag/tactical/',
       },
     ],
   },
   {
     label: 'News',
-    path: '/news',
+    path: '/category/news',
   },
   {
     label: 'About Us',

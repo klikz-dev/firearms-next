@@ -1,7 +1,7 @@
 export default function Stats({ header, pageStats }) {
   return (
-    <div className='border border-zinc-100 rounded shadow mb-8'>
-      <div className='px-3 py-2 bg-dark text-white font-bold'>{header}</div>
+    <div className='border border-zinc-200 rounded shadow mb-8'>
+      <div className='px-3 py-2 bg-zinc-700 text-white font-bold'>{header}</div>
 
       <div className='py-3 px-5'>
         <div className='mb-3'>
@@ -10,7 +10,7 @@ export default function Stats({ header, pageStats }) {
             <span>{pageStats.acc * 10}</span>
           </div>
 
-          <div className='bg-zinc-100 w-full h-3'>
+          <div className='bg-zinc-200 w-full h-3'>
             <div
               style={{ width: `${pageStats.acc * 10}%` }}
               className='h-full bg-red-700'
@@ -24,7 +24,7 @@ export default function Stats({ header, pageStats }) {
             <span>{pageStats.erg * 10}</span>
           </div>
 
-          <div className='bg-zinc-100 w-full h-3'>
+          <div className='bg-zinc-200 w-full h-3'>
             <div
               style={{ width: `${pageStats.erg * 10}%` }}
               className='h-full bg-red-700'
@@ -38,7 +38,7 @@ export default function Stats({ header, pageStats }) {
             <span>{pageStats.fit * 10}</span>
           </div>
 
-          <div className='bg-zinc-100 w-full h-3'>
+          <div className='bg-zinc-200 w-full h-3'>
             <div
               style={{ width: `${pageStats.fit * 10}%` }}
               className='h-full bg-red-700'
@@ -52,7 +52,7 @@ export default function Stats({ header, pageStats }) {
             <span>{pageStats.rng}</span>
           </div>
 
-          <div className='bg-zinc-100 w-full h-3'>
+          <div className='bg-zinc-200 w-full h-3'>
             <div
               style={{ width: `${pageStats.rngVal * 10}%` }}
               className='h-full bg-red-700'
@@ -66,7 +66,7 @@ export default function Stats({ header, pageStats }) {
             <span>{pageStats.rec * 10}</span>
           </div>
 
-          <div className='bg-zinc-100 w-full h-3'>
+          <div className='bg-zinc-200 w-full h-3'>
             <div
               style={{ width: `${pageStats.rec * 10}%` }}
               className='h-full bg-red-700'
@@ -80,7 +80,7 @@ export default function Stats({ header, pageStats }) {
             <span>{pageStats.rel * 10}</span>
           </div>
 
-          <div className='bg-zinc-100 w-full h-3'>
+          <div className='bg-zinc-200 w-full h-3'>
             <div
               style={{ width: `${pageStats.rel * 10}%` }}
               className='h-full bg-red-700'

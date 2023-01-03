@@ -10,8 +10,8 @@ export default function Ranking({ page, brandPages, categoryPages }) {
   const [rankTab, setRankTab] = useState('category')
 
   return (
-    <div className='border border-zinc-100 rounded shadow mb-8'>
-      <div className='px-3 py-2 bg-dark text-white font-bold'>
+    <div className='border border-zinc-200 rounded shadow mb-8'>
+      <div className='px-3 py-2 bg-zinc-700 text-white font-bold'>
         {month} {toCapitalize(page.category.name)} Ranking
       </div>
 
@@ -46,13 +46,13 @@ export default function Ranking({ page, brandPages, categoryPages }) {
           <>
             {categoryPages.slice(0, 20).map((page, index) => (
               <div key={index} className='flex flex-row items-start mb-1'>
-                <span className='w-8 text-center flex-shrink-0 bg-zinc-700 text-white text-xs font-bold rounded mr-2'>
-                  #{index + 1}
+                <span className='w-8 text-center flex-shrink-0 bg-zinc-700 text-white text-sm rounded mr-2'>
+                  {`# ${index + 1}`}
                 </span>
 
                 <Link
                   href={`/shop/${page.slug}/`}
-                  className='text-xs font-semibold hover:text-red-700'
+                  className='text-sm font-medium hover:text-red-700'
                 >
                   {toCapitalize(page.title)}
                   {page.pre_category_rank !== index + 1 && (
@@ -73,13 +73,13 @@ export default function Ranking({ page, brandPages, categoryPages }) {
           <>
             {brandPages.slice(0, 20).map((page, index) => (
               <div key={index} className='flex flex-row items-start mb-1'>
-                <span className='w-8 text-center flex-shrink-0 bg-zinc-700 text-white text-xs font-bold rounded mr-2'>
-                  #{index + 1}
+                <span className='w-8 text-center flex-shrink-0 bg-zinc-700 text-white text-sm font-bold rounded mr-2'>
+                  {`# ${index + 1}`}
                 </span>
 
                 <Link
                   href={`/shop/${page.slug}/`}
-                  className='text-xs font-semibold hover:text-red-700'
+                  className='text-sm font-medium hover:text-red-700'
                 >
                   {toCapitalize(page.title)}
                   {page.pre_brand_rank !== index + 1 && (

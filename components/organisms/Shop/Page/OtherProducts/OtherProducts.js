@@ -1,3 +1,4 @@
+import Title from '@/components/molecules/Title'
 import toCapitalize from '@/functions/toCapitalize'
 import CrossSell from './CrossSell'
 import Product from './Product'
@@ -21,9 +22,9 @@ export default function OtherProducts({ page, products, product }) {
 
   return (
     <div className='mb-12'>
-      <h3 className='text-2xl font-semibold mb-8'>
-        Other {toCapitalize(page.title)} for Sale
-      </h3>
+      <Title>
+        <h3>Other {toCapitalize(page.title)} for Sale</h3>
+      </Title>
 
       {products.map((p, index) => (
         <Product key={index} {...p} />

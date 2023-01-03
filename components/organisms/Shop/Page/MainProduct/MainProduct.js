@@ -1,12 +1,13 @@
 import Button from '@/components/atoms/Button'
 import Image from '@/components/atoms/Image'
+import Link from '@/components/atoms/Link'
 import convertRetailer from '@/functions/convertRetailer'
 import toCapitalize from '@/functions/toCapitalize'
 import moment from 'moment'
 
 export default function MainProduct({ product }) {
   return (
-    <div className='p-4 border border-zinc-100 rounded shadow grid lg:grid-cols-4 gap-8 mb-12'>
+    <div className='p-4 border border-zinc-200 rounded shadow grid lg:grid-cols-4 gap-8 mb-12'>
       <div className='lg:col-span-1 relative h-40'>
         <Image
           src={product.image_url}
@@ -24,28 +25,26 @@ export default function MainProduct({ product }) {
           {convertRetailer(product.retailer)}
         </p>
 
-        <p className='capitalize'>{`Condition: ${
+        <p className='capitalize text-sm'>{`Condition: ${
           product.condition || 'New'
         }`}</p>
       </div>
 
       <div className='lg:col-span-1 flex flex-col justify-center items-center'>
-        <p className='text-lg font-semibold mb-1.5 md:mb-4 text-center'>{`Best Price: $${product?.sale_price?.toFixed(
+        <h5 className='text-lg mb-1.5 md:mb-4 text-center'>{`Best Price: $${product?.sale_price?.toFixed(
           2
-        )}`}</p>
+        )}`}</h5>
 
-        <Button
-          text='See Deal'
-          href={product.buy_link}
-          type='secondary'
-          urlExternal={true}
-          className='mb-2 md:mb-4'
-        />
+        <Link href={product.buy_link} urlExternal={true}>
+          <Button color={'red'} className='mb-2 md:mb-4'>
+            See Deal
+          </Button>
+        </Link>
 
         {product?.updated_at && (
-          <p className='text-sm font-medium text-center'>
+          <h6 className='text-sm text-center'>
             {`Last Updated: ${moment(product.updated_at).format('MM/DD/YYYY')}`}
-          </p>
+          </h6>
         )}
       </div>
     </div>

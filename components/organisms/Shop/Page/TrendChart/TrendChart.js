@@ -5,12 +5,13 @@ import {
   LinearScale,
   PointElement,
   LineElement,
-  Title,
+  Title as ChartTitle,
   Tooltip,
   Legend,
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 import toCapitalize from '@/functions/toCapitalize'
+import Title from '@/components/molecules/Title'
 
 export default function TrendChart({ page, xValues, newYvalues, usedYvalues }) {
   ChartJS.register(
@@ -18,7 +19,7 @@ export default function TrendChart({ page, xValues, newYvalues, usedYvalues }) {
     LinearScale,
     PointElement,
     LineElement,
-    Title,
+    ChartTitle,
     Tooltip,
     Legend
   )
@@ -52,9 +53,9 @@ export default function TrendChart({ page, xValues, newYvalues, usedYvalues }) {
 
   return (
     <div className='mb-12'>
-      <h3 className='text-2xl font-semibold mb-8'>
-        {toCapitalize(page.title)} Price Trend
-      </h3>
+      <Title>
+        <h3>{toCapitalize(page.title)} Price Trend</h3>
+      </Title>
 
       <Line options={options} data={data} />
     </div>

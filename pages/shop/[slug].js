@@ -24,6 +24,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHomeAlt, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 import moment from 'moment'
 import Breadcrumbs from '@/components/molecules/Breadcrumbs'
+import Title from '@/components/molecules/Title'
 
 export default function Page({
   page,
@@ -106,9 +107,9 @@ export default function Page({
 
           <div className='flex flex-col lg:flex-row gap-12'>
             <div className='mb-8'>
-              <h1 className='text-4xl text-red-700 font-bold my-4'>
-                Best Price on {toCapitalize(page.title)}
-              </h1>
+              <Title className={'mb-8'}>
+                <h1>Best Price on {toCapitalize(page.title)}</h1>
+              </Title>
 
               {product && <MainProduct product={product} />}
 

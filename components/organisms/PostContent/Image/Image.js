@@ -4,10 +4,10 @@ export default function PostImage({ image, description }) {
   return (
     <div className={'mb-8 bg-zinc-50 border border-zinc-300'}>
       <Image
-        src={image.sourceUrl}
-        alt={image.altText}
-        width={image.mediaDetails.width}
-        height={image.mediaDetails.height}
+        src={image?.sourceUrl}
+        alt={image?.altText}
+        width={image?.mediaDetails?.width}
+        height={image?.mediaDetails?.height}
       />
 
       <div

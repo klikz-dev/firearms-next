@@ -8,10 +8,10 @@ export default function CTA({ buttonText, link, price, title, image }) {
     <div className={'p-1 overflow-hidden mb-8'}>
       <div className={'relative bg-zinc-100 border border-zinc-300'}>
         <Image
-          src={image.sourceUrl}
-          alt={image.altText}
-          width={image.mediaDetails.width}
-          height={image.mediaDetails.height}
+          src={image?.sourceUrl}
+          alt={image?.altText}
+          width={image?.mediaDetails?.width}
+          height={image?.mediaDetails?.height}
         />
 
         {price && (

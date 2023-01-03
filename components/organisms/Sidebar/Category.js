@@ -11,8 +11,8 @@ export default function Category({ posts, link }) {
           <div className={'mb-4'}>
             <div className={'relative h-56 flex flex-col justify-end z-10'}>
               <Background
-                image={post.featuredImage.node.sourceUrl}
-                alt={post.featuredImage.node.altText}
+                image={post.featuredImage?.node?.sourceUrl}
+                alt={post.featuredImage?.node?.altText}
               />
             </div>
 

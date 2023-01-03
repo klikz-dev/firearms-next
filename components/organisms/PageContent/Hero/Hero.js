@@ -10,7 +10,6 @@ export default function Hero({
   backgroundImage,
   redBackground,
 }) {
-  console.log(redBackground)
   if (redBackground) {
     return (
       <div className={'relative'}>

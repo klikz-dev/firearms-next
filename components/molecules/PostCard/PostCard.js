@@ -17,12 +17,12 @@ export function PostCardOverlay({ post, className }) {
         )}
       >
         <Background
-          image={post.featuredImage.node.sourceUrl}
-          alt={post.featuredImage.node.altText}
+          image={post?.featuredImage?.node?.sourceUrl}
+          alt={post?.featuredImage?.node?.altText}
         />
 
         <div className={'p-8'}>
-          <Date date={post.date} className={'text-white'} />
+          <Date date={post?.date} className={'text-white'} />
           <h4 className={'text-white mb-4'}>{post.title}</h4>
           <GradientBorder height={2} className={'w-36'} />
         </div>
@@ -36,9 +36,9 @@ export function PostCardHorizontal({ post, className }) {
     <div className={classNames('border flex flex-row', className)}>
       <div className={'relative w-2/5 h-72 flex flex-col justify-end'}>
         <Image
-          src={post.featuredImage.node.sourceUrl}
+          src={post.featuredImage?.node?.sourceUrl}
           fill={true}
-          alt={post.featuredImage.node.altText}
+          alt={post.featuredImage?.node?.altText}
           className={'object-cover'}
         />
       </div>
@@ -68,8 +68,8 @@ export function PostCardVertical({ post, className }) {
     <div className={classNames('border', className)}>
       <div className={'relative h-56 flex flex-col justify-end'}>
         <Background
-          image={post.featuredImage?.node.sourceUrl}
-          alt={post.featuredImage?.node.altText}
+          image={post.featuredImage?.node?.sourceUrl}
+          alt={post.featuredImage?.node?.altText}
         />
       </div>
 

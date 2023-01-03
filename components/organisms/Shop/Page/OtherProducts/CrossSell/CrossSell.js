@@ -2,7 +2,7 @@ import Button from '@/components/atoms/Button'
 import Image from '@/components/atoms/Image'
 import convertRetailer from '@/functions/convertRetailer'
 import toCapitalize from '@/functions/toCapitalize'
-import dateFormat from 'dateformat'
+import moment from 'moment'
 
 export default function CrossSell({ product }) {
   return (
@@ -44,10 +44,11 @@ export default function CrossSell({ product }) {
               className='mb-4'
             />
 
-            <p className='text-sm font-medium text-center'>{`Last Updated: ${dateFormat(
-              new Date(product.updated_at),
-              'mm/dd/yyyy'
-            )}`}</p>
+            <p className='text-sm font-medium text-center'>
+              {`Last Updated: ${moment(product.updated_at).format(
+                'MM/DD/YYYY'
+              )}`}
+            </p>
           </div>
         </div>
       )}

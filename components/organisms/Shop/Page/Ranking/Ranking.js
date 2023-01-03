@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import toCapitalize from '@/functions/toCapitalize'
-import dateFormat from 'dateformat'
 import cn from 'classnames'
 import Link from '@/components/atoms/Link'
+import moment from 'moment'
 
 export default function Ranking({ page, brandPages, categoryPages }) {
-  const month = dateFormat(new Date(), 'mmmm')
+  const month = moment().format('MMMM')
 
   const [rankTab, setRankTab] = useState('category')
 

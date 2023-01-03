@@ -1,9 +1,10 @@
-import Image from '@/components/atoms/Image'
 import toCapitalize from '@/functions/toCapitalize'
-import dateFormat from 'dateformat'
+import { faTrophy } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import moment from 'moment'
 
 export default function Awards({ page, brandRank, categoryRank }) {
-  const year = dateFormat(new Date(), 'yyyy')
+  const year = moment().format('YYYY')
 
   return (
     <>
@@ -16,12 +17,7 @@ export default function Awards({ page, brandRank, categoryRank }) {
           <div className='py-3 px-5'>
             {brandRank ? (
               <div className='flex flex-row items-start mb-2'>
-                <Image
-                  src='/icons/trophy-solid.svg'
-                  width={20}
-                  height={20}
-                  className='yellow-600'
-                />
+                <FontAwesomeIcon icon={faTrophy} className='yellow-600' />
 
                 <span className='ml-2 text-sm font-bold'>
                   #{brandRank} Most Popular {toCapitalize(page.brand.name)}{' '}
@@ -34,12 +30,7 @@ export default function Awards({ page, brandRank, categoryRank }) {
 
             {categoryRank ? (
               <div className='flex flex-row items-start'>
-                <Image
-                  src='/icons/trophy-solid.svg'
-                  width={20}
-                  height={20}
-                  className='yellow-600'
-                />
+                <FontAwesomeIcon icon={faTrophy} className='yellow-600' />
 
                 <span className='ml-2 text-sm font-bold'>
                   #{categoryRank} Most Popular{' '}

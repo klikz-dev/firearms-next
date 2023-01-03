@@ -1,11 +1,7 @@
 import Layout from '@/components/common/Layout'
 import { NextSeo } from 'next-seo'
-import dateFormat from 'dateformat'
 import { findBestMatch } from 'string-similarity'
-import { HomeIcon, ShoppingBagIcon } from '@heroicons/react/outline'
-import Breadcrumbs from '@/components/atoms/Breadcrumbs'
 import toCapitalize from '@/functions/toCapitalize'
-import Section from '@/components/atoms/Section'
 import Description from '@/components/organisms/Shop/Page/Description'
 import getRank from '@/functions/getRank'
 import getStats from '@/functions/getStats'
@@ -23,6 +19,11 @@ import OtherProducts from '@/components/organisms/Shop/Page/OtherProducts'
 import MorePrices from '@/components/organisms/Shop/Page/MorePrices'
 import Loading from '@/components/atoms/Loading'
 import { useRouter } from 'next/router'
+import Container from '@/components/atoms/Container'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHomeAlt, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
+import moment from 'moment'
+import Breadcrumbs from '@/components/molecules/Breadcrumbs'
 
 export default function Page({
   page,
@@ -36,21 +37,21 @@ export default function Page({
   if (router.isFallback) {
     return (
       <Layout>
-        <Section>
-          <Loading></Loading>
-        </Section>
+        <Container>
+          <Loading />
+        </Container>
       </Layout>
     )
   }
 
   const breadcrumbs = [
     {
-      icon: <HomeIcon width={20} className='text-blue-900' />,
+      icon: <FontAwesomeIcon icon={faHomeAlt} className={'text-sm w-6'} />,
       text: 'Home',
       link: '/',
     },
     {
-      icon: <ShoppingBagIcon width={20} className='text-blue-900' />,
+      icon: <FontAwesomeIcon icon={faShoppingBag} className={'text-sm w-6'} />,
       text: 'Prices',
       link: '/shop/',
     },
@@ -80,7 +81,7 @@ export default function Page({
     relatedPageSlugs.includes(page.slug)
   )
 
-  const today = dateFormat(new Date(), 'mmmm yyyy')
+  const today = moment().format('MMMM YYYY')
 
   const pageStats = getStats(page.brand, page.category)
   const categoryRank = getRank(page, categoryPages)
@@ -100,7 +101,7 @@ export default function Page({
       />
 
       <Layout>
-        <Section>
+        <Container className={`py-12`}>
           <Breadcrumbs breadcrumbs={breadcrumbs} />
 
           <div className='flex flex-col lg:flex-row gap-12'>
@@ -188,7 +189,7 @@ export default function Page({
               )}
             </div>
           </div>
-        </Section>
+        </Container>
       </Layout>
     </>
   )

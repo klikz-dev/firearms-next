@@ -1,34 +1,36 @@
-import { NextSeo } from 'next-seo'
 import Layout from '@/components/common/Layout'
-import Section from '@/components/atoms/Section'
-import Breadcrumbs from '@/components/atoms/Breadcrumbs'
-import { HomeIcon, ShoppingBagIcon } from '@heroicons/react/outline'
+import { NextSeo } from 'next-seo'
 import Link from '@/components/atoms/Link'
-import toCapitalize from '@/functions/toCapitalize'
-import Subcategory from '@/components/organisms/Shop/Brands/Subcategory'
 import Loading from '@/components/atoms/Loading'
 import { useRouter } from 'next/router'
+import Container from '@/components/atoms/Container'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHomeAlt, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
+import toCapitalize from '@/functions/toCapitalize'
+import Breadcrumbs from '@/components/molecules/Breadcrumbs'
+import Title from '@/components/molecules/Title'
+import Subcategory from '@/components/organisms/Shop/Brands/Subcategory'
 
 export default function Page({ brand, subcategories, subcategory, brands }) {
   const router = useRouter()
   if (router.isFallback) {
     return (
       <Layout>
-        <Section>
-          <Loading></Loading>
-        </Section>
+        <Container>
+          <Loading />
+        </Container>
       </Layout>
     )
   }
 
   const breadcrumbs = [
     {
-      icon: <HomeIcon width={20} className='text-blue-900' />,
+      icon: <FontAwesomeIcon icon={faHomeAlt} className={'text-sm w-6'} />,
       text: 'Home',
       link: '/',
     },
     {
-      icon: <ShoppingBagIcon width={20} className='text-blue-900' />,
+      icon: <FontAwesomeIcon icon={faShoppingBag} className={'text-sm w-6'} />,
       text: 'Prices',
       link: '/shop/',
     },
@@ -57,12 +59,14 @@ export default function Page({ brand, subcategories, subcategory, brands }) {
       />
 
       <Layout>
-        <Section>
+        <Container className={`py-12`}>
           <Breadcrumbs breadcrumbs={breadcrumbs} />
 
-          <h1 className='text-4xl text-red-700 font-bold mt-4 mb-12'>
-            Shop {toCapitalize(brand.name)} {toCapitalize(subcategory?.name)}
-          </h1>
+          <Title className={'mt-8 mb-20'}>
+            <h1>
+              Shop {toCapitalize(brand.name)} {toCapitalize(subcategory?.name)}
+            </h1>
+          </Title>
 
           <div className='flex flex-col lg:flex-row gap-12'>
             <div className='w-full'>
@@ -84,12 +88,12 @@ export default function Page({ brand, subcategories, subcategory, brands }) {
 
             {!subcategory?.slug && (
               <div className='w-full lg:w-80 flex-shrink-0'>
-                <div className='border border-zinc-100 rounded shadow'>
-                  <div className='px-2 py-2 text-xl text-white bg-blue-700 font-bold'>
-                    Other Brands
-                  </div>
+                <div className='border border-zinc-200 rounded shadow px-4 py-5'>
+                  <Title>
+                    <h3>Other Brands</h3>
+                  </Title>
 
-                  <div className='px-4 py-3'>
+                  <div>
                     {brands?.map((brand, index) => (
                       <Link
                         key={index}
@@ -104,7 +108,7 @@ export default function Page({ brand, subcategories, subcategory, brands }) {
               </div>
             )}
           </div>
-        </Section>
+        </Container>
       </Layout>
     </>
   )

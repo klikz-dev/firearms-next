@@ -11,32 +11,32 @@ body {
 
 h1,
 .h1 {
-  @apply text-5xl font-display font-semibold uppercase leading-tight;
+  @apply text-4xl font-display font-semibold uppercase leading-tight;
 }
 
 h2,
 .h2 {
-  @apply text-4xl font-display font-semibold uppercase leading-tight;
+  @apply text-3xl font-display font-semibold uppercase leading-tight;
 }
 
 h3,
 .h3 {
-  @apply text-3xl font-display font-semibold uppercase leading-tight;
+  @apply text-2xl font-display font-semibold uppercase leading-tight;
 }
 
 h4,
 .h4 {
-  @apply text-2xl font-display font-medium uppercase leading-tight;
+  @apply text-xl font-display font-medium uppercase leading-tight;
 }
 
 h5,
 .h5 {
-  @apply text-xl font-display font-normal uppercase leading-tight;
+  @apply text-lg font-display font-normal uppercase leading-tight;
 }
 
 h6,
 .h6 {
-  @apply text-lg font-display leading-tight;
+  @apply text-base font-display leading-tight;
 }
 
 a {

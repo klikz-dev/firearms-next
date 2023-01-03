@@ -1,22 +1,24 @@
-import { useRef, createRef } from 'react'
-import { NextSeo } from 'next-seo'
 import Layout from '@/components/common/Layout'
-import Section from '@/components/atoms/Section'
-import Breadcrumbs from '@/components/atoms/Breadcrumbs'
-import { HomeIcon, ShoppingBagIcon } from '@heroicons/react/outline'
+import { NextSeo } from 'next-seo'
 import Link from '@/components/atoms/Link'
-import { alphabets } from '@/const/shop'
+import Container from '@/components/atoms/Container'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHomeAlt, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
+import Breadcrumbs from '@/components/molecules/Breadcrumbs'
+import { createRef, useRef } from 'react'
+import { alphabets } from '@/const/setting/shop'
 import isCharacter from '@/functions/isCharacter'
+import Title from '@/components/molecules/Title'
 
 export default function Page({ brands }) {
   const breadcrumbs = [
     {
-      icon: <HomeIcon width={20} className='text-blue-900' />,
+      icon: <FontAwesomeIcon icon={faHomeAlt} className={'text-sm w-6'} />,
       text: 'Home',
       link: '/',
     },
     {
-      icon: <ShoppingBagIcon width={20} className='text-blue-900' />,
+      icon: <FontAwesomeIcon icon={faShoppingBag} className={'text-sm w-6'} />,
       text: 'Prices',
       link: '/shop/',
     },
@@ -45,12 +47,12 @@ export default function Page({ brands }) {
       />
 
       <Layout>
-        <Section>
+        <Container className={`py-12`}>
           <Breadcrumbs breadcrumbs={breadcrumbs} />
 
-          <h1 className='text-4xl text-red-700 font-bold mt-4 mb-12'>
-            Shop All Brands
-          </h1>
+          <Title>
+            <h1>Shop All Brands</h1>
+          </Title>
 
           <div className='px-4 py-2 shadow bg-zinc-200 md:sticky md:top-0 flex flex-row flex-wrap gap-4 mb-16'>
             {alphabets.map((alphabet, index) => (
@@ -93,7 +95,7 @@ export default function Page({ brands }) {
               </div>
             ))}
           </div>
-        </Section>
+        </Container>
       </Layout>
     </>
   )

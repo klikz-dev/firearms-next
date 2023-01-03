@@ -1,8 +1,8 @@
 import Container from '@/components/atoms/Container'
-import GradientBorder from '@/components/atoms/GradientBorder'
 import Link from '@/components/atoms/Link'
 import Layout from '@/components/common/Layout'
 import Breadcrumbs from '@/components/molecules/Breadcrumbs'
+import Title from '@/components/molecules/Title'
 import PopularCategory from '@/components/organisms/Shop/Categories/Popular'
 import {
   faArrowRightLong,
@@ -22,18 +22,17 @@ export default function Page({
 }) {
   const breadcrumbs = [
     {
-      icon: <FontAwesomeIcon icon={faHomeAlt} />,
+      icon: <FontAwesomeIcon icon={faHomeAlt} className={'text-sm w-6'} />,
       text: 'Home',
       link: '/',
     },
     {
-      icon: <FontAwesomeIcon icon={faShoppingBag} />,
+      icon: <FontAwesomeIcon icon={faShoppingBag} className={'text-sm w-6'} />,
       text: 'Prices',
-      link: '/shop/',
     },
   ]
 
-  const today = moment().calendar()
+  const today = moment().format('MMMM YYYY')
 
   return (
     <>
@@ -43,11 +42,11 @@ export default function Page({
       />
 
       <Layout>
-        <Container>
+        <Container className={`py-12`}>
           <Breadcrumbs breadcrumbs={breadcrumbs} />
 
           <div className='mb-12'>
-            <h1 className='text-4xl text-red-700 font-bold my-4'>
+            <h1 className='text-red-700 font-bold my-4'>
               Most Popular Firearms in {today}
             </h1>
 
@@ -60,54 +59,70 @@ export default function Page({
               available. Below are the most popular guns for {today}.
             </p>
           </div>
-
-          <GradientBorder height={2} className={'w-96'} />
         </Container>
 
         <Container>
           <div className='flex flex-col lg:flex-row gap-8'>
             <div>
               <div className='mb-16'>
-                <h2 className='text-3xl font-bold mb-8'>Popular Handguns</h2>
+                <Title>
+                  <h2>Popular Handguns</h2>
+                </Title>
 
                 <PopularCategory pages={handgunsPages} />
 
                 <div className='flex justify-end mt-4 px-4'>
-                  <Link href='/shop/categories/popular/handguns/'>
+                  <Link
+                    href='/shop/categories/popular/handguns/'
+                    className={'text-red-700'}
+                  >
                     Shop All Handguns
-                    <FontAwesomeIcon icon={faArrowRightLong} />
+                    <FontAwesomeIcon
+                      icon={faArrowRightLong}
+                      className={`text-sm w-6`}
+                    />
                   </Link>
                 </div>
               </div>
 
               <div className='mb-16'>
-                <h2 className='text-3xl font-bold mb-8'>Popular Rifles</h2>
+                <Title>
+                  <h2>Popular Rifles</h2>
+                </Title>
 
                 <PopularCategory pages={riflesPages} />
 
                 <div className='flex justify-end mt-4 px-4'>
                   <Link
                     href='/shop/categories/popular/rifles/'
-                    className='flex text-blue-900 hover:text-blue-700 font-bold'
+                    className={'text-red-700'}
                   >
                     Shop All Rifles
-                    <FontAwesomeIcon icon={faArrowRightLong} />
+                    <FontAwesomeIcon
+                      icon={faArrowRightLong}
+                      className={`text-sm w-6`}
+                    />
                   </Link>
                 </div>
               </div>
 
               <div className='mb-16'>
-                <h2 className='text-3xl font-bold mb-8'>Popular Shotguns</h2>
+                <Title>
+                  <h2>Popular Shotguns</h2>
+                </Title>
 
                 <PopularCategory pages={shotgunsPages} />
 
                 <div className='flex justify-end mt-4 px-4'>
                   <Link
                     href='/shop/categories/popular/shotguns/'
-                    className='flex text-blue-900 hover:text-blue-700 font-bold'
+                    className={'text-red-700'}
                   >
                     Shop All Shotguns
-                    <FontAwesomeIcon icon={faArrowRightLong} />
+                    <FontAwesomeIcon
+                      icon={faArrowRightLong}
+                      className={`text-sm w-6`}
+                    />
                   </Link>
                 </div>
               </div>
@@ -115,15 +130,15 @@ export default function Page({
 
             <div className='w-80'>
               <div className='shadow-lg rounded border border-zinc-200 p-6 lg:mt-48 mb-12'>
-                <h3 className='text-2xl text-zinc-900 font-bold mb-4'>
-                  Top Brands
-                </h3>
+                <Title>
+                  <h3>Top Brands</h3>
+                </Title>
 
                 {brands?.map((brand, index) => (
                   <Link
                     key={index}
                     href={`/shop/brands/popular/${brand.slug}`}
-                    className='block capitalize text-blue-900 hover:text-blue-700 hover:underline font-semibold mb-1'
+                    className='block capitalize hover:text-red-800 hover:underline mb-1'
                   >
                     {brand.name}
                   </Link>
@@ -131,15 +146,15 @@ export default function Page({
               </div>
 
               <div className='shadow-lg rounded border border-zinc-200 p-6'>
-                <h3 className='text-2xl text-zinc-900 font-bold mb-4'>
-                  Top Categories
-                </h3>
+                <Title>
+                  <h3>Top Categories</h3>
+                </Title>
 
                 {categories?.map((category, index) => (
                   <Link
                     key={index}
-                    href={`/shop/categories/popular/${category.slug}`}
-                    className='block capitalize text-blue-900 hover:text-blue-700 hover:underline font-semibold mb-1'
+                    href={`/shop/brands/popular/${category.slug}`}
+                    className='block capitalize hover:text-red-800 hover:underline mb-1'
                   >
                     {category.name}
                   </Link>

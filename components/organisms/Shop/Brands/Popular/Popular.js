@@ -1,6 +1,8 @@
 import Button from '@/components/atoms/Button'
 import Image from '@/components/atoms/Image'
-import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/solid'
+import Link from '@/components/atoms/Link'
+import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function PopularBrand({ pages }) {
   return (
@@ -23,30 +25,29 @@ export default function PopularBrand({ pages }) {
           {pages.map((page, index) => (
             <tr key={index}>
               <td className='font-bold lg:px-2 text-center w-12 lg:w-24'>
-                <div className='flex justify-center items-end'>
-                  <div className='w-6 h-6 rounded-full bg-blue-500 text-white inline-flex justify-center items-center text-xs mr-3'>
+                <div className='flex justify-center items-center'>
+                  <div className='w-6 h-6 rounded-full bg-red-700 text-white inline-flex justify-center items-center text-xs mr-3'>
                     {index + 1}
                   </div>
 
-                  {index + 1 < page.pre_brand_rank && (
-                    <ArrowUpIcon
-                      width={20}
-                      className='text-sm hidden lg:inline-flex'
-                    />
+                  {index + 1 < page.pre_category_rank && (
+                    <FontAwesomeIcon icon={faArrowUp} />
                   )}
 
-                  {index + 1 > page.pre_brand_rank && (
-                    <ArrowDownIcon
-                      width={20}
-                      className='text-sm hidden lg:inline-flex'
-                    />
+                  {index + 1 > page.pre_category_rank && (
+                    <FontAwesomeIcon icon={faArrowDown} />
                   )}
                 </div>
               </td>
 
               <td className='lg:px-6 lg:py-4'>
                 <div className='relative w-16 h-16 lg:w-32 lg:h-32'>
-                  <Image src={page.thumb_url} fill={true} alt={page.title} />
+                  <Image
+                    src={page.thumb_url}
+                    fill={true}
+                    alt={page.title}
+                    className={'object-contain'}
+                  />
                 </div>
               </td>
 
@@ -61,11 +62,9 @@ export default function PopularBrand({ pages }) {
               </td>
 
               <td className='text-sm lg:text-base lg:w-40 py-4'>
-                <Button
-                  href={`/shop/${page.slug}/`}
-                  text='View Prices'
-                  type='secondary'
-                />
+                <Link href={`/shop/${page.slug}/`}>
+                  <Button color={'red'}>View Prices</Button>
+                </Link>
               </td>
             </tr>
           ))}

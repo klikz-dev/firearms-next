@@ -1,44 +1,45 @@
 import Layout from '@/components/common/Layout'
-import PopularBrand from '@/components/organisms/Shop/Brands/Popular'
 import { NextSeo } from 'next-seo'
-import dateFormat from 'dateformat'
 import { findBestMatch } from 'string-similarity'
-import Breadcrumbs from '@/components/atoms/Breadcrumbs'
-import Section from '@/components/atoms/Section'
-import Divider from '@/components/atoms/Divider'
 import Link from '@/components/atoms/Link'
-import { HomeIcon, ShoppingBagIcon } from '@heroicons/react/outline'
-import toCapitalize from '@/functions/toCapitalize'
 import Loading from '@/components/atoms/Loading'
 import { useRouter } from 'next/router'
+import Container from '@/components/atoms/Container'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHomeAlt, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
+import toCapitalize from '@/functions/toCapitalize'
+import moment from 'moment'
+import Breadcrumbs from '@/components/molecules/Breadcrumbs'
+import Title from '@/components/molecules/Title'
+import PopularBrand from '@/components/organisms/Shop/Brands/Popular/Popular'
 
 export default function Page({ brand, pages, relatedBrands }) {
   const router = useRouter()
   if (router.isFallback) {
     return (
       <Layout>
-        <Section>
-          <Loading></Loading>
-        </Section>
+        <Container>
+          <Loading />
+        </Container>
       </Layout>
     )
   }
 
   const breadcrumbs = [
     {
-      icon: <HomeIcon width={20} className='text-blue-900' />,
+      icon: <FontAwesomeIcon icon={faHomeAlt} className={'text-sm w-6'} />,
       text: 'Home',
       link: '/',
     },
     {
-      icon: <ShoppingBagIcon width={20} className='text-blue-900' />,
+      icon: <FontAwesomeIcon icon={faShoppingBag} className={'text-sm w-6'} />,
       text: 'Prices',
       link: '/shop/',
     },
     { text: toCapitalize(brand.name) },
   ]
 
-  const today = dateFormat(new Date(), 'mmmm yyyy')
+  const today = moment().format('MMMM YYYY')
 
   return (
     <>
@@ -52,57 +53,50 @@ export default function Page({ brand, pages, relatedBrands }) {
       />
 
       <Layout>
-        <Section>
+        <Container className={`py-12`}>
           <Breadcrumbs breadcrumbs={breadcrumbs} />
 
-          <div className='grid lg:grid-cols-3 gap-8 lg:gap-16 mb-12'>
-            <div className='lg:col-span-2'>
-              <h1 className='text-4xl text-red-700 font-bold my-4'>
-                Most Popular {brand.name} Products in {today}
-              </h1>
+          <Title className={'mt-4 mb-8'}>
+            <h1>
+              The Top {pages.length} Most Popular {brand.name} Products in{' '}
+              {today}
+            </h1>
+          </Title>
 
-              <p className='text-lg'>
-                Every month AmericanFirearms.org publishes the monthly Most
-                Popular {brand.name} Report, highlighting the {pages.length}{' '}
-                most popular {brand.name} in month. We partner with retailers,
-                brands, manufacturers, and auction sites to algorithmically
-                compile price and sales trends so you'll have up-to-date
-                information on the most popular {brand.name} available. Below
-                are the most popular {brand.name} for {today}.
-              </p>
-            </div>
-          </div>
+          <p className='text-lg'>
+            Every month AmericanFirearms.org publishes the monthly Most Popular{' '}
+            {brand.name} Report, highlighting the {pages.length} most popular{' '}
+            {brand.name} in month. We partner with retailers, brands,
+            manufacturers, and auction sites to algorithmically compile price
+            and sales trends so you'll have up-to-date information on the most
+            popular {brand.name} available. Below are the most popular{' '}
+            {brand.name} for {today}.
+          </p>
+        </Container>
 
-          <Divider />
-        </Section>
-
-        <Section>
-          <h2 className='text-3xl font-bold mb-8'>
-            The Top {pages.length} Most Popular {brand.name} Products in {today}
-          </h2>
-
+        <Container className={`py-12`}>
           <PopularBrand pages={pages} />
-        </Section>
+        </Container>
 
-        <Section>
-          <div className='shadow-lg rounded border border-zinc-100 p-6'>
-            <h3 className='text-2xl text-zinc-900 font-bold mb-4'>
-              More Popular Brands
-            </h3>
+        <Container className={`py-12`}>
+          <div className='shadow-lg rounded border border-zinc-200 p-6'>
+            <Title>
+              <h3>More Popular Brands</h3>
+            </Title>
 
             <div className='grid md:grid-cols-2'>
               {relatedBrands?.map((brand, index) => (
                 <Link
                   key={index}
                   href={`/shop/brands/popular/${brand.slug}`}
-                  className='block capitalize text-blue-900 hover:text-blue-700 hover:underline font-semibold mb-1'
+                  className='block capitalize text-red-700 hover:text-red-800 hover:underline mb-1'
                 >
                   {brand.name}
                 </Link>
               ))}
             </div>
           </div>
-        </Section>
+        </Container>
       </Layout>
     </>
   )

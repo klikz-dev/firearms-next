@@ -1,44 +1,45 @@
 import Layout from '@/components/common/Layout'
 import PopularCategory from '@/components/organisms/Shop/Categories/Popular'
 import { NextSeo } from 'next-seo'
-import dateFormat from 'dateformat'
 import { findBestMatch } from 'string-similarity'
-import { HomeIcon, ShoppingBagIcon } from '@heroicons/react/outline'
-import Section from '@/components/atoms/Section'
-import Divider from '@/components/atoms/Divider'
 import Link from '@/components/atoms/Link'
-import Breadcrumbs from '@/components/atoms/Breadcrumbs'
-import toCapitalize from '@/functions/toCapitalize'
 import Loading from '@/components/atoms/Loading'
 import { useRouter } from 'next/router'
+import Container from '@/components/atoms/Container'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHomeAlt, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
+import toCapitalize from '@/functions/toCapitalize'
+import moment from 'moment'
+import Breadcrumbs from '@/components/molecules/Breadcrumbs'
+import Title from '@/components/molecules/Title'
 
 export default function Page({ category, pages, relatedCategories }) {
   const router = useRouter()
   if (router.isFallback) {
     return (
       <Layout>
-        <Section>
-          <Loading></Loading>
-        </Section>
+        <Container>
+          <Loading />
+        </Container>
       </Layout>
     )
   }
 
   const breadcrumbs = [
     {
-      icon: <HomeIcon width={20} className='text-blue-900' />,
+      icon: <FontAwesomeIcon icon={faHomeAlt} className={'text-sm w-6'} />,
       text: 'Home',
       link: '/',
     },
     {
-      icon: <ShoppingBagIcon width={20} className='text-blue-900' />,
+      icon: <FontAwesomeIcon icon={faShoppingBag} className={'text-sm w-6'} />,
       text: 'Prices',
       link: '/shop/',
     },
     { text: toCapitalize(category.name) },
   ]
 
-  const today = dateFormat(new Date(), 'mmmm yyyy')
+  const today = moment().format('MMMM YYYY')
 
   return (
     <>
@@ -52,44 +53,35 @@ export default function Page({ category, pages, relatedCategories }) {
       />
 
       <Layout>
-        <Section>
+        <Container className={`py-12`}>
           <Breadcrumbs breadcrumbs={breadcrumbs} />
 
-          <div className='grid lg:grid-cols-3 gap-8 lg:gap-16 mb-12'>
-            <div className='lg:col-span-2'>
-              <h1 className='text-4xl text-red-700 font-bold my-4'>
-                Most Popular {category.name} in {today}
-              </h1>
+          <Title className={'mt-4 mb-8'}>
+            <h1>
+              The Top {pages.length} Most Popular {category.name} in {today}
+            </h1>
+          </Title>
 
-              <p className='text-lg'>
-                Every month AmericanFirearms.org publishes the monthly Most
-                Popular {category.name} Report, highlighting the {pages.length}{' '}
-                most popular {category.name} in that month. We partner with
-                retailers, brands, manufacturers, and auction sites to
-                algorithmically compile price and sales trends so you'll have
-                up-to-date information on the most popular {category.name}{' '}
-                available. Below are the most popular {category.name} for{' '}
-                {today}.
-              </p>
-            </div>
-          </div>
+          <p className='text-lg'>
+            Every month AmericanFirearms.org publishes the monthly Most Popular{' '}
+            {category.name} Report, highlighting the {pages.length} most popular{' '}
+            {category.name} in that month. We partner with retailers, brands,
+            manufacturers, and auction sites to algorithmically compile price
+            and sales trends so you'll have up-to-date information on the most
+            popular {category.name} available. Below are the most popular{' '}
+            {category.name} for {today}.
+          </p>
+        </Container>
 
-          <Divider />
-        </Section>
-
-        <Section>
-          <h2 className='text-3xl font-bold mb-8'>
-            The Top {pages.length} Most Popular {category.name} in {today}
-          </h2>
-
+        <Container className={`py-12`}>
           <PopularCategory pages={pages} />
-        </Section>
+        </Container>
 
-        <Section>
+        <Container className={`py-12`}>
           <div className='shadow-lg rounded border border-zinc-100 p-6'>
-            <h3 className='text-2xl text-zinc-900 font-bold mb-4'>
-              More Most Popular Lists
-            </h3>
+            <Title>
+              <h3>More Most Popular Lists</h3>
+            </Title>
 
             <div className='grid md:grid-cols-2'>
               {relatedCategories?.map((category, index) => (
@@ -103,7 +95,7 @@ export default function Page({ category, pages, relatedCategories }) {
               ))}
             </div>
           </div>
-        </Section>
+        </Container>
       </Layout>
     </>
   )

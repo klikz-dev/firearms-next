@@ -1,6 +1,7 @@
 import Button from '@/components/atoms/Button'
 import Image from '@/components/atoms/Image'
 import Link from '@/components/atoms/Link'
+import Title from '@/components/molecules/Title'
 import toCapitalize from '@/functions/toCapitalize'
 
 export default function Subcategory({ brandSlug, subcategory, collapse }) {
@@ -22,11 +23,11 @@ export default function Subcategory({ brandSlug, subcategory, collapse }) {
   return (
     <>
       {pages?.length > 0 && (
-        <div className='p-8 border border-zinc-100 rounded shadow-lg mb-12'>
+        <div className='p-8 border border-zinc-200 rounded shadow-lg mb-12'>
           {collapse && (
-            <h2 className='text-2xl font-bold mb-6 underline'>
-              {toCapitalize(subcategory?.name)}
-            </h2>
+            <Title>
+              <h2>{toCapitalize(subcategory?.name)}</h2>
+            </Title>
           )}
 
           <div className='grid lg:grid-cols-3 gap-8 mb-8'>
@@ -34,20 +35,23 @@ export default function Subcategory({ brandSlug, subcategory, collapse }) {
               ?.slice(0, collapse ? 3 : pages?.length)
               .map((page, index) => (
                 <div key={index} className='mb-8'>
-                  <h3 className='text-lg font-semibold line-clamp-2 mb-3 text-center'>
+                  <h5 className='line-clamp-2 mb-3 text-center'>
                     {toCapitalize(page.title)}
-                  </h3>
+                  </h5>
 
                   <div className='relative w-full h-36 mb-2 '>
-                    <Image src={page.image} fill={true} />
+                    <Image
+                      src={page.image}
+                      fill={true}
+                      className={'object-contain'}
+                      alt={page.title}
+                    />
                   </div>
 
                   <div className='flex justify-center'>
-                    <Button
-                      href={`/shop/${page.slug}/`}
-                      text='View Prices'
-                      type='secondary'
-                    />
+                    <Link href={`/shop/${page.slug}/`}>
+                      <Button color={'red'}>View Prices</Button>
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -57,7 +61,7 @@ export default function Subcategory({ brandSlug, subcategory, collapse }) {
             <div className='flex justify-end'>
               <Link
                 href={`/shop/brands/${brandSlug}/${subcategory?.slug}`}
-                className='text-blue-800 font-bold underline'
+                className='text-red-700 underline'
               >
                 View all {subcategory?.name}
               </Link>

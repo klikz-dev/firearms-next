@@ -83,6 +83,6 @@ export const menu = [
   },
   {
     label: 'Contact',
-    path: '/contact',
+    path: '/contact-us',
   },
 ]

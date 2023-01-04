@@ -1,5 +1,6 @@
 import Authors from './Authors'
 import CategorySection from './CategorySection'
+import ContactForm from './ContactForm'
 import IconGroup from './IconGroup'
 import IconHighlights from './IconHighlights'
 import LatestPosts from './LatestPosts'
@@ -31,6 +32,9 @@ export default function PageContent({ content }) {
 
           case 'Page_Pagecontent_Content_CategorySection':
             return <CategorySection key={index} index={index} {...section} />
+
+          case 'Page_Pagecontent_Content_ContactForm':
+            return <ContactForm key={index} {...section} />
 
           default:
             return <div key={index}></div>

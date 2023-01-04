@@ -139,6 +139,10 @@ query GetPage($slug: ID!) {
             text
           }
         }
+        ... on Page_Pagecontent_Content_ContactForm {
+          content
+          formTitle
+        }
       }
     }
   }

@@ -38,7 +38,7 @@ export default function Hero({
               }
             >
               {link && <Date date={link.date} className={'text-white'} />}
-              <h2 className={'text-white'}>{title}</h2>
+              <h1 className={'text-white'}>{title}</h1>
 
               <div className={'pt-0.5 bg-white w-12 my-5'} />
 

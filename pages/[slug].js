@@ -92,7 +92,7 @@ export async function getStaticProps({ params }) {
     },
   })
 
-  if (postError) {
+  if (postError || !postData?.post) {
     return {
       notFound: true,
     }

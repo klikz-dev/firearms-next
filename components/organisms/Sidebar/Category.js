@@ -7,7 +7,7 @@ export default function Category({ posts, link }) {
   return (
     <>
       {posts?.map((post, index) => (
-        <Link href={`/posts/${post.slug}`} key={index}>
+        <Link href={`/${post.slug}`} key={index}>
           <div className={'mb-4'}>
             <div className={'relative h-56 flex flex-col justify-end z-10'}>
               <Background

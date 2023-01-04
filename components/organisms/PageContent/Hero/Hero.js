@@ -44,7 +44,7 @@ export default function Hero({
 
               <p className={'text-white mb-6'}>{subtitle}</p>
 
-              {link && <Button href={`/posts/${link.slug}`}>Learn More</Button>}
+              {link && <Button href={`/${link.slug}`}>Learn More</Button>}
             </div>
           </Container>
         </div>
@@ -76,7 +76,7 @@ export default function Hero({
 
             <p className={'text-white mb-6'}>{subtitle}</p>
 
-            {link && <Button href={`/posts/${link.slug}`}>Learn More</Button>}
+            {link && <Button href={`/${link.slug}`}>Learn More</Button>}
           </div>
         </Container>
       </div>

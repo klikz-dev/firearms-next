@@ -24,7 +24,7 @@ export default function LatestPosts({ title, category }) {
 
       <div className={'grid grid-cols-4 gap-3'}>
         {posts?.nodes?.map((post, index) => (
-          <Link key={index} href={`/posts/${post.slug}`}>
+          <Link key={index} href={`/${post.slug}`}>
             <div className={'border-b-2'}>
               <div className={'relative h-48 mb-3'}>
                 <Image

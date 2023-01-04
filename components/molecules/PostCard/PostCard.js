@@ -9,7 +9,7 @@ import Background from '../Background'
 
 export function PostCardOverlay({ post, className }) {
   return (
-    <Link href={`/posts/${post.slug}`}>
+    <Link href={`/${post.slug}`}>
       <div
         className={classNames(
           'relative h-96 flex flex-col justify-end',
@@ -53,7 +53,7 @@ export function PostCardHorizontal({ post, className }) {
           </HTMLContent>
         </div>
 
-        <Link href={`/posts/${post.slug}`}>
+        <Link href={`/${post.slug}`}>
           <Button color={'red'} size={'sm'}>
             Learn More
           </Button>
@@ -80,7 +80,7 @@ export function PostCardVertical({ post, className }) {
         <HTMLContent className={'line-clamp-2 mb-2'}>
           {post.excerpt}
         </HTMLContent>
-        <Link href={`/posts/${post.slug}`} className={'text-lg text-red-700'}>
+        <Link href={`/${post.slug}`} className={'text-lg text-red-700'}>
           Learn More
         </Link>
       </div>

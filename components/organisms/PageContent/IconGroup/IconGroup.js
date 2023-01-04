@@ -8,7 +8,7 @@ export default function IconGroup({ title, icon }) {
     <div className={'bg-zinc-200/60 py-20'}>
       <Container>
         <Title className={'mb-12'}>
-          <h3>{title}</h3>
+          <h2>{title}</h2>
         </Title>
 
         <div className={'grid grid-cols-5 gap-3'}>
@@ -19,11 +19,11 @@ export default function IconGroup({ title, icon }) {
                   'h-full p-8 flex flex-col justify-center items-center bg-white border-t border-b-8 border-white hover:border-red-700 hover:shadow-lg'
                 }
               >
-                <div className={'relative rounded-full overflow-hidden'}>
+                <div className={'relative'}>
                   <Image
                     src={icon.image?.sourceUrl}
-                    width={icon.image?.mediaDetails?.width}
-                    height={icon.image?.mediaDetails?.height}
+                    width={icon.image?.mediaDetails?.width || 80}
+                    height={icon.image?.mediaDetails?.height || 80}
                     alt={icon.image?.altText}
                     className={'object-contain'}
                   />

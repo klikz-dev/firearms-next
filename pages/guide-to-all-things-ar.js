@@ -75,7 +75,7 @@ export async function getStaticProps() {
     },
   })
 
-  if (pageError) {
+  if (pageError || !pageData?.page) {
     return {
       notFound: true,
     }

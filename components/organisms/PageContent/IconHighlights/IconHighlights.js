@@ -7,7 +7,7 @@ export default function IconHighlights({ title, icons }) {
     <div className={'py-20'}>
       <Container className={'text-center'}>
         <Title className={'mb-12'}>
-          <h3>{title}</h3>
+          <h2>{title}</h2>
         </Title>
 
         <div className={'grid grid-cols-3 gap-3 pt-16'}>
@@ -18,11 +18,11 @@ export default function IconHighlights({ title, icons }) {
                 'h-full p-8 flex flex-col justify-center items-center border border-red-600 relative'
               }
             >
-              <div className={'absolute -top-20'}>
+              <div className={'absolute -top-20 bg-white'}>
                 <Image
                   src={icon.icon?.sourceUrl}
-                  width={icon.icon?.mediaDetails?.width}
-                  height={icon.icon?.mediaDetails?.height}
+                  width={icon.icon?.mediaDetails?.width || 140}
+                  height={icon.icon?.mediaDetails?.height || 140}
                   alt={icon.icon?.altText}
                   className={'object-contain'}
                 />

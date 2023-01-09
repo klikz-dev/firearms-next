@@ -33,8 +33,8 @@ export default function ContactForm({ content, formTitle }) {
   }
 
   return (
-    <Container className={'py-20 max-w-5xl'}>
-      <div className={'grid grid-cols-2 gap-16'}>
+    <Container className={'py-8 lg:py-20 max-w-5xl'}>
+      <div className={'grid lg:grid-cols-2 gap-16'}>
         <div>
           <HTMLContent>{content}</HTMLContent>
         </div>

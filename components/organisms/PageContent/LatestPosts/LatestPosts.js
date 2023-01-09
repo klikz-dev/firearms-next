@@ -22,7 +22,7 @@ export default function LatestPosts({ title, category }) {
         </Link>
       </div>
 
-      <div className={'grid grid-cols-4 gap-3'}>
+      <div className={'grid md:grid-cols-2 lg:grid-cols-4 gap-3'}>
         {posts?.nodes?.map((post, index) => (
           <Link key={index} href={`/${post.slug}`}>
             <div className={'border-b-2'}>

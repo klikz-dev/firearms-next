@@ -33,8 +33,8 @@ export function PostCardOverlay({ post, className }) {
 
 export function PostCardHorizontal({ post, className }) {
   return (
-    <div className={classNames('border flex flex-row', className)}>
-      <div className={'relative w-2/5 h-72 flex flex-col justify-end'}>
+    <div className={classNames('border md:flex md:flex-row', className)}>
+      <div className={'relative md:w-2/5 h-72 flex flex-col justify-end'}>
         <Image
           src={post.featuredImage?.node?.sourceUrl}
           fill={true}
@@ -43,7 +43,7 @@ export function PostCardHorizontal({ post, className }) {
         />
       </div>
 
-      <div className={'p-6 w-3/5 flex flex-col justify-between'}>
+      <div className={'p-6 md:w-3/5 flex flex-col justify-between'}>
         <div>
           <Date date={post.date} className={''} />
           <h4 className={'mb-4 line-clamp-2'}>{post.title}</h4>

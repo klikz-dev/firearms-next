@@ -5,18 +5,18 @@ import Title from '@/components/molecules/Title'
 
 export default function IconGroup({ title, icon }) {
   return (
-    <div className={'bg-zinc-200/60 py-20'}>
+    <div className={'bg-zinc-200/60 py-10 lg:py-20'}>
       <Container>
         <Title className={'mb-12'}>
           <h2>{title}</h2>
         </Title>
 
-        <div className={'grid grid-cols-5 gap-3'}>
+        <div className={'grid grid-cols-2 lg:grid-cols-5 gap-3'}>
           {icon?.map((icon, index) => (
             <Link key={index} href={icon.link} className={'border-t border-b'}>
               <div
                 className={
-                  'h-full p-8 flex flex-col justify-center items-center bg-white border-t border-b-8 border-white hover:border-red-700 hover:shadow-lg'
+                  'h-full p-4 lg:p-8 flex flex-col justify-center items-center bg-white border-t border-b-8 border-white hover:border-red-700 hover:shadow-lg'
                 }
               >
                 <div className={'relative'}>

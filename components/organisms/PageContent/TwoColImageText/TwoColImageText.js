@@ -15,15 +15,15 @@ export default function TwoColImageText({
   imagePosition,
 }) {
   return (
-    <div className={'bg-zinc-200/60 py-20'}>
+    <div className={'bg-zinc-200/60 pt-10 lg:pt-20 pb-10 lg:pb-20'}>
       <Container>
         <div
           className={classNames(
-            `flex gap-8 justify-between items-center`,
+            `flex flex-col lg:flex-row gap-20 lg:gap-8 justify-between items-center`,
             imagePosition === 'right' ? 'flex-row' : 'flex-row-reverse'
           )}
         >
-          <div className={'w-1/2'}>
+          <div className={'lg:w-1/2'}>
             <Title className={'mb-12'}>
               <h2>{title}</h2>
             </Title>
@@ -37,7 +37,7 @@ export default function TwoColImageText({
             )}
           </div>
 
-          <div className={'w-1/2'}>
+          <div className={'lg:w-1/2'}>
             <Image
               src={image?.sourceUrl}
               width={image?.mediaDetails?.width}

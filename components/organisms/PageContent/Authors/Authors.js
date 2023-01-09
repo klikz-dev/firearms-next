@@ -16,10 +16,12 @@ export default function Authors({ authors }) {
             key={index}
             className={classNames(
               `flex gap-8 lg:gap-32 justify-between items-center mb-12`,
-              index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
+              index % 2 === 0
+                ? 'flex-col-reverse lg:flex-row'
+                : 'flex-col-reverse lg:flex-row-reverse'
             )}
           >
-            <div className={'w-1/2'}>
+            <div className={'lg:w-1/2'}>
               <h2 className={'mb-1'}>{author.name}</h2>
 
               <p>{author.title}</p>
@@ -60,7 +62,7 @@ export default function Authors({ authors }) {
               </div>
             </div>
 
-            <div className={'w-1/2'}>
+            <div className={'lg:w-1/2'}>
               <Image
                 src={author.photo?.sourceUrl}
                 width={author.photo?.mediaDetails?.width}

@@ -161,7 +161,9 @@ export default function Sidebar() {
 
   return (
     <div>
-      <Subscribe />
+      <div className={'hidden lg:block'}>
+        <Subscribe />
+      </div>
 
       <Title>
         <h3>View by Category</h3>

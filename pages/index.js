@@ -57,7 +57,7 @@ export default function Page({ pageData, postsData }) {
               <PostCardOverlay post={posts?.nodes?.[0]} />
             </div>
 
-            <div className={'grid grid-cols-2 gap-4 mb-6'}>
+            <div className={'grid md:grid-cols-2 gap-4 mb-6'}>
               <PostCardVertical post={posts?.nodes?.[1]} />
               <PostCardVertical post={posts?.nodes?.[2]} />
             </div>

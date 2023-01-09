@@ -10,7 +10,7 @@ export default function IconHighlights({ title, icons }) {
           <h2>{title}</h2>
         </Title>
 
-        <div className={'grid grid-cols-3 gap-3 pt-16'}>
+        <div className={'grid lg:grid-cols-3 gap-24 lg:gap-4 pt-16'}>
           {icons?.map((icon, index) => (
             <div
               key={index}

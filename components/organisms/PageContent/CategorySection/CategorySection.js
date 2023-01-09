@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function CategorySection({ index, title, text, image, links }) {
   return (
-    <Container className={'py-20 border-b-2 pb-8'} id={convertToSlug(title)}>
+    <Container className={'py-8 lg:pt-20 border-b-2'} id={convertToSlug(title)}>
       <Image
         src={image?.sourceUrl}
         width={image?.mediaDetails?.width}
@@ -26,7 +26,7 @@ export default function CategorySection({ index, title, text, image, links }) {
 
         <p className={'mb-8'}>{text}</p>
 
-        <div className={'grid grid-cols-3 gap-4'}>
+        <div className={'grid lg:grid-cols-3 gap-4'}>
           {links?.map((link, i1) => (
             <div key={i1}>
               <FontAwesomeIcon

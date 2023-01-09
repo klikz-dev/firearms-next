@@ -10,13 +10,14 @@ import Button from '@/components/atoms/Button'
 import { useState } from 'react'
 import Title from '@/components/molecules/Title'
 import NewspaperImage from '@/images/newsletter.png'
+import Subscribe from '../Sidebar/Subscribe'
 
 export default function Footer() {
   const [email, setEmail] = useState('')
 
   return (
     <footer>
-      <Container className={'mb-8'}>
+      <Container className={'mb-8 hidden lg:block'}>
         <div className='relative'>
           <Image src={NewspaperImage} alt={'Newsletter'} />
 
@@ -51,9 +52,13 @@ export default function Footer() {
         </div>
       </Container>
 
+      <div className={'lg-hidden'}>
+        <Subscribe />
+      </div>
+
       <Container>
         <div className={'flex flex-col lg:flex-row justify-between gap-4 py-4'}>
-          <div className={'w-5/12'}>
+          <div className={'lg:w-5/12'}>
             <Title>
               <h4>About Us</h4>
             </Title>
@@ -64,7 +69,7 @@ export default function Footer() {
           </div>
 
           {menu?.map((menuItem, i1) => (
-            <div key={i1} className={'w-1/6'}>
+            <div key={i1} className={'lg:w-1/6'}>
               <Title>
                 <h4>{menuItem.label}</h4>
               </Title>
@@ -106,7 +111,7 @@ export default function Footer() {
               <div
                 key={index}
                 className={
-                  'px-2 lg:border-r border-gray-500 text-sm last:border-none'
+                  'px-2 lg:border-r border-gray-500 text-sm last:border-none mb-2 lg:mb-0'
                 }
               >
                 <Link

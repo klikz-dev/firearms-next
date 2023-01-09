@@ -111,7 +111,7 @@ export default function TOCNav({ toc_items }) {
       <div className='block md:hidden w-full sticky top-0 bg-zinc-100 z-30'>
         {toc_items?.length > 0 ? (
           <Popover>
-            <Popover.Button className='toc_button group uppercase inline-flex items-center hover:text-blue-900 font-bold w-full border rounded px-4 py-2 text-center justify-between'>
+            <Popover.Button className='toc_button group inline-flex items-center hover:text-red-900 w-full border rounded px-4 py-2 text-center justify-between'>
               <span>{toc_items.find((item) => item.id === active)?.label}</span>
 
               <FontAwesomeIcon icon={faChevronDown} />
@@ -127,7 +127,7 @@ export default function TOCNav({ toc_items }) {
                     key={label}
                     href={`#${id}`}
                     type='tertiary'
-                    className='block mb-2 font-semibold'
+                    className='block mb-2'
                   >
                     {label}
                   </Link>

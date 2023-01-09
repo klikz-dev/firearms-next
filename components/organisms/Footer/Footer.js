@@ -90,7 +90,7 @@ export default function Footer() {
             Copyright © 2022 American Firearms LLC. All rights reserved.
           </p>
 
-          <div className='flex flex-row'>
+          <div className='flex flex-col lg:flex-row'>
             {[
               { label: 'Terms of Use', path: '/terms-of-use' },
               { label: 'Privacy Policy ', path: '/terms-of-use' },
@@ -106,7 +106,7 @@ export default function Footer() {
               <div
                 key={index}
                 className={
-                  'px-2 border-r border-gray-500 text-sm last:border-none'
+                  'px-2 lg:border-r border-gray-500 text-sm last:border-none'
                 }
               >
                 <Link

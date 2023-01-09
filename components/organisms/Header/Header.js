@@ -2,7 +2,12 @@ import Container from '@/components/atoms/Container'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from '@/components/atoms/Link'
 import Logo from '@/components/molecules/Logo'
-import { faAngleDown, faSearch } from '@fortawesome/free-solid-svg-icons'
+import {
+  faAngleDown,
+  faBarsStaggered,
+  faClose,
+  faSearch,
+} from '@fortawesome/free-solid-svg-icons'
 import GradientBorder from '@/components/atoms/GradientBorder'
 import Social from '@/components/molecules/Social'
 import Input from '@/components/atoms/Input'
@@ -16,12 +21,120 @@ import classNames from 'classnames'
 export default function Header() {
   const [search, setSearch] = useState('')
 
+  const [mobileActiveMenu, setMobileActiveMenu] = useState('')
+
   return (
     <header>
       <div className={'border-b shadow'}>
         <GradientBorder height={4} />
 
-        <Container>
+        <Container className={'lg:hidden'}>
+          <div
+            className={'flex flex-row justify-between items-center gap-2 py-1'}
+          >
+            <Logo />
+
+            <Popover>
+              {({ open, close }) => (
+                <>
+                  <Popover.Button
+                    className={classNames(
+                      'group ring-0 outline-none w-10 h-10 rounded-full bg-gradient-to-r from-red-800 to-red-500',
+                      open && 'border-red-700'
+                    )}
+                  >
+                    <FontAwesomeIcon
+                      icon={faBarsStaggered}
+                      className={'text-white'}
+                    />
+                  </Popover.Button>
+
+                  <Transition>
+                    <Popover.Panel
+                      className={
+                        'absolute z-50 w-full left-0 top-0 bg-transparent p-2'
+                      }
+                    >
+                      <div
+                        className={
+                          'bg-zinc-100 px-4 py-6 rounded shadow-xl border relative'
+                        }
+                      >
+                        <FontAwesomeIcon
+                          icon={faClose}
+                          onClick={() => close()}
+                          className={'absolute right-5 top-5 w-6 h-6'}
+                        />
+
+                        {menu.map((menuItem, i2) => (
+                          <div key={i2} className={'block mb-3'}>
+                            {menuItem.path ? (
+                              <Link
+                                href={menuItem.path}
+                                className={
+                                  'uppercase border-b border-white hover:border-red-700'
+                                }
+                              >
+                                {menuItem.label}
+                              </Link>
+                            ) : (
+                              <>
+                                <div
+                                  className={classNames(
+                                    'group uppercase font-display inline-flex items-center gap-1 ring-0 outline-none',
+                                    open && 'border-red-700'
+                                  )}
+                                  onClick={() =>
+                                    mobileActiveMenu !== menuItem.label
+                                      ? setMobileActiveMenu(menuItem.label)
+                                      : setMobileActiveMenu('')
+                                  }
+                                >
+                                  <span>{menuItem.label}</span>
+
+                                  <FontAwesomeIcon
+                                    icon={faAngleDown}
+                                    className={'w-8 h-3'}
+                                  />
+                                </div>
+
+                                <div
+                                  className={classNames(
+                                    mobileActiveMenu !== menuItem.label
+                                      ? 'hidden'
+                                      : '',
+                                    'my-4'
+                                  )}
+                                >
+                                  {menuItem.subMenus?.map((subMenu, i2) => (
+                                    <div key={i2} className={'block mb-3'}>
+                                      <Link
+                                        href={subMenu.path}
+                                        className={
+                                          'ml-2 uppercase text-zinc-600'
+                                        }
+                                      >
+                                        {subMenu.label}
+                                      </Link>
+                                    </div>
+                                  ))}
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        ))}
+
+                        <Social className={'mt-8'} />
+                      </div>
+                    </Popover.Panel>
+                  </Transition>
+                </>
+              )}
+            </Popover>
+          </div>
+        </Container>
+
+        <Container className={'hidden lg:block'}>
           <div
             className={'flex flex-row justify-between items-center gap-2 py-1'}
           >
@@ -47,7 +160,7 @@ export default function Header() {
           </div>
         </Container>
 
-        <Container>
+        <Container className={'hidden lg:block'}>
           <div
             className={
               'flex flex-row justify-between items-center py-3 border-t'

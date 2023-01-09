@@ -9,61 +9,85 @@ export default function Hero({
   link,
   backgroundImage,
   redBackground,
+  mobileBackground,
 }) {
-  if (redBackground) {
-    return (
-      <div className={'relative'}>
-        <div className={'flex flex-row justify-end'}>
-          <div className={'relative h-96 w-3/5'}>
+  return (
+    <>
+      <div className={'hidden lg:block'}>
+        {redBackground ? (
+          <div className={'relative'}>
+            <div className={'flex flex-row justify-end'}>
+              <div className={'relative h-96 w-3/5'}>
+                <Image
+                  src={backgroundImage?.sourceUrl}
+                  fill={true}
+                  alt={backgroundImage?.altText}
+                  className={'object-cover'}
+                />
+              </div>
+            </div>
+
+            <div
+              className={'absolute top-0 left-0 w-full h-full'}
+              style={{
+                background:
+                  'linear-gradient(115deg, #991b1b 0%, #ef4444 50%, transparent 50%, transparent 100%)',
+              }}
+            >
+              <Container className={'py-20 h-full'}>
+                <div
+                  className={
+                    'max-w-sm h-full flex flex-col justify-center items-start'
+                  }
+                >
+                  {link && <Date date={link.date} className={'text-white'} />}
+                  <h1 className={'text-white'}>{title}</h1>
+
+                  <div className={'pt-0.5 bg-white w-12 my-5'} />
+
+                  <p className={'text-white mb-6'}>{subtitle}</p>
+
+                  {link && <Button href={`/${link.slug}`}>Learn More</Button>}
+                </div>
+              </Container>
+            </div>
+          </div>
+        ) : (
+          <div className={'relative'}>
             <Image
               src={backgroundImage?.sourceUrl}
-              fill={true}
+              width={backgroundImage?.mediaDetails?.width}
+              height={backgroundImage?.mediaDetails?.height}
               alt={backgroundImage?.altText}
-              className={'object-cover'}
+              className={'w-full'}
             />
-          </div>
-        </div>
 
-        <div
-          className={'absolute top-0 left-0 w-full h-full'}
-          style={{
-            background:
-              'linear-gradient(115deg, #991b1b 0%, #ef4444 50%, transparent 50%, transparent 100%)',
-          }}
-        >
-          <Container className={'py-20 h-full'}>
-            <div
-              className={
-                'max-w-sm h-full flex flex-col justify-center items-start'
-              }
-            >
-              {link && <Date date={link.date} className={'text-white'} />}
-              <h1 className={'text-white'}>{title}</h1>
+            <div className={'absolute top-0 left-0 w-full h-full'}>
+              <Container className={'py-20 h-full'}>
+                <div
+                  className={
+                    'max-w-sm h-full flex flex-col justify-center items-start'
+                  }
+                >
+                  {link && <Date date={link.date} className={'text-white'} />}
+                  <h2 className={'text-white'}>{title}</h2>
 
-              <div className={'pt-0.5 bg-white w-12 my-5'} />
+                  <div className={'h-1 bg-white w-12 my-5'} />
 
-              <p className={'text-white mb-6'}>{subtitle}</p>
+                  <p className={'text-white mb-6'}>{subtitle}</p>
 
-              {link && <Button href={`/${link.slug}`}>Learn More</Button>}
+                  {link && <Button href={`/${link.slug}`}>Learn More</Button>}
+                </div>
+              </Container>
             </div>
-          </Container>
-        </div>
+          </div>
+        )}
       </div>
-    )
-  }
 
-  return (
-    <div className={'relative'}>
-      <Image
-        src={backgroundImage?.sourceUrl}
-        width={backgroundImage?.mediaDetails?.width}
-        height={backgroundImage?.mediaDetails?.height}
-        alt={backgroundImage?.altText}
-        className={'w-full'}
-      />
-
-      <div className={'absolute top-0 left-0 w-full h-full'}>
-        <Container className={'py-20 h-full'}>
+      <div className={'lg:hidden'}>
+        <Container
+          className={'py-10 h-full bg-gradient-to-r from-red-800 to-red-500'}
+        >
           <div
             className={
               'max-w-sm h-full flex flex-col justify-center items-start'
@@ -79,7 +103,15 @@ export default function Hero({
             {link && <Button href={`/${link.slug}`}>Learn More</Button>}
           </div>
         </Container>
+
+        <Image
+          src={mobileBackground?.sourceUrl}
+          width={mobileBackground?.mediaDetails?.width}
+          height={mobileBackground?.mediaDetails?.height}
+          alt={mobileBackground?.altText}
+          className={'w-full'}
+        />
       </div>
-    </div>
+    </>
   )
 }

@@ -27,6 +27,14 @@ query GetPage($slug: ID!) {
             date
           }
         }
+        mobileBackground {
+          altText
+          sourceUrl
+          mediaDetails {
+            width
+            height
+          }
+        }
       }
       content {
         ... on Page_Pagecontent_Content_LatestPosts {

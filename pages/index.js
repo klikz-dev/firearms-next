@@ -51,8 +51,8 @@ export default function Page({ pageData, postsData }) {
           <h3>{'Popular Posts'}</h3>
         </Title>
 
-        <div className={'grid grid-cols-3 gap-12'}>
-          <div className={'col-span-2'}>
+        <div className={'lg:grid lg:grid-cols-3 gap-12'}>
+          <div className={'lg:col-span-2'}>
             <div className={'mb-4'}>
               <PostCardOverlay post={posts?.nodes?.[0]} />
             </div>
@@ -78,7 +78,7 @@ export default function Page({ pageData, postsData }) {
             </div>
           </div>
 
-          <div className={'col-span-1'}>
+          <div className={'lg:col-span-1'}>
             <Sidebar />
           </div>
         </div>

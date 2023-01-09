@@ -13,6 +13,7 @@ import PostMeta from '@/components/molecules/PostMeta'
 import Link from '@/components/atoms/Link'
 import Image from '@/components/atoms/Image'
 import HTMLContent from '@/components/atoms/HTMLContent'
+import { NextSeo } from 'next-seo'
 
 export default function Post({ postData }) {
   const {
@@ -38,46 +39,55 @@ export default function Post({ postData }) {
   }
 
   return (
-    <Layout seo={HTMLReactParser(seo?.fullHead)}>
-      <Container className={'py-20 grid grid-cols-3 gap-12'}>
-        <div className={'col-span-2'}>
-          <h1>{title}</h1>
+    <>
+      <NextSeo
+        title={title}
+        description={`Compare prices on guns & accessories to find the best deals before buying.`}
+      />
 
-          <GradientBorder height={2} className={'w-96 mt-4 mb-8'} />
+      <Layout seo={HTMLReactParser(seo?.fullHead)}>
+        <Container className={'py-20 grid grid-cols-3 gap-12'}>
+          <div className={'col-span-2'}>
+            <h1>{title}</h1>
 
-          <PostMeta title={title} slug={slug} author={author} date={date} />
+            <GradientBorder height={2} className={'w-96 mt-4 mb-8'} />
 
-          <div className={'mt-8 mb-8 p-4 bg-zinc-200 border-l border-zinc-700'}>
-            <p className='text-sm'>
-              {
-                'Products are selected by our editors. We may earn a commission on purchases from a link. '
-              }
-              <Link
-                href={'/'}
-                className={'text-red-600 font-sans hover:underline'}
-              >
-                {'How we select gear.'}
-              </Link>
-            </p>
+            <PostMeta title={title} slug={slug} author={author} date={date} />
+
+            <div
+              className={'mt-8 mb-8 p-4 bg-zinc-200 border-l border-zinc-700'}
+            >
+              <p className='text-sm'>
+                {
+                  'Products are selected by our editors. We may earn a commission on purchases from a link. '
+                }
+                <Link
+                  href={'/'}
+                  className={'text-red-600 font-sans hover:underline'}
+                >
+                  {'How we select gear.'}
+                </Link>
+              </p>
+            </div>
+
+            <Image
+              src={featuredImage?.node?.sourceUrl}
+              alt={featuredImage?.node?.alt}
+              width={featuredImage?.node?.mediaDetails?.width}
+              height={featuredImage?.node?.mediaDetails?.height}
+            />
+
+            <HTMLContent className={'py-8'}>{content}</HTMLContent>
+
+            <PostContent contents={postContent?.contents} />
           </div>
 
-          <Image
-            src={featuredImage?.node?.sourceUrl}
-            alt={featuredImage?.node?.alt}
-            width={featuredImage?.node?.mediaDetails?.width}
-            height={featuredImage?.node?.mediaDetails?.height}
-          />
-
-          <HTMLContent className={'py-8'}>{content}</HTMLContent>
-
-          <PostContent contents={postContent?.contents} />
-        </div>
-
-        <div className={'col-span-1'}>
-          <Sidebar />
-        </div>
-      </Container>
-    </Layout>
+          <div className={'col-span-1'}>
+            <Sidebar />
+          </div>
+        </Container>
+      </Layout>
+    </>
   )
 }
 

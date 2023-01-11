@@ -1,10 +1,11 @@
 query GetCategory($slug: ID!) {
   category(id: $slug, idType: SLUG) {
+    seo {
+      metaDesc
+      opengraphDescription
+    }
     name
     description
-    seo {
-      fullHead
-    }
     posts(first: 100) {
       nodes {
         date

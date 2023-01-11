@@ -13,11 +13,14 @@ import Button from '@/components/atoms/Button'
 import Container from '@/components/atoms/Container'
 import Title from '@/components/molecules/Title'
 import PageContent from '@/components/organisms/PageContent'
-import HTMLReactParser from 'html-react-parser'
 import Hero from '@/components/organisms/PageContent/Hero'
+import { NextSeo } from 'next-seo'
 
 export default function Page({ pageData, postsData }) {
-  const { hero, content } = pageData?.page?.pageContent ?? {}
+  const { title, pageContent, seo } = pageData?.page ?? {}
+  const { hero, content } = pageContent ?? {}
+  const { metaDesc, opengraphDescription } = seo ?? {}
+
   const { posts } = postsData ?? {}
 
   const [postList, setPostList] = useState(posts?.nodes?.slice(4, 10))
@@ -41,49 +44,57 @@ export default function Page({ pageData, postsData }) {
   }
 
   return (
-    <Layout seo={HTMLReactParser(pageData?.page?.seo?.fullHead)}>
-      <Hero {...hero} />
+    <>
+      <NextSeo title={title} description={metaDesc || opengraphDescription} />
 
-      <PageContent content={content} />
+      <Layout>
+        <Hero {...hero} />
 
-      <Container className={'py-20'}>
-        <Title>
-          <h3>{'Popular Posts'}</h3>
-        </Title>
+        <PageContent content={content} />
 
-        <div className={'lg:grid lg:grid-cols-3 gap-12'}>
-          <div className={'lg:col-span-2'}>
-            <div className={'mb-4'}>
-              <PostCardOverlay post={posts?.nodes?.[0]} />
+        <Container className={'py-20'}>
+          <Title>
+            <h3>{'Popular Posts'}</h3>
+          </Title>
+
+          <div className={'lg:grid lg:grid-cols-3 gap-12'}>
+            <div className={'lg:col-span-2'}>
+              <div className={'mb-4'}>
+                <PostCardOverlay post={posts?.nodes?.[0]} />
+              </div>
+
+              <div className={'grid md:grid-cols-2 gap-4 mb-6'}>
+                <PostCardVertical post={posts?.nodes?.[1]} />
+                <PostCardVertical post={posts?.nodes?.[2]} />
+              </div>
+
+              {postList?.map((post, index) => (
+                <PostCardHorizontal
+                  key={index}
+                  post={post}
+                  className={'mb-6'}
+                />
+              ))}
+
+              <div>
+                <Button
+                  size={'full'}
+                  onClick={() => loadMorePosts()}
+                  disabled={!hasNextPage}
+                  className={'my-12'}
+                >
+                  {'Load More'}
+                </Button>
+              </div>
             </div>
 
-            <div className={'grid md:grid-cols-2 gap-4 mb-6'}>
-              <PostCardVertical post={posts?.nodes?.[1]} />
-              <PostCardVertical post={posts?.nodes?.[2]} />
-            </div>
-
-            {postList?.map((post, index) => (
-              <PostCardHorizontal key={index} post={post} className={'mb-6'} />
-            ))}
-
-            <div>
-              <Button
-                size={'full'}
-                onClick={() => loadMorePosts()}
-                disabled={!hasNextPage}
-                className={'my-12'}
-              >
-                {'Load More'}
-              </Button>
+            <div className={'lg:col-span-1'}>
+              <Sidebar />
             </div>
           </div>
-
-          <div className={'lg:col-span-1'}>
-            <Sidebar />
-          </div>
-        </div>
-      </Container>
-    </Layout>
+        </Container>
+      </Layout>
+    </>
   )
 }
 

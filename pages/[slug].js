@@ -5,7 +5,6 @@ import Layout from '@/components/common/Layout'
 import { useRouter } from 'next/router'
 import Container from '@/components/atoms/Container'
 import Loading from '@/components/atoms/Loading'
-import HTMLReactParser from 'html-react-parser'
 import PostContent from '@/components/organisms/PostContent'
 import Sidebar from '@/components/organisms/Sidebar'
 import GradientBorder from '@/components/atoms/GradientBorder'
@@ -26,6 +25,7 @@ export default function Post({ postData }) {
     featuredImage,
     postContent,
   } = postData?.post ?? {}
+  const { metaDesc, opengraphDescription } = seo ?? {}
 
   const router = useRouter()
   if (router.isFallback) {
@@ -40,12 +40,9 @@ export default function Post({ postData }) {
 
   return (
     <>
-      <NextSeo
-        title={title}
-        description={`Compare prices on guns & accessories to find the best deals before buying.`}
-      />
+      <NextSeo title={title} description={metaDesc || opengraphDescription} />
 
-      <Layout seo={HTMLReactParser(seo?.fullHead)}>
+      <Layout>
         <Container className={'py-20 grid grid-cols-3 gap-12'}>
           <div className={'col-span-2'}>
             <h1>{title}</h1>

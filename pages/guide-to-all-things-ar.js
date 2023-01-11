@@ -5,14 +5,16 @@ import PageContent from '@/components/organisms/PageContent'
 import { useRouter } from 'next/router'
 import Container from '@/components/atoms/Container'
 import Loading from '@/components/atoms/Loading'
-import HTMLReactParser from 'html-react-parser'
 import Sidebar from '@/components/organisms/Sidebar'
 import Hero from '@/components/organisms/PageContent/Hero'
 import TOCNav from '@/components/organisms/TOCNav'
 import convertToSlug from '@/functions/convertToSlug'
+import { NextSeo } from 'next-seo'
 
 export default function Page({ pageData }) {
-  const { layout, hero, content } = pageData?.page?.pageContent ?? {}
+  const { title, pageContent, seo } = pageData?.page ?? {}
+  const { layout, hero, content } = pageContent ?? {}
+  const { metaDesc, opengraphDescription } = seo ?? {}
 
   const router = useRouter()
   if (router.isFallback) {
@@ -34,37 +36,41 @@ export default function Page({ pageData }) {
     })
 
   return (
-    <Layout seo={HTMLReactParser(pageData?.page?.seo?.fullHead)}>
-      <Hero {...hero} />
+    <>
+      <NextSeo title={title} description={metaDesc || opengraphDescription} />
 
-      {layout === 'full' && <PageContent content={content} />}
+      <Layout>
+        <Hero {...hero} />
 
-      {layout === 'sidebar' && (
-        <div className={'max-w-7xl mx-auto grid lg:grid-cols-3 gap-16'}>
-          <div className={'lg:col-span-2'}>
-            <PageContent content={content} />
-          </div>
-          <div className={'lg:col-span-1 pt-20'}>
-            <Sidebar />
-          </div>
-        </div>
-      )}
+        {layout === 'full' && <PageContent content={content} />}
 
-      {layout === 'toc' && (
-        <div
-          className={
-            'max-w-7xl mx-auto flex flex-col-reverse lg:flex-row gap-16'
-          }
-        >
-          <div className={'w-full lg:w-2/3'}>
-            <PageContent content={content} />
+        {layout === 'sidebar' && (
+          <div className={'max-w-7xl mx-auto grid lg:grid-cols-3 gap-16'}>
+            <div className={'lg:col-span-2'}>
+              <PageContent content={content} />
+            </div>
+            <div className={'lg:col-span-1 pt-20'}>
+              <Sidebar />
+            </div>
           </div>
-          <div className={'w-full lg:w-1/3 lg:pt-20 px-4'}>
-            {toc_items?.length > 0 && <TOCNav toc_items={toc_items} />}
+        )}
+
+        {layout === 'toc' && (
+          <div
+            className={
+              'max-w-7xl mx-auto flex flex-col-reverse lg:flex-row gap-16'
+            }
+          >
+            <div className={'w-full lg:w-2/3'}>
+              <PageContent content={content} />
+            </div>
+            <div className={'w-full lg:w-1/3 lg:pt-20 px-4'}>
+              {toc_items?.length > 0 && <TOCNav toc_items={toc_items} />}
+            </div>
           </div>
-        </div>
-      )}
-    </Layout>
+        )}
+      </Layout>
+    </>
   )
 }
 

@@ -1,10 +1,11 @@
 query GetPost($slug: ID!) {
   post(id: $slug, idType: SLUG) {
+    seo {
+      metaDesc
+      opengraphDescription
+    }
     title
     slug
-    seo {
-      fullHead
-    }
     author {
       node {
         name

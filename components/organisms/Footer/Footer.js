@@ -52,7 +52,7 @@ export default function Footer() {
         </div>
       </Container>
 
-      <div className={'lg-hidden'}>
+      <div className={'lg:hidden'}>
         <Subscribe />
       </div>
 

@@ -1,7 +1,8 @@
 query GetPage($slug: ID!) {
   page(id: $slug, idType: URI) {
     seo {
-      fullHead
+      metaDesc
+      opengraphDescription
     }
     content
     slug

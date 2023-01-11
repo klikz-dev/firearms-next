@@ -1,6 +1,6 @@
 import { ApolloProvider } from '@apollo/client'
 import { client } from '@/lib/apollo'
-import { seoConfig } from '../next-seo.config'
+import seoConfig from '../next-seo.config'
 import { config } from '@fortawesome/fontawesome-svg-core'
 config.autoAddCss = false
 import '@fortawesome/fontawesome-svg-core/styles.css'

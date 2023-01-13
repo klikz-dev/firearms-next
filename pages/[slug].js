@@ -49,6 +49,8 @@ export default function Post({ postData }) {
 
             <GradientBorder height={2} className={'w-96 mt-4 mb-8'} />
 
+            {metaDesc && <p className={'mt-4 mb-8'}>{metaDesc}</p>}
+
             <PostMeta title={title} slug={slug} author={author} date={date} />
 
             <div

@@ -105,7 +105,7 @@ export async function getStaticProps() {
   const { data: pageData, pageError } = await client.query({
     query: GET_PAGE_QUERY,
     variables: {
-      slug: 'homepage',
+      slug: '/',
     },
   })
 

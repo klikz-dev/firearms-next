@@ -13,8 +13,8 @@ import Button from '@/components/atoms/Button'
 import Container from '@/components/atoms/Container'
 import Title from '@/components/molecules/Title'
 import PageContent from '@/components/organisms/PageContent'
-import Hero from '@/components/organisms/PageContent/Hero'
 import { NextSeo } from 'next-seo'
+import HomeHero from '@/components/organisms/HomeHero'
 
 export default function Page({ pageData, postsData }) {
   const { title, pageContent, seo } = pageData?.page ?? {}
@@ -48,7 +48,7 @@ export default function Page({ pageData, postsData }) {
       <NextSeo title={title} description={metaDesc || opengraphDescription} />
 
       <Layout>
-        <Hero {...hero} />
+        <HomeHero post={posts?.nodes?.[0]} hero={hero} />
 
         <PageContent content={content} />
 

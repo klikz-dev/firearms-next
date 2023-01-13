@@ -21,13 +21,6 @@ query GetPage($slug: ID!) {
           }
         }
         redBackground
-        link {
-          ... on Post {
-            id
-            slug
-            date
-          }
-        }
         mobileBackground {
           altText
           sourceUrl

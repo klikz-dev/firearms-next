@@ -1,12 +1,9 @@
-import Button from '@/components/atoms/Button'
 import Container from '@/components/atoms/Container'
-import Date from '@/components/atoms/Date'
 import Image from '@/components/atoms/Image'
 
 export default function Hero({
   title,
   subtitle,
-  link,
   backgroundImage,
   redBackground,
   mobileBackground,
@@ -40,14 +37,11 @@ export default function Hero({
                     'max-w-sm h-full flex flex-col justify-center items-start'
                   }
                 >
-                  {link && <Date date={link.date} className={'text-white'} />}
                   <h1 className={'text-white'}>{title}</h1>
 
                   <div className={'pt-0.5 bg-white w-12 my-5'} />
 
                   <p className={'text-white mb-6'}>{subtitle}</p>
-
-                  {link && <Button href={`/${link.slug}`}>Learn More</Button>}
                 </div>
               </Container>
             </div>
@@ -69,14 +63,11 @@ export default function Hero({
                     'max-w-sm h-full flex flex-col justify-center items-start'
                   }
                 >
-                  {link && <Date date={link.date} className={'text-white'} />}
                   <h2 className={'text-white'}>{title}</h2>
 
                   <div className={'h-1 bg-white w-12 my-5'} />
 
                   <p className={'text-white mb-6'}>{subtitle}</p>
-
-                  {link && <Button href={`/${link.slug}`}>Learn More</Button>}
                 </div>
               </Container>
             </div>
@@ -93,14 +84,11 @@ export default function Hero({
               'max-w-sm h-full flex flex-col justify-center items-start'
             }
           >
-            {link && <Date date={link.date} className={'text-white'} />}
             <h2 className={'text-white'}>{title}</h2>
 
             <div className={'h-1 bg-white w-12 my-5'} />
 
             <p className={'text-white mb-6'}>{subtitle}</p>
-
-            {link && <Button href={`/${link.slug}`}>Learn More</Button>}
           </div>
         </Container>
 

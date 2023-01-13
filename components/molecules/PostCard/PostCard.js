@@ -66,23 +66,27 @@ export function PostCardHorizontal({ post, className }) {
 export function PostCardVertical({ post, className }) {
   return (
     <div className={classNames('border', className)}>
-      <div className={'relative h-56 flex flex-col justify-end'}>
-        <Background
-          image={post.featuredImage?.node?.sourceUrl}
-          alt={post.featuredImage?.node?.altText}
-        />
-      </div>
+      <Link href={`/${post.slug}`}>
+        <div className={'relative h-56 flex flex-col justify-end'}>
+          <Background
+            image={post.featuredImage?.node?.sourceUrl}
+            alt={post.featuredImage?.node?.altText}
+          />
+        </div>
+      </Link>
 
       <div className={'p-4'}>
         <Date date={post.date} className={''} />
-        <h4 className={'mb-4 line-clamp-2'}>{post.title}</h4>
+
+        <Link href={`/${post.slug}`}>
+          <h4 className={'mb-4 line-clamp-2'}>{post.title}</h4>
+        </Link>
+
         <GradientBorder height={2} className={'w-36 mb-4'} />
+
         <HTMLContent className={'line-clamp-2 mb-2'}>
           {post.excerpt}
         </HTMLContent>
-        <Link href={`/${post.slug}`} className={'text-lg text-red-700'}>
-          Learn More
-        </Link>
       </div>
     </div>
   )

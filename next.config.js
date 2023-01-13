@@ -22,7 +22,7 @@ const nextConfig = {
     const data = await response.json()
     const { rewrites } = data?.acf ?? {}
 
-    return [...rewrites]
+    return rewrites
   },
   webpack: (config) => {
     config.module.rules.push({

@@ -60,7 +60,7 @@ export async function getStaticProps({ params }) {
     },
   })
 
-  if (error) {
+  if (error || !categoryData?.category) {
     return {
       notFound: true,
     }

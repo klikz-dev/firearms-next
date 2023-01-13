@@ -60,7 +60,7 @@ export async function getStaticProps({ params }) {
     },
   })
 
-  if (error) {
+  if (error || !tagData?.tag) {
     return {
       notFound: true,
     }
@@ -68,7 +68,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      tagData,
+      tagData: tagData,
     },
     revalidate: 30,
   }

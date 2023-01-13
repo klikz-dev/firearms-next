@@ -9,8 +9,6 @@ export default function Breadcrumbs({ breadcrumbs }) {
         <div key={index} className='flex items-center'>
           {breadcrumb.link ? (
             <>
-              {breadcrumb.icon || <></>}
-
               <Link href={breadcrumb.link}>{breadcrumb.text}</Link>
 
               <FontAwesomeIcon
@@ -20,8 +18,7 @@ export default function Breadcrumbs({ breadcrumbs }) {
             </>
           ) : (
             <>
-              {breadcrumb.icon || <></>}
-              <span className='mx-1 font-bold text-sm md:text-base'>
+              <span className='mx-1 text-sm md:text-base font-display'>
                 {breadcrumb.text}
               </span>
             </>

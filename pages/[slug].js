@@ -74,6 +74,7 @@ export default function Post({ postData }) {
               alt={featuredImage?.node?.alt}
               width={featuredImage?.node?.mediaDetails?.width}
               height={featuredImage?.node?.mediaDetails?.height}
+              priority={true}
             />
 
             <HTMLContent className={'py-8'}>{content}</HTMLContent>

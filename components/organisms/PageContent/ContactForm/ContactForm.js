@@ -18,7 +18,7 @@ export default function ContactForm({ content, formTitle }) {
     sendEmail(
       `${name} <${email}>`,
       process.env.NEXT_PUBLIC_TO_EMAIL,
-      'American Firearms Email Subscription',
+      'American Firearms Customer Request',
       `
         <h3 style='font-size: 1.5em; margin-top: 20px; margin-bottom: 20px;'>
           New contact form submission from <strong>${email}</strong>

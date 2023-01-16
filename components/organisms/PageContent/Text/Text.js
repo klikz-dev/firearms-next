@@ -9,9 +9,11 @@ export default function Text({ buttonLink, buttonText, text, title }) {
     <div className={'py-20'}>
       <Container>
         <div className={'w-full'}>
-          <Title className={'mb-12 text-center'}>
-            <h2>{title}</h2>
-          </Title>
+          {title && (
+            <Title className={'mb-12 text-center'}>
+              <h2>{title}</h2>
+            </Title>
+          )}
 
           <HTMLContent>{text}</HTMLContent>
 

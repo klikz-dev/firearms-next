@@ -160,7 +160,7 @@ export default function Sidebar() {
   ]
 
   return (
-    <div>
+    <div className={'mb-8 lg:mb-20'}>
       <div className={'hidden lg:block'}>
         <Subscribe />
       </div>

@@ -24,20 +24,18 @@ export default function LatestPosts({ title, category }) {
 
       <div className={'grid md:grid-cols-2 lg:grid-cols-4 gap-3'}>
         {posts?.nodes?.map((post, index) => (
-          <Link key={index} href={`/${post.slug}`}>
-            <div className={'border-b-2'}>
-              <div className={'relative h-48 mb-3'}>
-                <Image
-                  src={post?.featuredImage?.node?.sourceUrl}
-                  fill={true}
-                  alt={post?.featuredImage?.node?.altText}
-                />
-              </div>
-
-              <Date date={post.date} className={'text-gray-600'} />
-
-              <h5 className={'line-clamp-2 mb-8'}>{post.title}</h5>
+          <Link key={index} href={`/${post.slug}`} className={'border-b'}>
+            <div className={'relative h-48 mb-3'}>
+              <Image
+                src={post?.featuredImage?.node?.sourceUrl}
+                fill={true}
+                alt={post?.featuredImage?.node?.altText}
+              />
             </div>
+
+            <Date date={post.date} className={'text-gray-600'} />
+
+            <h5 className={'line-clamp-2 mb-8'}>{post.title}</h5>
           </Link>
         ))}
       </div>

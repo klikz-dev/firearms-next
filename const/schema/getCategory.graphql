@@ -24,5 +24,15 @@ query GetCategory($slug: ID!) {
         title
       }
     }
+    taxonomy {
+      thumbnail {
+        altText
+        mediaDetails {
+          height
+          width
+        }
+        sourceUrl
+      }
+    }
   }
 }

@@ -20,6 +20,7 @@ export default function Hero({
                   fill={true}
                   alt={backgroundImage?.altText}
                   className={'object-cover'}
+                  priority={true}
                 />
               </div>
             </div>
@@ -54,6 +55,7 @@ export default function Hero({
               height={backgroundImage?.mediaDetails?.height}
               alt={backgroundImage?.altText}
               className={'w-full'}
+              priority={true}
             />
 
             <div className={'absolute top-0 left-0 w-full h-full'}>
@@ -98,6 +100,7 @@ export default function Hero({
           height={mobileBackground?.mediaDetails?.height}
           alt={mobileBackground?.altText}
           className={'w-full'}
+          priority={true}
         />
       </div>
     </>

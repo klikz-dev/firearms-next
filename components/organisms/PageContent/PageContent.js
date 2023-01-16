@@ -1,9 +1,11 @@
 import Authors from './Authors'
 import CategorySection from './CategorySection'
 import ContactForm from './ContactForm'
+import Gallery from './Gallery'
 import IconGroup from './IconGroup'
 import IconHighlights from './IconHighlights'
 import LatestPosts from './LatestPosts'
+import Taxonomy from './Taxonomy'
 import Text from './Text'
 import TwoColImageText from './TwoColImageText'
 
@@ -35,6 +37,12 @@ export default function PageContent({ content }) {
 
           case 'Page_Pagecontent_Content_ContactForm':
             return <ContactForm key={index} {...section} />
+
+          case 'Page_Pagecontent_Content_Taxonomy':
+            return <Taxonomy key={index} {...section} />
+
+          case 'Page_Pagecontent_Content_Gallery':
+            return <Gallery key={index} {...section} />
 
           default:
             return <div key={index}></div>

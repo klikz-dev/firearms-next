@@ -145,6 +145,79 @@ query GetPage($slug: ID!) {
           content
           formTitle
         }
+        ... on Page_Pagecontent_Content_Taxonomy {
+          customLink
+          customTitle
+          type
+          category {
+            name
+            description
+            slug
+            taxonomy {
+              thumbnail {
+                altText
+                mediaDetails {
+                  height
+                  width
+                }
+                sourceUrl
+              }
+            }
+            posts(first: 3) {
+              nodes {
+                date
+                slug
+                title
+                excerpt
+              }
+            }
+          }
+          tag {
+            name
+            description
+            slug
+            taxonomy {
+              thumbnail {
+                altText
+                mediaDetails {
+                  height
+                  width
+                }
+                sourceUrl
+              }
+            }
+            posts(first: 3) {
+              nodes {
+                date
+                slug
+                title
+                excerpt
+                featuredImage {
+                  node {
+                    altText
+                    mediaDetails {
+                      height
+                      width
+                    }
+                    sourceUrl
+                  }
+                }
+              }
+            }
+          }
+        }
+        ... on Page_Pagecontent_Content_Gallery {
+          images {
+            image {
+              altText
+              mediaDetails {
+                height
+                width
+              }
+              sourceUrl
+            }
+          }
+        }
       }
     }
   }

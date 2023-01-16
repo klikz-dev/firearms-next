@@ -38,6 +38,7 @@ export default function HomeHero({ post, hero }) {
           height={mobileBackground?.mediaDetails?.height}
           alt={mobileBackground?.altText}
           className={'w-full'}
+          priority={true}
         />
       </div>
 
@@ -49,6 +50,7 @@ export default function HomeHero({ post, hero }) {
             height={backgroundImage?.mediaDetails?.height}
             alt={backgroundImage?.altText}
             className={'w-full'}
+            priority={true}
           />
 
           <div className={'absolute top-0 left-0 w-full h-full'}>

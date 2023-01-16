@@ -1,4 +1,3 @@
-import Authors from './Authors'
 import CategorySection from './CategorySection'
 import ContactForm from './ContactForm'
 import Gallery from './Gallery'
@@ -28,9 +27,6 @@ export default function PageContent({ content }) {
 
           case 'Page_Pagecontent_Content_IconHighlights':
             return <IconHighlights key={index} {...section} />
-
-          case 'Page_Pagecontent_Content_Authors':
-            return <Authors key={index} {...section} />
 
           case 'Page_Pagecontent_Content_CategorySection':
             return <CategorySection key={index} index={index} {...section} />

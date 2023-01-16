@@ -6,16 +6,8 @@ import Image from '@/components/atoms/Image'
 import Link from '@/components/atoms/Link'
 import Title from '@/components/molecules/Title'
 
-export default function Taxonomy({
-  customLink,
-  customTitle,
-  type,
-  category,
-  tag,
-}) {
-  const { name, description, slug, taxonomy, posts } =
-    type === 'category' ? category ?? {} : type === 'tag' ? tag ?? {} : {}
-
+export default function Taxonomy({ customLink, customTitle, tag }) {
+  const { name, description, slug, taxonomy, posts } = tag ?? {}
   return (
     <div className={'pt-20 pb-8'}>
       <Container className={'max-w-6xl'}>
@@ -33,7 +25,7 @@ export default function Taxonomy({
           </Title>
 
           <Link
-            href={customLink || `/${type}/${slug}`}
+            href={customLink || `/tag/${slug}`}
             className={'mb-4 border-b border-red-700'}
           >
             View all {customTitle || name}

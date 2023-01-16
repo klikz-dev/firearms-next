@@ -1,5 +1,6 @@
 import { client } from '@/lib/apollo'
 import GET_PAGE_QUERY from '@/const/schema/getPage.graphql'
+import GET_AUTHORS_QUERY from '@/const/schema/getAuthors.graphql'
 import Layout from '@/components/common/Layout'
 import PageContent from '@/components/organisms/PageContent'
 import { useRouter } from 'next/router'
@@ -10,8 +11,9 @@ import Hero from '@/components/organisms/PageContent/Hero'
 import TOCNav from '@/components/organisms/TOCNav'
 import convertToSlug from '@/functions/convertToSlug'
 import { NextSeo } from 'next-seo'
+import Authors from '@/components/organisms/Authors'
 
-export default function Page({ pageData }) {
+export default function Page({ pageData, authorsData }) {
   const { title, pageContent, seo } = pageData?.page ?? {}
   const { layout, hero, content } = pageContent ?? {}
   const { metaDesc, opengraphDescription } = seo ?? {}
@@ -42,7 +44,12 @@ export default function Page({ pageData }) {
       <Layout>
         <Hero {...hero} />
 
-        {layout === 'full' && <PageContent content={content} />}
+        {layout === 'full' && (
+          <>
+            <PageContent content={content} />
+            <Authors authors={authorsData.users?.nodes} />
+          </>
+        )}
 
         {layout === 'sidebar' && (
           <div className={'max-w-7xl mx-auto grid grid-cols-3 gap-16'}>
@@ -81,6 +88,13 @@ export async function getStaticProps() {
     },
   })
 
+  /**
+   * Authors
+   */
+  const { data: authorsData } = await client.query({
+    query: GET_AUTHORS_QUERY,
+  })
+
   if (pageError || !pageData?.page) {
     return {
       notFound: true,
@@ -90,6 +104,7 @@ export async function getStaticProps() {
   return {
     props: {
       pageData,
+      authorsData,
     },
     revalidate: 30,
   }

@@ -1,0 +1,27 @@
+query GetAuthors {
+  users(first: 10) {
+    nodes {
+      avatar {
+        width
+        height
+        url
+      }
+      name
+      slug
+      description
+      author {
+        position
+        image {
+          altText
+          mediaDetails {
+            height
+            width
+          }
+          sourceUrl
+        }
+        facebook
+        twitter
+      }
+    }
+  }
+}

@@ -24,7 +24,7 @@ query GetCategory($slug: ID!) {
         title
       }
     }
-    taxonomy {
+    taxonomyContent {
       thumbnail {
         altText
         mediaDetails {

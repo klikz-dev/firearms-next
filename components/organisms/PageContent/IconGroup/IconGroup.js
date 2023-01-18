@@ -11,7 +11,9 @@ export default function IconGroup({ title, icon }) {
           <h2>{title}</h2>
         </Title>
 
-        <div className={'grid grid-cols-2 lg:grid-cols-5 gap-3'}>
+        <div
+          className={`grid grid-cols-2 lg:grid-cols-${icon?.length ?? 2} gap-3`}
+        >
           {icon?.map((icon, index) => (
             <Link key={index} href={icon.link} className={'border-t border-b'}>
               <div

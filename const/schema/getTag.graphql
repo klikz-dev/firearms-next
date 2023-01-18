@@ -24,7 +24,7 @@ query GetTag($slug: ID!) {
         title
       }
     }
-    taxonomy {
+    taxonomyContent {
       thumbnail {
         altText
         mediaDetails {

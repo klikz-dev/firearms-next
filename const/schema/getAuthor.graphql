@@ -1,10 +1,5 @@
 query GetAuthor($slug: ID!) {
   user(id: $slug, idType: SLUG) {
-    avatar {
-      width
-      height
-      url
-    }
     name
     description
     posts(first: 100) {

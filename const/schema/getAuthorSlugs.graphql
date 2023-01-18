@@ -1,0 +1,7 @@
+query GetAuthorSlugs {
+  users(first: 10) {
+    nodes {
+      slug
+    }
+  }
+}

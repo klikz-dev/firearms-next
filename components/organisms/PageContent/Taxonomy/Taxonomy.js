@@ -5,11 +5,21 @@ import HTMLContent from '@/components/atoms/HTMLContent'
 import Image from '@/components/atoms/Image'
 import Link from '@/components/atoms/Link'
 import Title from '@/components/molecules/Title'
+import classNames from 'classnames'
 
-export default function Taxonomy({ customLink, customTitle, tag }) {
+export default function Taxonomy({ customLink, customTitle, tag, style }) {
   const { name, description, slug, taxonomy, posts } = tag ?? {}
+  const { grayBackground, paddingBottom, paddingTop } = style ?? {}
+
   return (
-    <div className={'pt-20 pb-8'}>
+    <div
+      className={classNames(
+        grayBackground && 'bg-zinc-200/60',
+        `pt-${paddingTop / 2} lg:pt-${paddingTop} pb-${
+          paddingBottom / 2
+        } lg:pb-${paddingBottom}`
+      )}
+    >
       <Container className={'max-w-6xl'}>
         <Image
           src={taxonomy?.thumbnail?.sourceUrl}

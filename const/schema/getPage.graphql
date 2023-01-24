@@ -55,6 +55,11 @@ query GetPage($slug: ID!) {
               }
             }
           }
+          style {
+            grayBackground
+            paddingBottom
+            paddingTop
+          }
         }
         ... on Page_Pagecontent_Content_2ColImageText {
           buttonLink
@@ -69,6 +74,11 @@ query GetPage($slug: ID!) {
               width
               height
             }
+          }
+          style {
+            grayBackground
+            paddingBottom
+            paddingTop
           }
         }
         ... on Page_Pagecontent_Content_IconGroup {
@@ -86,12 +96,23 @@ query GetPage($slug: ID!) {
             }
             link
           }
+          columns
+          style {
+            grayBackground
+            paddingBottom
+            paddingTop
+          }
         }
         ... on Page_Pagecontent_Content_Text {
           buttonLink
           buttonText
           text
           title
+          style {
+            grayBackground
+            paddingBottom
+            paddingTop
+          }
         }
         ... on Page_Pagecontent_Content_IconHighlights {
           title
@@ -106,6 +127,11 @@ query GetPage($slug: ID!) {
               }
               sourceUrl
             }
+          }
+          style {
+            grayBackground
+            paddingBottom
+            paddingTop
           }
         }
         ... on Page_Pagecontent_Content_CategorySection {
@@ -123,10 +149,20 @@ query GetPage($slug: ID!) {
             link
             text
           }
+          style {
+            grayBackground
+            paddingBottom
+            paddingTop
+          }
         }
         ... on Page_Pagecontent_Content_ContactForm {
           content
           formTitle
+          style {
+            grayBackground
+            paddingBottom
+            paddingTop
+          }
         }
         ... on Page_Pagecontent_Content_Taxonomy {
           customLink
@@ -188,6 +224,11 @@ query GetPage($slug: ID!) {
               }
             }
           }
+          style {
+            grayBackground
+            paddingBottom
+            paddingTop
+          }
         }
         ... on Page_Pagecontent_Content_Gallery {
           images {
@@ -199,6 +240,11 @@ query GetPage($slug: ID!) {
               }
               sourceUrl
             }
+          }
+          style {
+            grayBackground
+            paddingBottom
+            paddingTop
           }
         }
       }

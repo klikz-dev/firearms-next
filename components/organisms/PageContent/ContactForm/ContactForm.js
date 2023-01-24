@@ -6,7 +6,9 @@ import classNames from 'classnames'
 import { useState } from 'react'
 import styles from './ContactForm.module.scss'
 
-export default function ContactForm({ content, formTitle }) {
+export default function ContactForm({ content, formTitle, style }) {
+  const { grayBackground, paddingBottom, paddingTop } = style ?? {}
+
   const [name, setName] = useState('')
   const [message, setMessage] = useState('')
   const [email, setEmail] = useState('')
@@ -33,71 +35,80 @@ export default function ContactForm({ content, formTitle }) {
   }
 
   return (
-    <Container className={'py-8 lg:py-20 max-w-5xl'}>
-      <div className={'grid lg:grid-cols-2 gap-16'}>
-        <div>
-          <HTMLContent>{content}</HTMLContent>
-        </div>
+    <div
+      className={classNames(
+        grayBackground && 'bg-zinc-200/60',
+        `pt-${paddingTop / 2} lg:pt-${paddingTop} pb-${
+          paddingBottom / 2
+        } lg:pb-${paddingBottom}`
+      )}
+    >
+      <Container className={'max-w-5xl'}>
+        <div className={'grid lg:grid-cols-2 gap-16'}>
+          <div>
+            <HTMLContent>{content}</HTMLContent>
+          </div>
 
-        <div
-          className={
-            'flex flex-col justify-center items-center bg-zinc-100 shadow p-6 m-1 border border-zinc-200 rounded'
-          }
-        >
-          <Title className={'mb-12'}>
-            <h3>{formTitle}</h3>
-          </Title>
-
-          <form
-            action='/search'
-            className='mx-auto w-full max-w-sm'
-            onSubmit={handleSubmit}
+          <div
+            className={
+              'flex flex-col justify-center items-center bg-zinc-100 shadow p-6 m-1 border border-zinc-200 rounded'
+            }
           >
-            <input
-              id='text'
-              type='text'
-              name='name'
-              className={styles.input}
-              placeholder='Your Name'
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
+            <Title className={'mb-12'}>
+              <h3>{formTitle}</h3>
+            </Title>
 
-            <input
-              id='email'
-              type='email'
-              name='email'
-              className={styles.input}
-              placeholder='Your Email'
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <form
+              action='/search'
+              className='mx-auto w-full max-w-sm'
+              onSubmit={handleSubmit}
+            >
+              <input
+                id='text'
+                type='text'
+                name='name'
+                className={styles.input}
+                placeholder='Your Name'
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
 
-            <textarea
-              id='message'
-              name='message'
-              className={classNames(styles.input, 'h-24')}
-              placeholder='Message'
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
+              <input
+                id='email'
+                type='email'
+                name='email'
+                className={styles.input}
+                placeholder='Your Email'
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
 
-            <input
-              type='submit'
-              className={classNames(
-                'text-white bg-red-700 hover:bg-red-900 rounded px-6 py-2 w-full cursor-pointer',
-                success !== '' && 'opacity-30'
-              )}
-              value='Send'
-              disabled={success !== ''}
-            />
+              <textarea
+                id='message'
+                name='message'
+                className={classNames(styles.input, 'h-24')}
+                placeholder='Message'
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+              />
 
-            {success && <p className='text-blue-700 mt-2'>{success}</p>}
-          </form>
+              <input
+                type='submit'
+                className={classNames(
+                  'text-white bg-red-700 hover:bg-red-900 rounded px-6 py-2 w-full cursor-pointer',
+                  success !== '' && 'opacity-30'
+                )}
+                value='Send'
+                disabled={success !== ''}
+              />
+
+              {success && <p className='text-blue-700 mt-2'>{success}</p>}
+            </form>
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   )
 }

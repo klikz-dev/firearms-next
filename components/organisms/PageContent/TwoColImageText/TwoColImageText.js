@@ -13,14 +13,24 @@ export default function TwoColImageText({
   buttonText,
   image,
   imagePosition,
+  style,
 }) {
+  const { grayBackground, paddingBottom, paddingTop } = style ?? {}
+
   return (
-    <div className={'bg-zinc-200/60 pt-10 lg:pt-20 pb-10 lg:pb-20'}>
+    <div
+      className={classNames(
+        grayBackground && 'bg-zinc-200/60',
+        `pt-${paddingTop / 2} lg:pt-${paddingTop} pb-${
+          paddingBottom / 2
+        } lg:pb-${paddingBottom}`
+      )}
+    >
       <Container>
         <div
           className={classNames(
-            `flex flex-col lg:flex-row gap-20 lg:gap-8 justify-between items-center`,
-            imagePosition === 'right' ? 'flex-row' : 'flex-row-reverse'
+            `flex flex-col gap-20 lg:gap-8 justify-between items-center`,
+            imagePosition === 'right' ? 'lg:flex-row' : 'lg:flex-row-reverse'
           )}
         >
           <div className={'lg:w-1/2'}>

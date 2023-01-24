@@ -13,7 +13,7 @@ import Breadcrumbs from '@/components/molecules/Breadcrumbs'
 import Title from '@/components/molecules/Title'
 import PopularBrand from '@/components/organisms/Shop/Brands/Popular/Popular'
 
-export default function Page({ brand, pages, relatedBrands }) {
+export default function Page({ brand, category, pages, relatedBrands }) {
   const router = useRouter()
   if (router.isFallback) {
     return (
@@ -46,9 +46,11 @@ export default function Page({ brand, pages, relatedBrands }) {
       <NextSeo
         title={`Top ${pages.length} Most Popular ${toCapitalize(
           brand.name
-        )} Products in ${today}`}
+        )} ${toCapitalize(category)} Products in ${today}`}
         description={`Compare prices on ${toCapitalize(
           brand.name
+        )} ${toCapitalize(
+          category
         )} products to find the best deals before buying.`}
       />
 
@@ -58,19 +60,19 @@ export default function Page({ brand, pages, relatedBrands }) {
 
           <Title className={'mt-4 mb-8'}>
             <h1>
-              The Top {pages.length} Most Popular {brand.name} Products in{' '}
-              {today}
+              The Top {pages.length} Most Popular {brand.name} {category}{' '}
+              Products in {today}
             </h1>
           </Title>
 
           <p className='text-lg'>
             Every month AmericanFirearms.org publishes the monthly Most Popular{' '}
-            {brand.name} Report, highlighting the {pages.length} most popular{' '}
-            {brand.name} in month. We partner with retailers, brands,
-            manufacturers, and auction sites to algorithmically compile price
-            and sales trends so you'll have up-to-date information on the most
-            popular {brand.name} available. Below are the most popular{' '}
-            {brand.name} for {today}.
+            {brand.name} {category} Report, highlighting the {pages.length} most
+            popular {brand.name} {category} in month. We partner with retailers,
+            brands, manufacturers, and auction sites to algorithmically compile
+            price and sales trends so you'll have up-to-date information on the
+            most popular {brand.name} {category} available. Below are the most
+            popular {brand.name} {category} for {today}.
           </p>
         </Container>
 
@@ -110,18 +112,13 @@ export async function getStaticProps({ params }) {
     const brandRes = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/brands/${params.slug}/`
     )
-    // if (brandRes.status !== 200) {
-    //   return {
-    //     notFound: true,
-    //   }
-    // }
 
     const brand = await brandRes.json()
-    // if (!brand) {
-    //   return {
-    //     notFound: true,
-    //   }
-    // }
+    if (!brand) {
+      return {
+        notFound: true,
+      }
+    }
 
     /**
      * Related Brand Slugs
@@ -149,14 +146,28 @@ export async function getStaticProps({ params }) {
     /**
      * Pages
      */
+    const topPagesRes = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/pages/?brand=${params.slug}&limit=20&offset=0`
+    )
+    const { results: topPages } = await topPagesRes.json()
+    const randomPage = topPages?.[Math.floor(Math.random() * topPages?.length)]
+    const randomCategory = randomPage?.category
+
+    if (!randomCategory) {
+      return {
+        notFound: true,
+      }
+    }
+
     const pagesRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/pages/?brand=${params.slug}&limit=100&offset=0`
+      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/pages/?brand=${params.slug}&category=${randomCategory}&limit=20&offset=0`
     )
     const { results: pages } = await pagesRes.json()
 
     return {
       props: {
         brand,
+        category: randomCategory,
         pages,
         relatedBrands,
       },

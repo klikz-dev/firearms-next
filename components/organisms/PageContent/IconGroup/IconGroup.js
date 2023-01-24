@@ -2,6 +2,7 @@ import Container from '@/components/atoms/Container'
 import Image from '@/components/atoms/Image'
 import Link from '@/components/atoms/Link'
 import Title from '@/components/molecules/Title'
+import classNames from 'classnames'
 
 export default function IconGroup({ title, icon }) {
   return (
@@ -11,9 +12,7 @@ export default function IconGroup({ title, icon }) {
           <h2>{title}</h2>
         </Title>
 
-        <div
-          className={`grid grid-cols-2 lg:grid-cols-${icon?.length ?? 2} gap-3`}
-        >
+        <div className={classNames(`grid grid-cols-2 lg:grid-cols-5 gap-3`)}>
           {icon?.map((icon, index) => (
             <Link key={index} href={icon.link} className={'border-t border-b'}>
               <div
@@ -31,7 +30,7 @@ export default function IconGroup({ title, icon }) {
                   />
                 </div>
 
-                {icon.label && <h6 className={'my-3'}>{icon.label}</h6>}
+                {icon.label && <h5 className={'mt-3 mb-1'}>{icon.label}</h5>}
 
                 {icon.text && (
                   <p className={'text-xs text-gray-600'}>{icon.text}</p>

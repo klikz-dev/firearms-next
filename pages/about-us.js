@@ -55,6 +55,7 @@ export default function Page({ pageData, authorsData }) {
           <div className={'max-w-7xl mx-auto grid grid-cols-3 gap-16'}>
             <div className={'col-span-2'}>
               <PageContent content={content} />
+              <Authors authors={authorsData.users?.nodes} />
             </div>
             <div className={'col-span-1 pt-20'}>
               <Sidebar />
@@ -66,6 +67,7 @@ export default function Page({ pageData, authorsData }) {
           <div className={'max-w-7xl mx-auto grid grid-cols-3 gap-16'}>
             <div className={'col-span-2'}>
               <PageContent content={content} />
+              <Authors authors={authorsData.users?.nodes} />
             </div>
             <div className={'col-span-1 pt-20'}>
               {toc_items?.length > 0 && <TOCNav toc_items={toc_items} />}

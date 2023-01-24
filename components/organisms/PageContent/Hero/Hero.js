@@ -95,10 +95,16 @@ export default function Hero({
         </Container>
 
         <Image
-          src={mobileBackground?.sourceUrl}
-          width={mobileBackground?.mediaDetails?.width}
-          height={mobileBackground?.mediaDetails?.height}
-          alt={mobileBackground?.altText}
+          src={mobileBackground?.sourceUrl ?? backgroundImage?.sourceUrl}
+          width={
+            mobileBackground?.mediaDetails?.width ??
+            backgroundImage?.mediaDetails?.width
+          }
+          height={
+            mobileBackground?.mediaDetails?.height ??
+            backgroundImage?.mediaDetails?.height
+          }
+          alt={mobileBackground?.altText ?? backgroundImage?.altText}
           className={'w-full'}
           priority={true}
         />

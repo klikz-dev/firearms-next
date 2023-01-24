@@ -12,8 +12,8 @@ export default function Authors({ authors }) {
     <div className={'py-20'}>
       <Container className={'max-w-6xl'}>
         {[...authors]
-          .sort((author) => (author?.slug === 'michaelcrites' ? -1 : 1))
-          .filter((author) => author.slug !== 'admin')
+          .sort((author) => (author?.slug === 'michael-crites' ? -1 : 1))
+          .filter((author) => author.slug !== 'murrell')
           ?.map((author, index) => (
             <div
               key={index}
@@ -63,13 +63,15 @@ export default function Authors({ authors }) {
                 </div>
               </div>
 
-              <div className={'lg:w-1/2'}>
-                <Image
-                  src={author.author?.image?.sourceUrl}
-                  width={author.author?.image?.mediaDetails?.width}
-                  height={author.author?.image?.mediaDetails?.height}
-                  alt={author.author?.image?.altText}
-                />
+              <div className={'lg:w-1/2 flex flex-row justify-center'}>
+                <div className={'relative w-96 h-96'}>
+                  <Image
+                    src={author.author?.image?.sourceUrl}
+                    alt={author.author?.image?.altText}
+                    layout={'fill'}
+                    className={'object-cover'}
+                  />
+                </div>
               </div>
             </div>
           ))}

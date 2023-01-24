@@ -1,11 +1,11 @@
 import Button from '@/components/atoms/Button'
 import Container from '@/components/atoms/Container'
 import Date from '@/components/atoms/Date'
-import HTMLContent from '@/components/atoms/HTMLContent'
 import Image from '@/components/atoms/Image'
 
 export default function HomeHero({ post, hero }) {
-  const { slug, title, date, content } = post ?? {}
+  const { slug, title, date, seo } = post ?? {}
+  const { metaDesc, opengraphDescription } = seo ?? {}
   const { backgroundImage, mobileBackground } = hero ?? {}
 
   return (
@@ -24,9 +24,9 @@ export default function HomeHero({ post, hero }) {
 
             <div className={'h-1 bg-white w-12 my-5'} />
 
-            <HTMLContent className={'text-white mb-6 line-clamp-3'}>
-              {content}
-            </HTMLContent>
+            <p className={'text-white mb-6 line-clamp-3'}>
+              {metaDesc || opengraphDescription}
+            </p>
 
             <Button href={`/${slug}`}>Learn More</Button>
           </div>
@@ -65,9 +65,9 @@ export default function HomeHero({ post, hero }) {
 
                 <div className={'h-1 bg-white w-12 my-5'} />
 
-                <HTMLContent className={'text-white mb-6 line-clamp-3'}>
-                  {content}
-                </HTMLContent>
+                <p className={'text-white mb-6 line-clamp-3'}>
+                  {metaDesc || opengraphDescription}
+                </p>
 
                 <Button href={`/${slug}`}>Learn More</Button>
               </div>

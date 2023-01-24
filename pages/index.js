@@ -116,6 +116,7 @@ export async function getStaticProps() {
     query: GET_POSTS_QUERY,
     variables: {
       first: 10,
+      categoryNotIn: 49,
     },
   })
 

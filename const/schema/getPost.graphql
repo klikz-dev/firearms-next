@@ -12,6 +12,7 @@ query GetPost($slug: ID!) {
         avatar {
           url
         }
+        slug
       }
     }
     content

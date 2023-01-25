@@ -1,7 +1,7 @@
 import Image from '@/components/atoms/Image'
 import Title from '@/components/molecules/Title'
 import { useQuery } from '@apollo/client'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import { useState } from 'react'
@@ -172,7 +172,9 @@ export default function Sidebar() {
       {categories?.map((category, index) => (
         <div key={index} className={'mb-3'}>
           <div
-            onClick={() => setActive(category.link)}
+            onClick={() =>
+              setActive(active === category.link ? '' : category.link)
+            }
             className={classNames(
               'p-4 flex flex-row justify-between items-center gap-3 cursor-pointer',
               active === category.link ? 'bg-zinc-200' : 'bg-zinc-200/50'
@@ -188,7 +190,11 @@ export default function Sidebar() {
               <h5>{category.name}</h5>
             </div>
 
-            <FontAwesomeIcon icon={faChevronDown} />
+            {active === category.link ? (
+              <FontAwesomeIcon icon={faChevronUp} />
+            ) : (
+              <FontAwesomeIcon icon={faChevronDown} />
+            )}
           </div>
 
           <div

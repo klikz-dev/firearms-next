@@ -1,3 +1,4 @@
+import Link from '@/components/atoms/Link'
 import toCapitalize from '@/functions/toCapitalize'
 import { faTrophy } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,10 +20,13 @@ export default function Awards({ page, brandRank, categoryRank }) {
               <div className='flex flex-row items-start mb-2'>
                 <FontAwesomeIcon icon={faTrophy} className='text-yellow-600' />
 
-                <span className='ml-2 text-sm font-bold'>
+                <Link
+                  href={`/shop/brands/popular/${page.brand.slug}`}
+                  className='ml-2 text-sm font-bold hover:underline'
+                >
                   #{brandRank} Most Popular {toCapitalize(page.brand.name)}{' '}
                   {toCapitalize(page.category.name)}
-                </span>
+                </Link>
               </div>
             ) : (
               <></>
@@ -32,10 +36,13 @@ export default function Awards({ page, brandRank, categoryRank }) {
               <div className='flex flex-row items-start'>
                 <FontAwesomeIcon icon={faTrophy} className='text-yellow-600' />
 
-                <span className='ml-2 text-sm font-bold'>
+                <Link
+                  href={`/shop/categories/popular/${page.category.slug}`}
+                  className='ml-2 text-sm font-bold hover:underline'
+                >
                   #{categoryRank} Most Popular{' '}
                   {toCapitalize(page.category.name)}
-                </span>
+                </Link>
               </div>
             ) : (
               <></>

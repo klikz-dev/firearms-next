@@ -1,4 +1,5 @@
 import Image from '@/components/atoms/Image'
+import Link from '@/components/atoms/Link'
 import {
   faFacebookF,
   faLinkedinIn,
@@ -30,7 +31,9 @@ export default function PostMeta({ title, slug, author, date }) {
           </div>
         </div>
 
-        <p className={'mr-4'}>{author?.node?.name}</p>
+        <Link href={`/author/${author?.node?.slug}`} className={'mr-4'}>
+          {author?.node?.name}
+        </Link>
 
         <div
           className={

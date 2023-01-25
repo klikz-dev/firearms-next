@@ -61,6 +61,10 @@ export default function Page({
       link: `/shop/categories/popular/${page.category.slug}`,
     },
     {
+      text: toCapitalize(page.brand.name),
+      link: `/shop/brands/popular/${page.brand.slug}`,
+    },
+    {
       text: toCapitalize(page.title),
     },
   ]

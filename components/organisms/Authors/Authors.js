@@ -3,7 +3,14 @@ import GradientBorder from '@/components/atoms/GradientBorder'
 import HTMLContent from '@/components/atoms/HTMLContent'
 import Image from '@/components/atoms/Image'
 import Link from '@/components/atoms/Link'
-import { faFacebookF, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import {
+  faFacebookF,
+  faInstagram,
+  faLinkedin,
+  faTwitter,
+  faYoutube,
+} from '@fortawesome/free-brands-svg-icons'
+import { faLink } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 
@@ -34,6 +41,19 @@ export default function Authors({ authors }) {
                 <HTMLContent>{author.description}</HTMLContent>
 
                 <div className={'flex flex-row gap-2 mt-4'}>
+                  {author?.website && (
+                    <Link
+                      href={author?.website}
+                      className={
+                        'w-8 h-8 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
+                      }
+                    >
+                      <FontAwesomeIcon
+                        icon={faLink}
+                        className={'text-red-700'}
+                      />
+                    </Link>
+                  )}
                   {author.author?.facebook && (
                     <Link
                       href={author.author?.facebook}
@@ -56,6 +76,45 @@ export default function Authors({ authors }) {
                     >
                       <FontAwesomeIcon
                         icon={faTwitter}
+                        className={'text-red-700'}
+                      />
+                    </Link>
+                  )}
+                  {author?.linkedin && (
+                    <Link
+                      href={author?.linkedin}
+                      className={
+                        'w-8 h-8 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
+                      }
+                    >
+                      <FontAwesomeIcon
+                        icon={faLinkedin}
+                        className={'text-red-700'}
+                      />
+                    </Link>
+                  )}
+                  {author?.instagram && (
+                    <Link
+                      href={author?.instagram}
+                      className={
+                        'w-8 h-8 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
+                      }
+                    >
+                      <FontAwesomeIcon
+                        icon={faInstagram}
+                        className={'text-red-700'}
+                      />
+                    </Link>
+                  )}
+                  {author?.youtube && (
+                    <Link
+                      href={author?.youtube}
+                      className={
+                        'w-8 h-8 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
+                      }
+                    >
+                      <FontAwesomeIcon
+                        icon={faYoutube}
                         className={'text-red-700'}
                       />
                     </Link>

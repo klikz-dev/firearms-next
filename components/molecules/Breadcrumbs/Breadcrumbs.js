@@ -9,7 +9,9 @@ export default function Breadcrumbs({ breadcrumbs }) {
         <div key={index} className='flex items-center'>
           {breadcrumb.link ? (
             <>
-              <Link href={breadcrumb.link}>{breadcrumb.text}</Link>
+              <Link href={breadcrumb.link} className={'hover:underline'}>
+                {breadcrumb.text}
+              </Link>
 
               <FontAwesomeIcon
                 icon={faChevronRight}

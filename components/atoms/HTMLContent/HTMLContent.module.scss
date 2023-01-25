@@ -16,8 +16,11 @@
   }
 
   menu,
-  ol,
   ul {
     @apply list-disc list-outside pl-6;
+  }
+
+  ol {
+    @apply list-decimal list-outside pl-6;
   }
 }

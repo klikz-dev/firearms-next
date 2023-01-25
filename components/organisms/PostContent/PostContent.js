@@ -22,7 +22,7 @@ export default function PostContent({ contents }) {
 
   return (
     <>
-      <PostInnerMenu menus={menus} />
+      {menus?.length > 0 && <PostInnerMenu menus={menus} />}
 
       {contents?.map((section, index) => {
         switch (section.__typename) {

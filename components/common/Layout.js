@@ -5,7 +5,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Header />
-      <main id='page-content' className='min-h-screen relative'>
+      <main id='page-content' className='relative'>
         {children}
       </main>
       <Footer />

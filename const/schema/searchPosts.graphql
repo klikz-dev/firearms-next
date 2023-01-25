@@ -1,0 +1,34 @@
+query SearchPosts($keyword: String) {
+  posts(first: 100, where: { search: $keyword }) {
+    nodes {
+      seo {
+        metaDesc
+        opengraphDescription
+      }
+      slug
+      title
+      author {
+        node {
+          name
+        }
+      }
+      date
+      excerpt
+      content
+      featuredImage {
+        node {
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

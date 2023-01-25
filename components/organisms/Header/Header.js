@@ -142,8 +142,12 @@ export default function Header() {
 
             <Logo />
 
-            <div className={'w-80 flex flex-row items-center'}>
+            <form
+              action='/search'
+              className={'w-80 flex flex-row items-center'}
+            >
               <Input
+                name='q'
                 placeholder='Search'
                 className={'bg-zinc-200/60 rounded-full px-5 py-2'}
                 value={search}
@@ -152,11 +156,11 @@ export default function Header() {
               <Button
                 size='icon'
                 className={'rounded-full bg-red-700 hover:bg-red-600 shrink-0'}
-                href={search !== '' ? `/search?q=${search}` : undefined}
+                type='submit'
               >
                 <FontAwesomeIcon icon={faSearch} className={'text-white'} />
               </Button>
-            </div>
+            </form>
           </div>
         </Container>
 

@@ -10,6 +10,7 @@ export default function IconGroup({ title, icon, columns, style }) {
   return (
     <div
       className={classNames(
+        'py-10 lg:py-20',
         grayBackground && 'bg-zinc-200/60',
         `pt-${paddingTop / 2} lg:pt-${paddingTop} pb-${
           paddingBottom / 2
@@ -17,9 +18,11 @@ export default function IconGroup({ title, icon, columns, style }) {
       )}
     >
       <Container>
-        <Title className={'mb-12'}>
-          <h2>{title}</h2>
-        </Title>
+        <div className={'text-center'}>
+          <Title className={'mb-12'}>
+            <h2>{title}</h2>
+          </Title>
+        </div>
 
         <div
           className={classNames(

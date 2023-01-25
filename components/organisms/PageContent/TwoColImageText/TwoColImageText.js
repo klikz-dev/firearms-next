@@ -20,6 +20,7 @@ export default function TwoColImageText({
   return (
     <div
       className={classNames(
+        'py-10 lg:py-20',
         grayBackground && 'bg-zinc-200/60',
         `pt-${paddingTop / 2} lg:pt-${paddingTop} pb-${
           paddingBottom / 2

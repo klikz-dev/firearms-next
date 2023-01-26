@@ -19,8 +19,12 @@ query GetAuthors {
           }
           sourceUrl
         }
+        website
         facebook
         twitter
+        linkedin
+        instagram
+        youtube
       }
     }
   }

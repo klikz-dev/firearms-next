@@ -9,11 +9,13 @@ export default function IconHighlights({ title, icons, style }) {
   return (
     <div
       className={classNames(
-        'py-10 lg:py-20',
         grayBackground && 'bg-zinc-200/60',
-        `pt-${paddingTop / 2} lg:pt-${paddingTop} pb-${
-          paddingBottom / 2
-        } lg:pb-${paddingBottom}`
+        paddingTop > 19 && `pt-10 lg:pt-20`,
+        paddingTop > 9 && paddingTop < 20 && `pt-5 lg:pt-10`,
+        paddingTop < 10 && `pt-2 lg:pt-4`,
+        paddingBottom > 19 && `pb-10 lg:pb-20`,
+        paddingBottom > 9 && paddingBottom < 20 && `pb-5 lg:pb-10`,
+        paddingBottom < 10 && `pb-2 lg:pb-4`
       )}
     >
       <Container className={'text-center'}>

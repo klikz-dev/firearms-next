@@ -10,11 +10,13 @@ export default function IconGroup({ title, icon, columns, style }) {
   return (
     <div
       className={classNames(
-        'py-10 lg:py-20',
         grayBackground && 'bg-zinc-200/60',
-        `pt-${paddingTop / 2} lg:pt-${paddingTop} pb-${
-          paddingBottom / 2
-        } lg:pb-${paddingBottom}`
+        paddingTop > 19 && `pt-10 lg:pt-20`,
+        paddingTop > 9 && paddingTop < 20 && `pt-5 lg:pt-10`,
+        paddingTop < 10 && `pt-2 lg:pt-4`,
+        paddingBottom > 19 && `pb-10 lg:pb-20`,
+        paddingBottom > 9 && paddingBottom < 20 && `pb-5 lg:pb-10`,
+        paddingBottom < 10 && `pb-2 lg:pb-4`
       )}
     >
       <Container>
@@ -26,8 +28,10 @@ export default function IconGroup({ title, icon, columns, style }) {
 
         <div
           className={classNames(
-            'lg:grid-cols-5',
-            `grid grid-cols-2 lg:grid-cols-${columns} gap-3`
+            columns == 5 && 'lg:grid-cols-5',
+            columns == 4 && 'lg:grid-cols-4',
+            columns == 3 && 'lg:grid-cols-3',
+            `grid grid-cols-2 gap-3`
           )}
         >
           {icon?.map((icon, index) => (

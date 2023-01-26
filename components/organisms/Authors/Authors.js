@@ -15,6 +15,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 
 export default function Authors({ authors }) {
+  console.log(authors)
+
   return (
     <div className={'py-20'}>
       <Container className={'max-w-6xl'}>
@@ -34,16 +36,16 @@ export default function Authors({ authors }) {
               <div className={'lg:w-1/2'}>
                 <h2 className={'mb-1'}>{author.name}</h2>
 
-                <p>{author.author.position}</p>
+                <h6>{author.author.position}</h6>
 
                 <GradientBorder height={2} className={'w-40 my-4'} />
 
                 <HTMLContent>{author.description}</HTMLContent>
 
                 <div className={'flex flex-row gap-2 mt-4'}>
-                  {author?.website && (
+                  {author.author?.website && (
                     <Link
-                      href={author?.website}
+                      href={author.author?.website}
                       className={
                         'w-8 h-8 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
                       }
@@ -80,9 +82,9 @@ export default function Authors({ authors }) {
                       />
                     </Link>
                   )}
-                  {author?.linkedin && (
+                  {author.author?.linkedin && (
                     <Link
-                      href={author?.linkedin}
+                      href={author.author?.linkedin}
                       className={
                         'w-8 h-8 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
                       }
@@ -93,9 +95,9 @@ export default function Authors({ authors }) {
                       />
                     </Link>
                   )}
-                  {author?.instagram && (
+                  {author.author?.instagram && (
                     <Link
-                      href={author?.instagram}
+                      href={author.author?.instagram}
                       className={
                         'w-8 h-8 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
                       }
@@ -106,9 +108,9 @@ export default function Authors({ authors }) {
                       />
                     </Link>
                   )}
-                  {author?.youtube && (
+                  {author.author?.youtube && (
                     <Link
-                      href={author?.youtube}
+                      href={author.author?.youtube}
                       className={
                         'w-8 h-8 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
                       }

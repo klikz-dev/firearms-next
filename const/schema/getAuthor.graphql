@@ -30,8 +30,12 @@ query GetAuthor($slug: ID!) {
         }
         sourceUrl
       }
+      website
       facebook
       twitter
+      linkedin
+      instagram
+      youtube
     }
   }
 }

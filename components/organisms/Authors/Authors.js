@@ -15,8 +15,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 
 export default function Authors({ authors }) {
-  console.log(authors)
-
   return (
     <div className={'py-20'}>
       <Container className={'max-w-6xl'}>

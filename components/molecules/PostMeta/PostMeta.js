@@ -19,31 +19,45 @@ import {
 
 export default function PostMeta({ title, slug, author, date }) {
   return (
-    <div className={'flex flex-row justify-between gap-4 items-center'}>
-      <div className={'flex flex-row gap-2 items-center'}>
-        <div className={'rounded-full border-2 p-0.5 border-red-600'}>
-          <div className={'relative w-6 h-6 rounded-full overflow-hidden'}>
-            <Image
-              fill={true}
-              src={author?.node?.avatar?.url}
-              alt={author?.node?.name}
-            />
+    <div
+      className={
+        'flex flex-col md:flex-row justify-between gap-4 items-start md:items-center'
+      }
+    >
+      <div
+        className={
+          'flex flex-col md:flex-row gap-4 items-start md:items-center'
+        }
+      >
+        <div className={'flex flex-row items-center gap-2'}>
+          <div className={'rounded-full border-2 p-0.5 border-red-600'}>
+            <div className={'relative w-6 h-6 rounded-full overflow-hidden'}>
+              <Image
+                fill={true}
+                src={author?.node?.avatar?.url}
+                alt={author?.node?.name}
+              />
+            </div>
           </div>
+
+          <Link href={`/author/${author?.node?.slug}`} className={'mr-4'}>
+            {author?.node?.name}
+          </Link>
         </div>
 
-        <Link href={`/author/${author?.node?.slug}`} className={'mr-4'}>
-          {author?.node?.name}
-        </Link>
+        <div className={'flex flex-row items-center gap-2'}>
+          <div
+            className={
+              'p-1 bg-red-500/20 rounded-full w-6 h-6 flex items-center justify-center'
+            }
+          >
+            <FontAwesomeIcon icon={faCalendarDays} className={'text-red-700'} />
+          </div>
 
-        <div
-          className={
-            'p-1 bg-red-500/20 rounded-full w-6 h-6 flex items-center justify-center'
-          }
-        >
-          <FontAwesomeIcon icon={faCalendarDays} className={'text-red-700'} />
+          <p className={'text-sm'}>{`Updated: ${moment(date).format(
+            'MMMM D, YYYY'
+          )}`}</p>
         </div>
-
-        <p>{`Updated: ${moment(date).format('MMMM D, YYYY')}`}</p>
       </div>
 
       <div className={'flex flex-row gap-2 items-center'}>

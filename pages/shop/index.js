@@ -128,7 +128,7 @@ export default function Page({
               </div>
             </div>
 
-            <div className='w-80'>
+            <div className='w-80 max-w-full'>
               <div className='shadow-lg rounded border border-zinc-200 p-6 lg:mt-48 mb-12'>
                 <Title>
                   <h3>Top Brands</h3>

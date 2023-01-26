@@ -43,11 +43,14 @@ export default function Post({ postData }) {
       <NextSeo title={title} description={metaDesc || opengraphDescription} />
 
       <Layout>
-        <Container className={'py-20 grid grid-cols-3 gap-12'}>
-          <div className={'col-span-2'}>
+        <Container className={'py-20 lg:grid lg:grid-cols-3 gap-12'}>
+          <div className={'lg:col-span-2 mb-20'}>
             <h1>{title}</h1>
 
-            <GradientBorder height={2} className={'w-96 mt-4 mb-8'} />
+            <GradientBorder
+              height={2}
+              className={'w-96 max-w-full mt-4 mb-8'}
+            />
 
             {metaDesc && <p className={'mt-4 mb-8'}>{metaDesc}</p>}
 
@@ -82,7 +85,7 @@ export default function Post({ postData }) {
             <PostContent contents={postContent?.contents} />
           </div>
 
-          <div className={'col-span-1'}>
+          <div className={'lg:col-span-1'}>
             <Sidebar />
           </div>
         </Container>

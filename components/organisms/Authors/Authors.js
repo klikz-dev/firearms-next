@@ -123,7 +123,7 @@ export default function Authors({ authors }) {
               </div>
 
               <div className={'lg:w-1/2 flex flex-row justify-center'}>
-                <div className={'relative w-96 h-96'}>
+                <div className={'relative w-96 max-w-full h-96'}>
                   <Image
                     src={author.author?.image?.sourceUrl}
                     alt={author.author?.image?.altText}

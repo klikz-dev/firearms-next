@@ -5,7 +5,9 @@ import classNames from 'classnames'
 
 export default function Social({ className }) {
   return (
-    <div className={classNames('flex flex-row gap-2 w-80', className)}>
+    <div
+      className={classNames('flex flex-row gap-2 w-80 max-w-full', className)}
+    >
       {socialIcons.map((social, index) => (
         <Link
           key={index}

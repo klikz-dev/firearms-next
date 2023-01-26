@@ -45,22 +45,26 @@ export default function Page({ pageData }) {
         {layout === 'full' && <PageContent content={content} />}
 
         {layout === 'sidebar' && (
-          <div className={'max-w-7xl mx-auto grid grid-cols-3 gap-16'}>
-            <div className={'col-span-2'}>
+          <div className={'max-w-7xl mx-auto grid lg:grid-cols-3 gap-16'}>
+            <div className={'lg:col-span-2'}>
               <PageContent content={content} />
             </div>
-            <div className={'col-span-1 pt-20'}>
+            <div className={'lg:col-span-1 pt-20'}>
               <Sidebar />
             </div>
           </div>
         )}
 
         {layout === 'toc' && (
-          <div className={'max-w-7xl mx-auto grid grid-cols-3 gap-16'}>
-            <div className={'col-span-2'}>
+          <div
+            className={
+              'max-w-7xl mx-auto flex flex-col-reverse lg:flex-row gap-16'
+            }
+          >
+            <div className={'w-full lg:w-2/3'}>
               <PageContent content={content} />
             </div>
-            <div className={'col-span-1 pt-20'}>
+            <div className={'w-full lg:w-1/3 lg:pt-20 px-4'}>
               {toc_items?.length > 0 && <TOCNav toc_items={toc_items} />}
             </div>
           </div>

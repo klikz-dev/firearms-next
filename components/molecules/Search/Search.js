@@ -15,7 +15,7 @@ export default function Search() {
       <Input
         name='q'
         placeholder='Search'
-        className={'bg-zinc-200/60 rounded-full px-5 py-2 w-96'}
+        className={'bg-zinc-200/60 rounded-full px-5 py-2 w-96 max-w-full'}
         value={search}
         setValue={setSearch}
       />

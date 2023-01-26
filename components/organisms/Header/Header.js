@@ -144,7 +144,7 @@ export default function Header() {
 
             <form
               action='/search'
-              className={'w-80 flex flex-row items-center'}
+              className={'w-80 max-w-full flex flex-row items-center'}
             >
               <Input
                 name='q'

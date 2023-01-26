@@ -9,7 +9,7 @@ export default function PostInnerMenu({ menus }) {
 
       <div className={'px-1 py-5 border border-zinc-300 bg-zinc-100'}>
         {menus?.map((menu, index) => (
-          <div key={index} className={'mb-2 w-2/5'}>
+          <div key={index} className={'mb-2 max-w-xs'}>
             <Link
               href={`#${menu.id}`}
               className={

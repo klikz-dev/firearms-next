@@ -26,6 +26,7 @@ export default function IconGroup({ title, icon, columns, style }) {
 
         <div
           className={classNames(
+            'lg:grid-cols-5',
             `grid grid-cols-2 lg:grid-cols-${columns} gap-3`
           )}
         >

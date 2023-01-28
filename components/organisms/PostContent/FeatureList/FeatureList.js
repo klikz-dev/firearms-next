@@ -17,7 +17,7 @@ export default function FeatureList({ listStyle, features }) {
           {listStyle === 'red' && (
             <div
               className={
-                'w-16 h-16 rounded-full border-4 border-red-100 bg-gradient-to-r from-red-800 to-red-600 flex-shrink-0 flex flex-row justify-center'
+                'w-16 h-16 rounded-full border-4 border-red-100 bg-gradient-to-r from-red-800 to-red-600 flex-shrink-0 flex flex-row justify-center items-center'
               }
             >
               <span className={'text-3xl font-bold font-display text-white'}>

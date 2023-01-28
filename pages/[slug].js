@@ -43,7 +43,7 @@ export default function Post({ postData }) {
       <NextSeo title={title} description={metaDesc || opengraphDescription} />
 
       <Layout>
-        <Container className={'py-20 lg:grid lg:grid-cols-3 gap-12'}>
+        <Container className={'py-8 lg:py-20 lg:grid lg:grid-cols-3 gap-12'}>
           <div className={'lg:col-span-2 mb-20'}>
             <h1>{title}</h1>
 
@@ -57,16 +57,15 @@ export default function Post({ postData }) {
             <PostMeta title={title} slug={slug} author={author} date={date} />
 
             <div
-              className={'mt-8 mb-8 p-4 bg-zinc-200 border-l border-zinc-700'}
+              className={
+                'mt-8 mb-8 p-4 bg-zinc-200 border-l-4 border-red-700 rounded-r-full'
+              }
             >
               <p className='text-sm'>
                 {
                   'Products are selected by our editors. We may earn a commission on purchases from a link. '
                 }
-                <Link
-                  href={'/'}
-                  className={'text-red-600 font-sans hover:underline'}
-                >
+                <Link href={'/'} className={'text-red-600 font-sans underline'}>
                   {'How we select gear.'}
                 </Link>
               </p>

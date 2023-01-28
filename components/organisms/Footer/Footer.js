@@ -97,15 +97,15 @@ export default function Footer() {
 
           <div className='flex flex-col lg:flex-row'>
             {[
-              { label: 'Terms of Use', path: '/terms-of-use' },
-              { label: 'Privacy Policy ', path: '/terms-of-use' },
+              { label: 'Terms of Use', path: '/terms-service' },
+              { label: 'Privacy Policy ', path: '/privacy-policy' },
               {
                 label: 'Do Not Sell My Personal Information',
-                path: '/terms-of-use',
+                path: '/terms-service',
               },
               {
                 label: 'Your California Privacy Rights',
-                path: '/terms-of-use',
+                path: '/privacy-policy',
               },
             ].map((link, index) => (
               <div

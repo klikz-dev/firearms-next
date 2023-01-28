@@ -55,6 +55,7 @@ export default function Taxonomy({ customLink, customTitle, tag, style }) {
                   src={post?.featuredImage?.node?.sourceUrl}
                   fill={true}
                   alt={post?.featuredImage?.node?.altText}
+                  className={'object-cover'}
                 />
               </div>
 

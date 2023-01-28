@@ -84,6 +84,13 @@ query GetPost($slug: ID!) {
             question
           }
         }
+        ... on Post_Postcontent_Contents_FeatureList {
+          listStyle
+          features {
+            text
+            title
+          }
+        }
       }
     }
   }

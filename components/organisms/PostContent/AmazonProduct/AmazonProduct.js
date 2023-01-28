@@ -22,10 +22,10 @@ export default function AmazonProduct({ productId }) {
     <div className={'p-1 overflow-hidden mb-8'}>
       <div
         className={
-          'relative bg-zinc-100 border border-zinc-300 grid grid-cols-2 gap-4'
+          'relative bg-zinc-100 border border-zinc-300 grid lg:grid-cols-2 gap-4'
         }
       >
-        <div className={'flex flex-col justify-center py-16'}>
+        <div className={'flex flex-col justify-center lg:py-16'}>
           <div
             className={
               'absolute -top-20 -left-20 w-40 h-40 p-3 flex items-end justify-center -rotate-45 bg-gradient-to-r from-red-800 to-red-500'

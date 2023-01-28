@@ -36,6 +36,7 @@ export default function PostMeta({ title, slug, author, date }) {
                 fill={true}
                 src={author?.node?.avatar?.url}
                 alt={author?.node?.name}
+                className={'object-cover'}
               />
             </div>
           </div>

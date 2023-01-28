@@ -3,6 +3,7 @@ import convertToSlug from '@/functions/convertToSlug'
 import AmazonProduct from './AmazonProduct'
 import CTA from './CTA'
 import FAQ from './FAQ'
+import FeatureList from './FeatureList'
 import Heading from './Heading'
 import PostImage from './Image'
 import PerformanceScoreboard from './PerformanceScoreboard'
@@ -52,6 +53,9 @@ export default function PostContent({ contents }) {
 
           case 'Post_Postcontent_Contents_Faq':
             return <FAQ key={index} {...section} />
+
+          case 'Post_Postcontent_Contents_FeatureList':
+            return <FeatureList key={index} {...section} />
 
           default:
             return <div key={index}></div>

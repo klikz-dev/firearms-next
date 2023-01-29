@@ -1,47 +1,42 @@
 import Button from '@/components/atoms/Button'
 import Image from '@/components/atoms/Image'
 import Link from '@/components/atoms/Link'
-import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function PopularCategory({ pages }) {
   return (
-    <>
-      <table className='table-auto mx-auto relative w-full'>
-        <thead className='bg-white sticky w-full top-0 z-10 shadow hidden lg:table-header-group'>
-          <tr>
-            <th>Rank</th>
-            <th></th>
-            <th></th>
-            <th className='hidden lg:table-cell'>Condition</th>
-            <th className='p-4 w-40 text-center  hidden lg:table-cell'>
-              Previous Rank
-            </th>
-            <th></th>
-          </tr>
-        </thead>
+    <div className={'overflow-auto'}>
+      <div style={{ minWidth: '1200px' }}>
+        <div
+          className={
+            'bg-gradient-to-b from-red-500 to-red-800 text-white sticky top-0 z-10 mb-8'
+          }
+        >
+          <div className={'font-display flex'}>
+            <span className={'px-6 py-3 w-1/12'}>No.</span>
+            <span className={'px-6 py-3 w-1/12'}>Images</span>
+            <span className={'px-6 py-3 w-1/3'}>Models</span>
+            <span className={'px-6 py-3 w-1/6'}>Conditions</span>
+            <span className={'px-6 py-3 w-1/6'}>Previous Ranks</span>
+            <span className={'px-6 py-3 w-1/6'}>Full View Prices</span>
+          </div>
+        </div>
 
-        <tbody>
+        <div className={'my-8'}>
           {pages.map((page, index) => (
-            <tr key={index}>
-              <td className='font-bold lg:px-2 text-center w-12 lg:w-24'>
-                <div className='flex justify-center items-center'>
-                  <div className='w-6 h-6 rounded-full bg-red-700 text-white inline-flex justify-center items-center text-xs mr-2'>
-                    {index + 1}
-                  </div>
-
-                  {index + 1 < page.pre_category_rank && (
-                    <FontAwesomeIcon icon={faArrowUp} />
-                  )}
-
-                  {index + 1 > page.pre_category_rank && (
-                    <FontAwesomeIcon icon={faArrowDown} />
-                  )}
+            <div
+              key={index}
+              className={
+                'bg-white h-20 my-3 border border-zinc-300 hover:border-red-600 hover:shadow-xl flex items-center'
+              }
+            >
+              <div className='px-6 py-2 w-1/12'>
+                <div className='w-8 h-8 bg-gradient-to-r from-red-800 to-red-500 text-white rounded-full flex justify-center items-center'>
+                  <h6>{index + 1 < 10 ? `0${index + 1}` : index + 1}</h6>
                 </div>
-              </td>
+              </div>
 
-              <td className='lg:px-6 lg:py-4'>
-                <div className='relative w-16 h-16 lg:w-32 lg:h-32'>
+              <div className='px-6 py-2 w-1/12'>
+                <div className='relative h-16 w-16 rounded-lg bg-zinc-100 border border-zinc-200 overflow-hidden'>
                   <Image
                     src={page.thumb_url}
                     fill={true}
@@ -49,27 +44,35 @@ export default function PopularCategory({ pages }) {
                     className={'object-contain'}
                   />
                 </div>
-              </td>
+              </div>
 
-              <td className='px-2 lg:px-4 text-sm lg:text-base font-bold capitalize'>
-                {page.title.toLowerCase()}
-              </td>
+              <div className='px-6 py-2 w-1/3 capitalize'>
+                <h5>{page.title.toLowerCase()}</h5>
+              </div>
 
-              <td className='px-4 text-center hidden lg:table-cell'>New</td>
+              <div className='px-6 py-2 w-1/6'>
+                <span>New</span>
+              </div>
 
-              <td className='px-4 text-center hidden lg:table-cell'>
-                {page.pre_category_rank}
-              </td>
+              <div className='px-6 py-2 w-1/6'>
+                <span>
+                  {page.pre_category_rank < 1
+                    ? '--'
+                    : page.pre_category_rank < 10
+                    ? `0${page.pre_category_rank}`
+                    : page.pre_category_rank}
+                </span>
+              </div>
 
-              <td className='text-sm lg:text-base lg:w-40 py-4'>
+              <div className='px-6 py-2 w-1/6'>
                 <Link href={`/shop/${page.slug}/`}>
-                  <Button color={'red'}>View Prices</Button>
+                  <Button color={'white'}>View Prices</Button>
                 </Link>
-              </td>
-            </tr>
+              </div>
+            </div>
           ))}
-        </tbody>
-      </table>
-    </>
+        </div>
+      </div>
+    </div>
   )
 }

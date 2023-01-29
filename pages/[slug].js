@@ -65,7 +65,10 @@ export default function Post({ postData }) {
                 {
                   'Products are selected by our editors. We may earn a commission on purchases from a link. '
                 }
-                <Link href={'/'} className={'text-red-600 font-sans underline'}>
+                <Link
+                  href={'/how-we-test-review-gear/'}
+                  className={'text-red-600 font-sans underline'}
+                >
                   {'How we select gear.'}
                 </Link>
               </p>

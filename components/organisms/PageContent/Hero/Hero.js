@@ -14,7 +14,7 @@ export default function Hero({
         {redBackground ? (
           <div className={'relative'}>
             <div className={'flex flex-row justify-end'}>
-              <div className={'relative h-96 w-3/5'}>
+              <div className={'relative h-80 w-3/5'}>
                 <Image
                   src={backgroundImage?.sourceUrl}
                   fill={true}
@@ -42,7 +42,7 @@ export default function Hero({
 
                   <div className={'pt-0.5 bg-white w-12 my-5'} />
 
-                  <p className={'text-white mb-6'}>{subtitle}</p>
+                  {subtitle && <p className={'text-white mb-6'}>{subtitle}</p>}
                 </div>
               </Container>
             </div>
@@ -69,7 +69,7 @@ export default function Hero({
 
                   <div className={'h-1 bg-white w-12 my-5'} />
 
-                  <p className={'text-white mb-6'}>{subtitle}</p>
+                  {subtitle && <p className={'text-white mb-6'}>{subtitle}</p>}
                 </div>
               </Container>
             </div>
@@ -90,24 +90,26 @@ export default function Hero({
 
             <div className={'h-1 bg-white w-12 my-5'} />
 
-            <p className={'text-white mb-6'}>{subtitle}</p>
+            {subtitle && <p className={'text-white mb-6'}>{subtitle}</p>}
           </div>
         </Container>
 
-        <Image
-          src={mobileBackground?.sourceUrl ?? backgroundImage?.sourceUrl}
-          width={
-            mobileBackground?.mediaDetails?.width ??
-            backgroundImage?.mediaDetails?.width
-          }
-          height={
-            mobileBackground?.mediaDetails?.height ??
-            backgroundImage?.mediaDetails?.height
-          }
-          alt={mobileBackground?.altText ?? backgroundImage?.altText}
-          className={'w-full'}
-          priority={true}
-        />
+        <div className={'relative h-56 w-full'}>
+          <Image
+            src={mobileBackground?.sourceUrl ?? backgroundImage?.sourceUrl}
+            width={
+              mobileBackground?.mediaDetails?.width ??
+              backgroundImage?.mediaDetails?.width
+            }
+            height={
+              mobileBackground?.mediaDetails?.height ??
+              backgroundImage?.mediaDetails?.height
+            }
+            alt={mobileBackground?.altText ?? backgroundImage?.altText}
+            className={'w-full'}
+            priority={true}
+          />
+        </div>
       </div>
     </>
   )

@@ -35,6 +35,10 @@
     @apply text-white bg-gradient-to-r bg-yellow-600 hover:bg-yellow-500;
   }
 
+  &.white {
+    @apply border border-zinc-300 hover:text-white hover:bg-gradient-to-r hover:from-red-800 hover:to-red-500 hover:border-red-500;
+  }
+
   /** Disabled **/
   &.disabled {
     @apply opacity-50 cursor-not-allowed;

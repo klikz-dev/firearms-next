@@ -1,54 +1,40 @@
+import Button from '@/components/atoms/Button'
 import Container from '@/components/atoms/Container'
 import Link from '@/components/atoms/Link'
 import Layout from '@/components/common/Layout'
-import Breadcrumbs from '@/components/molecules/Breadcrumbs'
 import Title from '@/components/molecules/Title'
+import Hero from '@/components/organisms/PageContent/Hero'
 import PopularCategory from '@/components/organisms/Shop/Categories/Popular'
-import {
-  faArrowRightLong,
-  faHomeAlt,
-  faShoppingBag,
-} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import moment from 'moment'
 import { NextSeo } from 'next-seo'
+import { client } from '@/lib/apollo'
+import GET_PAGE_QUERY from '@/const/schema/getPage.graphql'
+import PageContent from '@/components/organisms/PageContent'
 
 export default function Page({
-  categories,
-  brands,
+  pageData,
   handgunsPages,
   riflesPages,
   shotgunsPages,
 }) {
-  const breadcrumbs = [
-    {
-      icon: <FontAwesomeIcon icon={faHomeAlt} className={'text-sm w-6'} />,
-      text: 'Home',
-      link: '/',
-    },
-    {
-      icon: <FontAwesomeIcon icon={faShoppingBag} className={'text-sm w-6'} />,
-      text: 'Prices',
-    },
-  ]
+  const { title, pageContent, seo } = pageData?.page ?? {}
+  const { hero, content } = pageContent ?? {}
+  const { metaDesc, opengraphDescription } = seo ?? {}
 
   const today = moment().format('MMMM YYYY')
 
   return (
     <>
-      <NextSeo
-        title={`Compare Prices on Guns & Accessories to Find the Best Deals`}
-        description={`Compare prices on guns & accessories to find the best deals before buying.`}
-      />
+      <NextSeo title={title} description={metaDesc || opengraphDescription} />
 
       <Layout>
-        <Container className={`py-12`}>
-          <Breadcrumbs breadcrumbs={breadcrumbs} />
+        <Hero {...hero} />
 
-          <div className='mb-12'>
-            <h1 className='text-red-700 font-bold my-4'>
-              Most Popular Firearms in {today}
-            </h1>
+        <Container className={`py-16`}>
+          <div className='text-center'>
+            <Title>
+              <h1>Most Popular Firearms in {today}</h1>
+            </Title>
 
             <p className='text-lg'>
               Every month AmericanFirearms.org publishes the monthly Most
@@ -61,114 +47,77 @@ export default function Page({
           </div>
         </Container>
 
-        <Container>
-          <div className='flex flex-col lg:flex-row gap-8'>
-            <div>
-              <div className='mb-16'>
-                <Title>
-                  <h2>Popular Handguns</h2>
-                </Title>
+        <div className={'py-16 bg-zinc-100'}>
+          <Container>
+            <Title>
+              <h2>Popular Handguns</h2>
+            </Title>
 
-                <PopularCategory pages={handgunsPages} />
+            <PopularCategory pages={handgunsPages} />
 
-                <div className='flex justify-end mt-4 px-4'>
-                  <Link
-                    href='/shop/categories/popular/handguns/'
-                    className={'text-red-700'}
-                  >
-                    Shop All Handguns
-                    <FontAwesomeIcon
-                      icon={faArrowRightLong}
-                      className={`text-sm w-6`}
-                    />
-                  </Link>
-                </div>
-              </div>
-
-              <div className='mb-16'>
-                <Title>
-                  <h2>Popular Rifles</h2>
-                </Title>
-
-                <PopularCategory pages={riflesPages} />
-
-                <div className='flex justify-end mt-4 px-4'>
-                  <Link
-                    href='/shop/categories/popular/rifles/'
-                    className={'text-red-700'}
-                  >
-                    Shop All Rifles
-                    <FontAwesomeIcon
-                      icon={faArrowRightLong}
-                      className={`text-sm w-6`}
-                    />
-                  </Link>
-                </div>
-              </div>
-
-              <div className='mb-16'>
-                <Title>
-                  <h2>Popular Shotguns</h2>
-                </Title>
-
-                <PopularCategory pages={shotgunsPages} />
-
-                <div className='flex justify-end mt-4 px-4'>
-                  <Link
-                    href='/shop/categories/popular/shotguns/'
-                    className={'text-red-700'}
-                  >
-                    Shop All Shotguns
-                    <FontAwesomeIcon
-                      icon={faArrowRightLong}
-                      className={`text-sm w-6`}
-                    />
-                  </Link>
-                </div>
-              </div>
+            <div className='flex justify-center mt-4 px-4'>
+              <Link href='/shop/categories/popular/handguns/'>
+                <Button color={'red'}>Shop All</Button>
+              </Link>
             </div>
+          </Container>
+        </div>
 
-            <div className='w-80 max-w-full'>
-              <div className='shadow-lg rounded border border-zinc-200 p-6 lg:mt-48 mb-12'>
-                <Title>
-                  <h3>Top Brands</h3>
-                </Title>
+        <div className={'py-16 bg-white'}>
+          <Container>
+            <Title>
+              <h2>Popular Rifles</h2>
+            </Title>
 
-                {brands?.map((brand, index) => (
-                  <Link
-                    key={index}
-                    href={`/shop/brands/popular/${brand.slug}`}
-                    className='block capitalize hover:text-red-800 hover:underline mb-1'
-                  >
-                    {brand.name}
-                  </Link>
-                ))}
-              </div>
+            <PopularCategory pages={riflesPages} />
 
-              <div className='shadow-lg rounded border border-zinc-200 p-6'>
-                <Title>
-                  <h3>Top Categories</h3>
-                </Title>
-
-                {categories?.map((category, index) => (
-                  <Link
-                    key={index}
-                    href={`/shop/brands/popular/${category.slug}`}
-                    className='block capitalize hover:text-red-800 hover:underline mb-1'
-                  >
-                    {category.name}
-                  </Link>
-                ))}
-              </div>
+            <div className='flex justify-center mt-4 px-4'>
+              <Link href='/shop/categories/popular/rifles/'>
+                <Button color={'red'}>Shop All</Button>
+              </Link>
             </div>
-          </div>
-        </Container>
+          </Container>
+        </div>
+
+        <div className={'py-16 bg-zinc-100'}>
+          <Container>
+            <Title>
+              <h2>Popular Shotguns</h2>
+            </Title>
+
+            <PopularCategory pages={shotgunsPages} />
+
+            <div className='flex justify-center mt-4 px-4'>
+              <Link href='/shop/categories/popular/shotguns/'>
+                <Button color={'red'}>Shop All</Button>
+              </Link>
+            </div>
+          </Container>
+        </div>
+
+        <PageContent content={content} />
       </Layout>
     </>
   )
 }
 
 export async function getStaticProps() {
+  /**
+   * Page Content
+   */
+  const { data: pageData, pageError } = await client.query({
+    query: GET_PAGE_QUERY,
+    variables: {
+      slug: 'shop',
+    },
+  })
+
+  if (pageError || !pageData?.page) {
+    return {
+      notFound: true,
+    }
+  }
+
   /**
    * Top Categories
    */
@@ -211,6 +160,7 @@ export async function getStaticProps() {
 
   return {
     props: {
+      pageData,
       categories,
       brands,
       handgunsPages: handgunsPages?.slice(0, 10) || [],

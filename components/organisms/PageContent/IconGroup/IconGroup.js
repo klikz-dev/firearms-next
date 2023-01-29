@@ -35,10 +35,14 @@ export default function IconGroup({ title, icon, columns, style }) {
           )}
         >
           {icon?.map((icon, index) => (
-            <Link key={index} href={icon.link} className={'border-t border-b'}>
+            <Link
+              key={index}
+              href={icon.link}
+              className={'border border-zinc-300 hover:border-white'}
+            >
               <div
                 className={
-                  'h-full p-4 lg:p-8 flex flex-col justify-center items-center bg-white border-t border-b-8 border-white hover:border-red-700 hover:shadow-lg'
+                  'h-full p-4 lg:p-8 flex flex-col justify-around items-center bg-white border-t border-b-4 border-white hover:border-red-700 hover:shadow-lg group'
                 }
               >
                 <div className={'relative'}>
@@ -51,7 +55,11 @@ export default function IconGroup({ title, icon, columns, style }) {
                   />
                 </div>
 
-                {icon.label && <h5 className={'mt-3 mb-1'}>{icon.label}</h5>}
+                {icon.label && (
+                  <h5 className={'mt-3 mb-1 group-hover:text-red-700'}>
+                    {icon.label}
+                  </h5>
+                )}
 
                 {icon.text && (
                   <p className={'text-xs text-gray-600'}>{icon.text}</p>

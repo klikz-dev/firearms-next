@@ -9,7 +9,7 @@ export default function TextLink({
   ...props
 }) {
   if (!href) {
-    return <div>{children}</div>
+    return <div className={className}>{children}</div>
   }
 
   return urlExternal || href.includes('recommends') || href.includes('http') ? (

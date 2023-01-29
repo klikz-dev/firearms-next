@@ -33,7 +33,7 @@ export default function Button({
 }
 
 Button.propTypes = {
-  color: PropTypes.oneOf(['black', 'red', 'yellow']),
+  color: PropTypes.oneOf(['black', 'red', 'yellow', 'white']),
   size: PropTypes.oneOf(['icon', 'sm', 'md', 'lg', 'full']),
   onClick: PropTypes.func,
   disabled: PropTypes.bool,

@@ -9,19 +9,55 @@ export default function DisplayImage({
   style,
   ...props
 }) {
-  if (!src) {
+  if (!src || typeof src !== 'string') {
     return <></>
   }
+  const sourceDomain = src?.includes('http') ? new URL(src) : undefined
+  let domains = process.env.NEXT_PUBLIC_IMAGE_DOMAINS
+  domains = !domains || !domains.length ? [] : domains.split('|')
 
-  return (
-    <Image
-      src={src}
-      width={width}
-      height={height}
-      alt={alt ?? 'Image'}
-      className={className}
-      style={style}
-      {...props}
-    />
-  )
+  function NextImage() {
+    return sourceDomain?.host ? (
+      <Image
+        src={src}
+        width={width}
+        height={height}
+        alt={alt ?? 'Image'}
+        className={className}
+        style={style}
+        {...props}
+        placeholder='blur'
+        blurDataURL='/images/blur.png'
+      />
+    ) : (
+      <Image
+        src={src}
+        width={width}
+        height={height}
+        alt={alt ?? 'Image'}
+        className={className}
+        style={style}
+        {...props}
+      />
+    )
+  }
+
+  function HtmlImage() {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={src}
+        width='100%'
+        height='auto'
+        alt={alt}
+        className={className}
+      />
+    )
+  }
+
+  if (domains.includes(sourceDomain?.host) || !sourceDomain) {
+    return <NextImage />
+  } else {
+    return <HtmlImage />
+  }
 }

@@ -39,7 +39,7 @@ export default function Category({ categoryData }) {
           <div className={'grid md:grid-cols-2 lg:grid-cols-4 gap-4'}>
             {posts?.nodes?.map((post, index) => (
               <div key={index}>
-                <PostCardVertical post={post} />
+                <PostCardVertical post={post} priority={index < 8} />
               </div>
             ))}
           </div>

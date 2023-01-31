@@ -63,7 +63,7 @@ export function PostCardHorizontal({ post, className }) {
   )
 }
 
-export function PostCardVertical({ post, className }) {
+export function PostCardVertical({ post, className, priority = false }) {
   return (
     <div className={classNames('border', className)}>
       <Link href={`/${post.slug}`}>
@@ -71,6 +71,7 @@ export function PostCardVertical({ post, className }) {
           <Background
             image={post.featuredImage?.node?.sourceUrl}
             alt={post.featuredImage?.node?.altText}
+            priority={priority}
           />
         </div>
       </Link>

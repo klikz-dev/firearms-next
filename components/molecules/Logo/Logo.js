@@ -1,12 +1,16 @@
 import Image from '@/components/atoms/Image'
 import Link from '@/components/atoms/Link'
-import logo from '@/images/logo.png'
 
 export default function Logo() {
   return (
     <div className={'w-48'}>
       <Link href={'/'}>
-        <Image src={logo} alt={'American Firearms'} />
+        <Image
+          src='/images/logo.png'
+          width={330}
+          height={129}
+          alt={'American Firearms'}
+        />
       </Link>
     </div>
   )

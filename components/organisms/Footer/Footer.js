@@ -9,7 +9,6 @@ import Input from '@/components/atoms/Input'
 import Button from '@/components/atoms/Button'
 import { useState } from 'react'
 import Title from '@/components/molecules/Title'
-import NewspaperImage from '@/images/newsletter.png'
 import Subscribe from '../Sidebar/Subscribe'
 
 export default function Footer() {
@@ -19,7 +18,12 @@ export default function Footer() {
     <footer>
       <Container className={'mb-8 hidden lg:block'}>
         <div className='relative'>
-          <Image src={NewspaperImage} alt={'Newsletter'} />
+          <Image
+            src='/images/newsletter.png'
+            width={1240}
+            height={432}
+            alt={'Newsletter'}
+          />
 
           <div className={'absolute w-full h-full top-0 left-0'}>
             <p className={'mt-40 text-white text-center text-lg mb-6'}>

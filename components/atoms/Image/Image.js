@@ -9,7 +9,7 @@ export default function DisplayImage({
   style,
   ...props
 }) {
-  if (!src || typeof src !== 'string') {
+  if (!src) {
     return <></>
   }
   const sourceDomain = src?.includes('http') ? new URL(src) : undefined

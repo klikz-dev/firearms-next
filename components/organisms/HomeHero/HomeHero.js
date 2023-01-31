@@ -2,6 +2,7 @@ import Button from '@/components/atoms/Button'
 import Container from '@/components/atoms/Container'
 import Date from '@/components/atoms/Date'
 import Image from '@/components/atoms/Image'
+import Link from '@/components/atoms/Link'
 
 export default function HomeHero({ post, hero }) {
   const { slug, title, date, seo } = post ?? {}
@@ -28,7 +29,9 @@ export default function HomeHero({ post, hero }) {
               {metaDesc || opengraphDescription}
             </p>
 
-            <Button href={`/${slug}`}>Learn More</Button>
+            <Link href={`/${slug}`}>
+              <Button>Learn More</Button>
+            </Link>
           </div>
         </Container>
 
@@ -69,7 +72,9 @@ export default function HomeHero({ post, hero }) {
                   {metaDesc || opengraphDescription}
                 </p>
 
-                <Button href={`/${slug}`}>Learn More</Button>
+                <Link href={`/${slug}`}>
+                  <Button>Learn More</Button>
+                </Link>
               </div>
             </Container>
           </div>

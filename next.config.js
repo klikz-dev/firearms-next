@@ -13,7 +13,11 @@ const nextConfig = {
     const data = await response.json()
     const { redirects, affiliates } = data?.acf ?? {}
 
-    return [...redirects, ...affiliates]
+    const rules = [...redirects, ...affiliates].filter(
+      (rule) => rule.source && rule.destination
+    )
+
+    return rules
   },
   async rewrites() {
     const response = await fetch(
@@ -22,7 +26,7 @@ const nextConfig = {
     const data = await response.json()
     const { rewrites } = data?.acf ?? {}
 
-    return rewrites ?? []
+    return rewrites.filter((rule) => rule.source && rule.destination) ?? []
   },
   webpack: (config) => {
     config.module.rules.push({

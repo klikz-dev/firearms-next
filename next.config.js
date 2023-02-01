@@ -26,7 +26,27 @@ const nextConfig = {
     const data = await response.json()
     const { rewrites } = data?.acf ?? {}
 
-    return rewrites.filter((rule) => rule.source && rule.destination) ?? []
+    return (
+      rewrites
+        .filter((rule) => rule.source && rule.destination)
+        .map((rewrite) => {
+          let source = rewrite.source
+          let destination = rewrite.destination
+
+          if (source[source.length - 1] === '/') {
+            source = source.substring(0, source.length - 1)
+          }
+
+          if (destination[destination.length - 1] === '/') {
+            destination = destination.substring(0, destination.length - 1)
+          }
+
+          return {
+            source: source,
+            destination: destination,
+          }
+        }) ?? []
+    )
   },
   webpack: (config) => {
     config.module.rules.push({

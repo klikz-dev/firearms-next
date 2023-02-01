@@ -3,9 +3,24 @@ import Button from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
 import { faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import sendEmail from '@/functions/sendEmail'
 
 export default function Subscribe() {
   const [email, setEmail] = useState('')
+  const [success, setSuccess] = useState(false)
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    sendEmail(
+      `<${email}>`,
+      process.env.NEXT_PUBLIC_TO_EMAIL,
+      'American Firearms Email Subscription',
+      `<p style='margin-top: 20px; margin-bottom: 20px;'>New email subscription from <strong>${email}</strong></p>`
+    )
+
+    setSuccess(true)
+  }
 
   return (
     <div className='relative bg-red-700 p-8 text-center mb-16'>
@@ -45,8 +60,13 @@ export default function Subscribe() {
       </div>
 
       <div className={'text-center'}>
-        <Button color='black' size={'lg'}>
-          Submit
+        <Button
+          color='black'
+          size={'lg'}
+          onClick={handleSubmit}
+          disabled={success}
+        >
+          {success ? 'Subscribed' : 'Submit'}
         </Button>
       </div>
     </div>

@@ -36,10 +36,10 @@ export default function Tag({ tagData }) {
 
           <p className={'max-w-sm my-6'}>{description}</p>
 
-          <div className={'grid grid-cols-4 gap-4'}>
+          <div className={'grid md:grid-cols-2 lg:grid-cols-4 gap-4'}>
             {posts?.nodes?.map((post, index) => (
               <div key={index}>
-                <PostCardVertical post={post} />
+                <PostCardVertical post={post} priority={index < 8} />
               </div>
             ))}
           </div>

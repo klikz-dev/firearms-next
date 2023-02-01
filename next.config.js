@@ -1,3 +1,5 @@
+const { removeDuplicates } = require('./functions/removeDuplicates')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -13,11 +15,32 @@ const nextConfig = {
     const data = await response.json()
     const { redirects, affiliates } = data?.acf ?? {}
 
-    const rules = [...redirects, ...affiliates].filter(
-      (rule) => rule.source && rule.destination
-    )
+    const rules =
+      [...redirects, ...affiliates]
+        .filter((rule) => rule.source && rule.destination)
+        .map((rule) => {
+          let source = rule.source
+          let destination = rule.destination
 
-    return rules
+          if (source[source.length - 1] === '/' && source !== '/') {
+            source = source.substring(0, source.length - 1)
+          }
+
+          if (
+            destination[destination.length - 1] === '/' &&
+            destination !== '/'
+          ) {
+            destination = destination.substring(0, destination.length - 1)
+          }
+
+          return {
+            source: source,
+            destination: destination,
+            permanent: rule.permanent,
+          }
+        }) ?? []
+
+    return removeDuplicates(rules)
   },
   async rewrites() {
     const response = await fetch(
@@ -26,18 +49,21 @@ const nextConfig = {
     const data = await response.json()
     const { rewrites } = data?.acf ?? {}
 
-    return (
+    const rules =
       rewrites
         .filter((rule) => rule.source && rule.destination)
-        .map((rewrite) => {
-          let source = rewrite.source
-          let destination = rewrite.destination
+        .map((rule) => {
+          let source = rule.source
+          let destination = rule.destination
 
-          if (source[source.length - 1] === '/') {
+          if (source[source.length - 1] === '/' && source !== '/') {
             source = source.substring(0, source.length - 1)
           }
 
-          if (destination[destination.length - 1] === '/') {
+          if (
+            destination[destination.length - 1] === '/' &&
+            destination !== '/'
+          ) {
             destination = destination.substring(0, destination.length - 1)
           }
 
@@ -46,7 +72,8 @@ const nextConfig = {
             destination: destination,
           }
         }) ?? []
-    )
+
+    return removeDuplicates(rules)
   },
   webpack: (config) => {
     config.module.rules.push({

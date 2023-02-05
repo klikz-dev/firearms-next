@@ -58,7 +58,7 @@ export default function Page({ pageData }) {
         {layout === 'toc' && (
           <div
             className={
-              'max-w-7xl mx-auto flex flex-col-reverse lg:flex-row gap-16'
+              'max-w-7xl mx-auto flex flex-col-reverse lg:flex-row lg:gap-16'
             }
           >
             <div className={'w-full lg:w-2/3'}>

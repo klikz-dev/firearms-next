@@ -78,7 +78,7 @@ export default function TOCNav({ toc_items }) {
 
   return (
     <>
-      <div className={'sticky top-8 mb-20'}>
+      <div className={'sticky top-8 mb-12'}>
         <div className='hidden md:block md:w-72 bg-zinc-100 border-t-4 border-red-700'>
           <div
             className={

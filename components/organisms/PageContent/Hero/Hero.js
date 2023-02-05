@@ -94,7 +94,7 @@ export default function Hero({
           </div>
         </Container>
 
-        <div className={'relative h-56 w-full'}>
+        <div className={'relative w-full'}>
           <Image
             src={mobileBackground?.sourceUrl ?? backgroundImage?.sourceUrl}
             width={

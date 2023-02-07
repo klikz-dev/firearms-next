@@ -2,6 +2,7 @@ query GetPostSlugs($first: Int) {
   posts(first: $first) {
     nodes {
       slug
+      date
     }
   }
 }

@@ -2,6 +2,7 @@ query GetPageSlugs($first: Int) {
   pages(first: $first) {
     nodes {
       slug
+      date
     }
   }
 }

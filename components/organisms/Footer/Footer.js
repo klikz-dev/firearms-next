@@ -11,6 +11,7 @@ import Button from '@/components/atoms/Button'
 import Title from '@/components/molecules/Title'
 import Subscribe from '../Sidebar/Subscribe'
 import sendEmail from '@/functions/sendEmail'
+import moment from 'moment'
 
 export default function Footer() {
   const [email, setEmail] = useState('')
@@ -116,7 +117,9 @@ export default function Footer() {
       <Container>
         <div className={'border-t border-gray-500 grid grid-cols-2 gap-4 py-6'}>
           <p className={'text-sm font-display text-gray-600'}>
-            Copyright © 2022 American Firearms LLC. All rights reserved.
+            {`Copyright © ${moment().format(
+              'YYYY'
+            )} American Firearms LLC. All rights reserved.`}
           </p>
 
           <div className='flex flex-col lg:flex-row'>

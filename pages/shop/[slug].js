@@ -22,7 +22,6 @@ import { useRouter } from 'next/router'
 import Container from '@/components/atoms/Container'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHomeAlt, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
-import moment from 'moment'
 import Breadcrumbs from '@/components/molecules/Breadcrumbs'
 import Title from '@/components/molecules/Title'
 
@@ -86,8 +85,6 @@ export default function Page({
     relatedPageSlugs.includes(page.slug)
   )
 
-  const today = moment().format('MMMM YYYY')
-
   const pageStats = getStats(page.brand, page.category)
   const categoryRank = getRank(page, categoryPages)
   const brandRank = getRank(page, brandPages)
@@ -97,9 +94,9 @@ export default function Page({
   return (
     <>
       <NextSeo
-        title={`${toCapitalize(page.title)} Best Price: $${
+        title={`${toCapitalize(page.title)} For Sale | Best Price: $${
           product.sale_price
-        } - Price Trends for ${today}`}
+        }`}
         description={`Compare prices on ${toCapitalize(
           page.title
         )} to find the best deals before buying.`}
@@ -213,9 +210,15 @@ export async function getStaticProps({ params }) {
     /**
      * Best Product
      */
-    const products = page.product
+    const products = page?.product
       ?.sort((a, b) => (a.sale_price > b.sale_price ? 1 : -1))
       .filter((p) => !p.sku.includes('.') && !p.sku.includes('/'))
+
+    if (!products || products.length === 0) {
+      return {
+        notFound: true,
+      }
+    }
 
     const productRes = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/products/${products[0]?.sku}`
@@ -264,7 +267,6 @@ export async function getStaticProps({ params }) {
     console.log(error)
     return {
       notFound: true,
-      revalidate: 5,
     }
   }
 }

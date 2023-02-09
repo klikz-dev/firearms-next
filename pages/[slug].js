@@ -125,7 +125,7 @@ export async function getStaticPaths() {
   const { data } = await client.query({
     query: GET_POST_SLUGS_QUERY,
     variables: {
-      first: 2,
+      first: 99,
     },
   })
 

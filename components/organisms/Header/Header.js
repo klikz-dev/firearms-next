@@ -72,7 +72,7 @@ export default function Header() {
                               <Link
                                 href={menuItem.path}
                                 className={
-                                  'uppercase border-b border-white hover:border-red-700'
+                                  'uppercase border-b border-transparent hover:border-red-700'
                                 }
                               >
                                 {menuItem.label}
@@ -176,7 +176,7 @@ export default function Header() {
                   <Link
                     href={menuItem.path}
                     className={
-                      'uppercase border-b border-white hover:border-red-700'
+                      'uppercase border-b border-transparent hover:border-red-700'
                     }
                   >
                     {menuItem.label}
@@ -187,7 +187,7 @@ export default function Header() {
                       <>
                         <Popover.Button
                           className={classNames(
-                            'group uppercase font-display inline-flex items-center gap-1 border-b border-white hover:border-red-700 ring-0 outline-none',
+                            'group uppercase font-display inline-flex items-center gap-1 border-b border-transparent hover:border-red-700 ring-0 outline-none',
                             open && 'border-red-700'
                           )}
                         >
@@ -207,7 +207,7 @@ export default function Header() {
                                 <Link
                                   href={subMenu.path}
                                   className={
-                                    'uppercase border-b border-white hover:border-red-700'
+                                    'uppercase border-b border-transparent hover:border-red-700'
                                   }
                                 >
                                   {subMenu.label}

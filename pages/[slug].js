@@ -43,7 +43,7 @@ export default function Post({ postData }) {
       <NextSeo title={title} description={metaDesc || opengraphDescription} />
 
       <Layout>
-        <Container className={'py-8 lg:py-20 lg:grid lg:grid-cols-3 gap-12'}>
+        <Container className={'pt-8 lg:pt-20 lg:grid lg:grid-cols-3 gap-12'}>
           <div className={'lg:col-span-2 mb-20'}>
             <h1>{title}</h1>
 

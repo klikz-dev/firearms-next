@@ -142,7 +142,7 @@ export async function getStaticProps({ params }) {
      * Subcategories
      */
     const subcategories = []
-    for (let i = 0; i < brand.subcategory.length; i++) {
+    for (let i = 0; i < brand.subcategory?.length; i++) {
       const subcategorySlug = brand.subcategory[i].slug
 
       const subcategoryRes = await fetch(

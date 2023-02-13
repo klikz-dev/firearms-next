@@ -18,6 +18,7 @@ export default function Hero({
                 <Image
                   src={backgroundImage?.sourceUrl}
                   fill={true}
+                  sizes={'(max-width: 768px) 100vw, 50vw'}
                   alt={backgroundImage?.altText}
                   className={'object-cover'}
                   priority={true}

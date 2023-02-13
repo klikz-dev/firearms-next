@@ -36,12 +36,12 @@ export default function PopularCategory({ pages }) {
               </div>
 
               <div className='px-6 py-2 w-1/12'>
-                <div className='relative h-16 w-16 rounded-lg bg-zinc-100 border border-zinc-200 overflow-hidden'>
+                <div className='relative h-16 w-16 rounded-lg bg-zinc-100 border border-zinc-200 overflow-hidden flex justify-center items-center'>
                   <Image
                     src={page.thumb_url}
-                    fill={true}
+                    width={64}
+                    height={64}
                     alt={page.title}
-                    className={'object-contain'}
                   />
                 </div>
               </div>

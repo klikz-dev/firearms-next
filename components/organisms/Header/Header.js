@@ -157,6 +157,7 @@ export default function Header() {
                 size='icon'
                 className={'rounded-full bg-red-700 hover:bg-red-600 shrink-0'}
                 type='submit'
+                style={{ borderRadius: '999px' }}
               >
                 <FontAwesomeIcon icon={faSearch} className={'text-white'} />
               </Button>

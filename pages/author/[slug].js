@@ -143,6 +143,7 @@ export default function Author({ authorData }) {
                   src={author?.image?.sourceUrl}
                   alt={author?.image?.altText}
                   fill={true}
+                  sizes={'240px'}
                   className={'object-cover'}
                 />
               </div>

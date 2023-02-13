@@ -13,6 +13,7 @@ export default function MainProduct({ product }) {
           src={product.image_url}
           alt={toCapitalize(product.name)}
           fill={true}
+          sizes={'(max-width: 1024px) 50vw, 400px'}
           className={'object-contain'}
         />
       </div>

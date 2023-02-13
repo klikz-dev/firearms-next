@@ -13,6 +13,9 @@ export default function Category({ posts, link }) {
               <Background
                 image={post.featuredImage?.node?.sourceUrl}
                 alt={post.featuredImage?.node?.altText}
+                sizes={
+                  '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 240px'
+                }
               />
             </div>
 

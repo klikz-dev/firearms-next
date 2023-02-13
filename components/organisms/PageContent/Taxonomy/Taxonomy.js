@@ -54,6 +54,9 @@ export default function Taxonomy({ customLink, customTitle, tag, style }) {
                 <Image
                   src={post?.featuredImage?.node?.sourceUrl}
                   fill={true}
+                  sizes={
+                    '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 500px'
+                  }
                   alt={post?.featuredImage?.node?.altText}
                   className={'object-cover'}
                 />

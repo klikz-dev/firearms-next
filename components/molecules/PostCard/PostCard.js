@@ -19,6 +19,7 @@ export function PostCardOverlay({ post, className }) {
         <Background
           image={post?.featuredImage?.node?.sourceUrl}
           alt={post?.featuredImage?.node?.altText}
+          sizes={'(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 500px'}
         />
 
         <div className={'p-8'}>
@@ -38,6 +39,7 @@ export function PostCardHorizontal({ post, className }) {
         <Image
           src={post.featuredImage?.node?.sourceUrl}
           fill={true}
+          sizes={'(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 500px'}
           alt={post.featuredImage?.node?.altText}
           className={'object-cover'}
         />
@@ -72,6 +74,7 @@ export function PostCardVertical({ post, className, priority = false }) {
             image={post.featuredImage?.node?.sourceUrl}
             alt={post.featuredImage?.node?.altText}
             priority={priority}
+            sizes={'(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 500px'}
           />
         </div>
       </Link>

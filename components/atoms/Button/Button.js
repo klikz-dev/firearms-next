@@ -10,6 +10,7 @@ export default function Button({
   disabled,
   className,
   children,
+  style,
   ...props
 }) {
   const buttonClassNames = classNames(
@@ -25,6 +26,7 @@ export default function Button({
       className={buttonClassNames}
       onClick={onClick}
       disabled={disabled}
+      style={style}
       {...props}
     >
       {children}
@@ -38,6 +40,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   className: PropTypes.string,
+  style: PropTypes.object,
   props: PropTypes.object,
 }
 

@@ -33,8 +33,9 @@ export default function PostMeta({ title, slug, author, date }) {
           <div className={'rounded-full border-2 p-0.5 border-red-600'}>
             <div className={'relative w-6 h-6 rounded-full overflow-hidden'}>
               <Image
-                fill={true}
                 src={author?.node?.avatar?.url}
+                width={24}
+                height={24}
                 alt={author?.node?.name}
                 className={'object-cover'}
               />

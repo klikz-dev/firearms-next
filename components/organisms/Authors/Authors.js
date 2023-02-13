@@ -127,8 +127,8 @@ export default function Authors({ authors }) {
                   <Image
                     src={author.author?.image?.sourceUrl}
                     alt={author.author?.image?.altText}
-                    layout={'fill'}
-                    className={'object-cover'}
+                    wid={384}
+                    height={384}
                   />
                 </div>
               </div>

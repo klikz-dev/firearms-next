@@ -44,9 +44,9 @@ export default function PopularBrand({ pages }) {
                 <div className='relative w-16 h-16 lg:w-32 lg:h-32'>
                   <Image
                     src={page.thumb_url}
-                    fill={true}
+                    width={128}
+                    height={128}
                     alt={page.title}
-                    className={'object-contain'}
                   />
                 </div>
               </td>

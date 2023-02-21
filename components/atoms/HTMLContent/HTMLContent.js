@@ -16,7 +16,7 @@ export default function HTMLContent({ children, className }) {
     },
   }
 
-  const html = parse(children, options)
+  const html = parse(children ?? '', options)
 
   return <div className={classNames(styles.root, className)}>{html}</div>
 }

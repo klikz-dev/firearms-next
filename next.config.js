@@ -10,7 +10,7 @@ const nextConfig = {
   },
   async redirects() {
     const response = await fetch(
-      'https://firearms-wp.klikz.us/wp-json/acf/v3/options/options'
+      'https://cms.americanfirearms.org/wp-json/acf/v3/options/options'
     )
     const data = await response.json()
     const { redirects, affiliates } = data?.acf ?? {}
@@ -44,7 +44,7 @@ const nextConfig = {
   },
   async rewrites() {
     const response = await fetch(
-      'https://firearms-wp.klikz.us/wp-json/acf/v3/options/options'
+      'https://cms.americanfirearms.org/wp-json/acf/v3/options/options'
     )
     const data = await response.json()
     const { rewrites } = data?.acf ?? {}

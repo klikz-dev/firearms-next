@@ -1,17 +1,28 @@
 import { brandLevels } from '@/const/setting/shop'
 
-export default function getStats(brand, category) {
+export default function getStats(brand, category, count) {
   const stats = {
-    acc: 5,
-    cap: '10 + 1 rounds',
-    capVal: 3.5,
-    erg: 5,
-    fit: 5,
-    rng: '10-50 Yards',
-    rngVal: 3.5,
-    rec: 5,
-    rel: 5,
-    showStats: false,
+    acc: 6,
+    erg: 6,
+    ftr: 6,
+    fit: 6,
+    rel: 6,
+    val: 6,
+  }
+  if (count > 99) {
+    stats.acc = 8
+    stats.erg = 8
+    stats.ftr = 8
+    stats.fit = 8
+    stats.rel = 8
+    stats.val = 8
+  } else if (count > 49) {
+    stats.acc = 7
+    stats.erg = 7
+    stats.ftr = 7
+    stats.fit = 7
+    stats.rel = 7
+    stats.val = 7
   }
 
   if (category.name?.includes('Handgun')) {
@@ -19,18 +30,10 @@ export default function getStats(brand, category) {
   }
 
   if (category.name?.includes('Rifle')) {
-    stats.cap = '30 + 1 rounds'
-    stats.capVal = 5
-    stats.rng = '1,000 Yards'
-    stats.rngVal = 5
     stats.showStats = true
   }
 
   if (category.name?.includes('Shotgun')) {
-    stats.cap = '6 + 1 rounds'
-    stats.capVal = 6.5
-    stats.rng = '50-100 Yards'
-    stats.rngVal = 6.5
     stats.showStats = true
   }
 
@@ -41,22 +44,25 @@ export default function getStats(brand, category) {
 
   if (levels[brand.name?.toLowerCase()] === 'Premium') {
     stats.acc += 2
-    stats.erg += 0.5
+    stats.erg += 1
+    stats.ftr += 1
     stats.fit += 2
-    stats.rec += 1
-    stats.rel += 3
+    stats.rel += 2
+    stats.val += 0
   } else if (levels[brand.name?.toLowerCase()] === 'Mid-Range') {
     stats.acc += 1
     stats.erg += 0
-    stats.fit += 1.5
-    stats.rec += 0
-    stats.rel += 2.5
+    stats.ftr += 0
+    stats.fit += 1
+    stats.rel += 1
+    stats.val += 0
   } else if (levels[brand.name?.toLowerCase()] === 'Budget') {
     stats.acc += 0
-    stats.erg += -0.5
+    stats.erg += -1
+    stats.ftr += -1
     stats.fit += -1
-    stats.rec += 1
-    stats.rel += -2
+    stats.rel += -1
+    stats.val += 1
   }
 
   return stats

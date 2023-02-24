@@ -39,14 +39,14 @@ export default function Subcategory({ brandSlug, subcategory, collapse }) {
                     {toCapitalize(page.title)}
                   </h5>
 
-                  <div className='relative w-full h-36 mb-2 '>
+                  <div className='relative w-full h-36 mb-2 bg-white'>
                     <Image
                       src={page.image}
                       fill={true}
                       sizes={
                         '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 500px'
                       }
-                      className={'object-contain'}
+                      className={'object-contain bg-white'}
                       alt={page.title}
                     />
                   </div>

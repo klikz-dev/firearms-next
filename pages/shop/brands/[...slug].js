@@ -125,18 +125,18 @@ export async function getStaticProps({ params }) {
     const brandRes = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/brands/${brandSlug}/`
     )
-    // if (brandRes.status !== 200) {
-    //   return {
-    //     notFound: true,
-    //   }
-    // }
+    if (brandRes.status !== 200) {
+      return {
+        notFound: true,
+      }
+    }
 
     const brand = await brandRes.json()
-    // if (!brand) {
-    //   return {
-    //     notFound: true,
-    //   }
-    // }
+    if (!brand) {
+      return {
+        notFound: true,
+      }
+    }
 
     /**
      * Subcategories

@@ -53,7 +53,7 @@ export default function Ranking({ page, brandPages, categoryPages }) {
           <>
             {categoryPages.slice(0, 20).map((page, index) => (
               <div key={index} className='flex flex-row items-center mb-1'>
-                <div className='w-6 h-6 flex justify-center items-center bg-green-700 text-white text-sm rounded-full mr-2'>
+                <div className='flex-shrink-0 w-6 h-6 flex justify-center items-center bg-green-700 text-white text-sm rounded-full mr-2'>
                   <span>{`${index + 1}`}</span>
                 </div>
 
@@ -80,7 +80,7 @@ export default function Ranking({ page, brandPages, categoryPages }) {
           <>
             {brandPages.slice(0, 20).map((page, index) => (
               <div key={index} className='flex flex-row items-center mb-1'>
-                <div className='w-6 h-6 flex justify-center items-center bg-green-700 text-white text-sm rounded-full mr-2'>
+                <div className='flex-shrink-0 w-6 h-6 flex justify-center items-center bg-green-700 text-white text-sm rounded-full mr-2'>
                   <span>{`${index + 1}`}</span>
                 </div>
 

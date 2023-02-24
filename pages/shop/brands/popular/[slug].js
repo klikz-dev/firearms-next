@@ -160,7 +160,7 @@ export async function getStaticProps({ params }) {
     }
 
     const pagesRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/pages/?brand=${params.slug}&category=${randomCategory}&limit=20&offset=0`
+      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/pages/?brand=${params.slug}&category=${randomCategory}&limit=100&offset=0`
     )
     const { results: pages } = await pagesRes.json()
 
@@ -171,7 +171,7 @@ export async function getStaticProps({ params }) {
         pages,
         relatedBrands,
       },
-      revalidate: 1000,
+      revalidate: 100,
     }
   } catch (error) {
     console.log(error)

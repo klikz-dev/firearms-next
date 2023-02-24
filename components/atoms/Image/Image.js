@@ -26,8 +26,6 @@ export default function DisplayImage({
         className={className}
         style={style}
         {...props}
-        placeholder='blur'
-        blurDataURL='/images/blur.png'
       />
     ) : (
       <Image

@@ -86,7 +86,7 @@ export default function Post({ postData, michael }) {
           </div>
 
           <div className={'lg:col-span-1'}>
-            <Sidebar />
+            <Sidebar alert={postContent?.alert} />
           </div>
         </Container>
       </Layout>

@@ -2,8 +2,23 @@ import Button from '@/components/atoms/Button'
 import GradientBorder from '@/components/atoms/GradientBorder'
 import Image from '@/components/atoms/Image'
 import Link from '@/components/atoms/Link'
+import { getPage } from '@/functions/fetch/getPage'
+import getStats from '@/functions/getStats'
 
-export default function CTA({ buttonText, link, price, title, image }) {
+export default function CTA({
+  buttonText,
+  link,
+  price,
+  title,
+  image,
+  productSlug,
+}) {
+  const { data: page } = getPage(productSlug)
+
+  const pageStats = page
+    ? getStats(page.brand.name, page.category.name, page.product.length)
+    : undefined
+
   return (
     <Link href={link}>
       <div className={'p-1 overflow-hidden mb-8'}>

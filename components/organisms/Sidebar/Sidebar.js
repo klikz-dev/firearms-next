@@ -8,8 +8,10 @@ import { useState } from 'react'
 import Category from './Category'
 import Subscribe from './Subscribe'
 import GET_POSTS_QUERY from '@/const/schema/getPosts.graphql'
+import HTMLContent from '@/components/atoms/HTMLContent'
 
-export default function Sidebar() {
+export default function Sidebar({ alert }) {
+  console.log(alert)
   /**
    * Category - Reviews
    */
@@ -161,6 +163,25 @@ export default function Sidebar() {
 
   return (
     <div className={'mb-8 lg:mb-20'}>
+      {alert?.display && (
+        <div className={'p-4 bg-zinc-200/60 mb-12 relative'}>
+          <div className={'absolute right-5 top-4'}>
+            <Image
+              src={'/images/bell.png'}
+              width={38}
+              height={45}
+              alt={'Bell'}
+            />
+          </div>
+
+          <Title className={'mb-4'}>
+            <h4>{alert.title}</h4>
+          </Title>
+
+          <HTMLContent>{alert.alert}</HTMLContent>
+        </div>
+      )}
+
       <div className={'hidden lg:block'}>
         <Subscribe />
       </div>

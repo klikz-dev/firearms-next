@@ -22,6 +22,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHomeAlt, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 import Breadcrumbs from '@/components/molecules/Breadcrumbs'
 import Title from '@/components/molecules/Title'
+import Badge from '@/components/organisms/Shop/Page/Badge'
 
 export default function Page({
   page,
@@ -78,7 +79,11 @@ export default function Page({
     .slice(0, 15)
     .map((rate) => relatedPageSlugs.push(rate.target))
 
-  const pageStats = getStats(page.brand, page.category, products.length)
+  const pageStats = getStats(
+    page.brand.name,
+    page.category.name,
+    products.length
+  )
   const categoryRank = getRank(page, categoryPages)
   const brandRank = getRank(page, brandPages)
   const estimates = getPriceEstimates(product) || {}
@@ -145,12 +150,9 @@ export default function Page({
 
             <div className='w-full lg:w-80 flex-shrink-0'>
               <div className='hidden lg:block'>
-                {pageStats.showStats && page && (
-                  <Stats
-                    header={`${toCapitalize(page.title)} Stats`}
-                    pageStats={pageStats}
-                  />
-                )}
+                <Badge pageStats={pageStats} />
+
+                <Stats pageStats={pageStats} />
 
                 {page && (
                   <Awards

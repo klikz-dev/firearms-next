@@ -1,5 +1,4 @@
 import Layout from '@/components/common/Layout'
-import PopularCategory from '@/components/organisms/Shop/Categories/Popular'
 import { NextSeo } from 'next-seo'
 import { findBestMatch } from 'string-similarity'
 import Link from '@/components/atoms/Link'
@@ -12,6 +11,7 @@ import toCapitalize from '@/functions/toCapitalize'
 import moment from 'moment'
 import Breadcrumbs from '@/components/molecules/Breadcrumbs'
 import Title from '@/components/molecules/Title'
+import ListCategory from '@/components/organisms/Shop/Categories/List'
 
 export default function Page({ category, pages, relatedCategories }) {
   const router = useRouter()
@@ -56,37 +56,28 @@ export default function Page({ category, pages, relatedCategories }) {
         <Container className={`py-12`}>
           <Breadcrumbs breadcrumbs={breadcrumbs} />
 
-          <div className='grid lg:grid-cols-3 gap-8 lg:gap-16 mb-12'>
-            <div className='lg:col-span-2'>
-              <h1 className='text-red-700 mb-4'>
-                Most Popular {category.name} in {today}
-              </h1>
-
-              <p className='text-lg'>
-                Every month AmericanFirearms.org publishes the monthly Most
-                Popular {category.name} Report, highlighting the {pages.length}{' '}
-                most popular {category.name} in that month. We partner with
-                retailers, brands, manufacturers, and auction sites to
-                algorithmically compile price and sales trends so you'll have
-                up-to-date information on the most popular {category.name}{' '}
-                available. Below are the most popular {category.name} for{' '}
-                {today}.
-              </p>
-            </div>
-          </div>
-        </Container>
-
-        <Container>
-          <Title>
-            <h2>
+          <Title className={'mt-4 mb-8'}>
+            <h1>
               The Top {pages.length} Most Popular {category.name} in {today}
-            </h2>
+            </h1>
           </Title>
 
-          <PopularCategory pages={pages} />
+          <p className='text-lg'>
+            Every month AmericanFirearms.org publishes the monthly Most Popular{' '}
+            {category.name} Report, highlighting the {pages.length} most popular{' '}
+            {category.name} in that month. We partner with retailers, brands,
+            manufacturers, and auction sites to algorithmically compile price
+            and sales trends so you'll have up-to-date information on the most
+            popular {category.name} available. Below are the most popular{' '}
+            {category.name} for {today}.
+          </p>
         </Container>
 
-        <Container>
+        <Container className={`py-12`}>
+          <ListCategory pages={pages} />
+        </Container>
+
+        <Container className={`py-12`}>
           <div className='shadow-lg rounded border border-zinc-100 p-6'>
             <Title>
               <h3>More Most Popular Lists</h3>
@@ -97,7 +88,7 @@ export default function Page({ category, pages, relatedCategories }) {
                 <Link
                   key={index}
                   href={`/shop/categories/popular/${category.slug}`}
-                  className='block capitalize text-blue-900 hover:text-blue-700 hover:underline font-semibold mb-1'
+                  className='block capitalize hover:text-red-700 font-medium mb-1'
                 >
                   {category.name}
                 </Link>
@@ -118,18 +109,18 @@ export async function getStaticProps({ params }) {
     const categoryRes = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/categories/${params.slug}/`
     )
-    // if (categoryRes.status !== 200) {
-    //   return {
-    //     notFound: true,
-    //   }
-    // }
+    if (categoryRes.status !== 200) {
+      return {
+        notFound: true,
+      }
+    }
 
     const category = await categoryRes.json()
-    // if (!category) {
-    //   return {
-    //     notFound: true,
-    //   }
-    // }
+    if (!category) {
+      return {
+        notFound: true,
+      }
+    }
 
     /**
      * Related Category Slugs
@@ -158,7 +149,7 @@ export async function getStaticProps({ params }) {
      * Pages
      */
     const pagesRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/pages/?category=${params.slug}`
+      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/pages/?category=${params.slug}&limit=100&offset=0`
     )
     const { results: pages } = await pagesRes.json()
 
@@ -168,7 +159,7 @@ export async function getStaticProps({ params }) {
         pages,
         relatedCategories,
       },
-      revalidate: 1000,
+      revalidate: 100,
     }
   } catch (error) {
     console.log(error)

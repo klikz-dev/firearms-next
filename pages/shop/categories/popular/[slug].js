@@ -73,7 +73,7 @@ export default function Page({ category, pages, relatedCategories }) {
           </p>
         </Container>
 
-        <Container className={`py-12`}>
+        <Container>
           <PopularCategory pages={pages} />
         </Container>
 
@@ -88,9 +88,9 @@ export default function Page({ category, pages, relatedCategories }) {
                 <Link
                   key={index}
                   href={`/shop/categories/popular/${category.slug}`}
-                  className='block capitalize text-blue-900 hover:text-blue-700 hover:underline font-semibold mb-1'
+                  className='block capitalize hover:text-red-700 font-medium mb-1'
                 >
-                  {category.title}
+                  {category.name}
                 </Link>
               ))}
             </div>
@@ -109,18 +109,18 @@ export async function getStaticProps({ params }) {
     const categoryRes = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/categories/${params.slug}/`
     )
-    // if (categoryRes.status !== 200) {
-    //   return {
-    //     notFound: true,
-    //   }
-    // }
+    if (categoryRes.status !== 200) {
+      return {
+        notFound: true,
+      }
+    }
 
     const category = await categoryRes.json()
-    // if (!category) {
-    //   return {
-    //     notFound: true,
-    //   }
-    // }
+    if (!category) {
+      return {
+        notFound: true,
+      }
+    }
 
     /**
      * Related Category Slugs
@@ -159,7 +159,7 @@ export async function getStaticProps({ params }) {
         pages,
         relatedCategories,
       },
-      revalidate: 1000,
+      revalidate: 100,
     }
   } catch (error) {
     console.log(error)

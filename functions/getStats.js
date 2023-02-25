@@ -25,15 +25,15 @@ export default function getStats(brand, category, count) {
     stats.val = 7
   }
 
-  if (category.name?.includes('Handgun')) {
+  if (category.includes('Handgun')) {
     stats.showStats = true
   }
 
-  if (category.name?.includes('Rifle')) {
+  if (category.includes('Rifle')) {
     stats.showStats = true
   }
 
-  if (category.name?.includes('Shotgun')) {
+  if (category.includes('Shotgun')) {
     stats.showStats = true
   }
 
@@ -42,21 +42,21 @@ export default function getStats(brand, category, count) {
     return accumulator
   }, {})
 
-  if (levels[brand.name?.toLowerCase()] === 'Premium') {
+  if (levels[brand.toLowerCase()] === 'Premium') {
     stats.acc += 2
     stats.erg += 1
     stats.ftr += 1
     stats.fit += 2
     stats.rel += 2
     stats.val += 0
-  } else if (levels[brand.name?.toLowerCase()] === 'Mid-Range') {
+  } else if (levels[brand.toLowerCase()] === 'Mid-Range') {
     stats.acc += 1
     stats.erg += 0
     stats.ftr += 0
     stats.fit += 1
     stats.rel += 1
     stats.val += 0
-  } else if (levels[brand.name?.toLowerCase()] === 'Budget') {
+  } else if (levels[brand.toLowerCase()] === 'Budget') {
     stats.acc += 0
     stats.erg += -1
     stats.ftr += -1

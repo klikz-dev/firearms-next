@@ -1,14 +1,11 @@
-import Image from '@/components/atoms/Image'
-import Link from '@/components/atoms/Link'
 import {
   faFacebookF,
   faLinkedinIn,
   faPinterestP,
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons'
-import { faCalendarDays, faEnvelope } from '@fortawesome/free-regular-svg-icons'
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import moment from 'moment'
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -16,8 +13,10 @@ import {
   PinterestShareButton,
   TwitterShareButton,
 } from 'next-share'
+import Author from './Author'
 
-export default function PostMeta({ title, slug, author, date }) {
+export default function PostMeta({ title, slug, author, michael }) {
+  console.log(michael)
   return (
     <div
       className={
@@ -29,109 +28,85 @@ export default function PostMeta({ title, slug, author, date }) {
           'flex flex-col md:flex-row gap-4 items-start md:items-center'
         }
       >
-        <div className={'flex flex-row items-center gap-2'}>
-          <div className={'rounded-full border-2 p-0.5 border-red-600'}>
-            <div className={'relative w-6 h-6 rounded-full overflow-hidden'}>
-              <Image
-                src={author?.node?.avatar?.url}
-                width={24}
-                height={24}
-                alt={author?.node?.name}
-                className={'object-cover'}
-              />
-            </div>
-          </div>
+        <Author author={author.node} />
 
-          <Link href={`/author/${author?.node?.slug}`} className={'mr-4'}>
-            {author?.node?.name}
-          </Link>
-        </div>
-
-        <div className={'flex flex-row items-center gap-2'}>
-          <div
-            className={
-              'p-1 bg-red-500/20 rounded-full w-6 h-6 flex items-center justify-center'
-            }
-          >
-            <FontAwesomeIcon icon={faCalendarDays} className={'text-red-700'} />
-          </div>
-
-          <p className={'text-sm'}>{`Updated: ${moment(date).format(
-            'MMMM D, YYYY'
-          )}`}</p>
-        </div>
+        {author.node?.slug !== 'michael-crites' && (
+          <Author author={michael} headline={'Edited By'} />
+        )}
       </div>
 
-      <div className={'flex flex-row gap-2 items-center'}>
-        <p>{'Share'}</p>
+      <div>
+        <h6 className={'mb-1'}>{'Share:'}</h6>
 
-        <FacebookShareButton
-          url={`https://www.americanfirearms.org/${slug}/`}
-          quote={title}
-          className={
-            'w-6 h-6 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
-          }
-        >
-          <div
+        <div className={'flex flex-row gap-2 items-center'}>
+          <FacebookShareButton
+            url={`https://www.americanfirearms.org/${slug}/`}
+            quote={title}
             className={
               'w-6 h-6 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
             }
           >
-            <FontAwesomeIcon icon={faFacebookF} className={'text-red-700'} />
-          </div>
-        </FacebookShareButton>
+            <div
+              className={
+                'w-6 h-6 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
+              }
+            >
+              <FontAwesomeIcon icon={faFacebookF} className={'text-red-700'} />
+            </div>
+          </FacebookShareButton>
 
-        <TwitterShareButton
-          url={`https://www.americanfirearms.org/${slug}/`}
-          title={title}
-        >
-          <div
-            className={
-              'w-6 h-6 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
-            }
+          <TwitterShareButton
+            url={`https://www.americanfirearms.org/${slug}/`}
+            title={title}
           >
-            <FontAwesomeIcon icon={faTwitter} className={'text-red-700'} />
-          </div>
-        </TwitterShareButton>
+            <div
+              className={
+                'w-6 h-6 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
+              }
+            >
+              <FontAwesomeIcon icon={faTwitter} className={'text-red-700'} />
+            </div>
+          </TwitterShareButton>
 
-        <LinkedinShareButton
-          url={`https://www.americanfirearms.org/${slug}/`}
-          title={title}
-        >
-          <div
-            className={
-              'w-6 h-6 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
-            }
+          <LinkedinShareButton
+            url={`https://www.americanfirearms.org/${slug}/`}
+            title={title}
           >
-            <FontAwesomeIcon icon={faLinkedinIn} className={'text-red-700'} />
-          </div>
-        </LinkedinShareButton>
+            <div
+              className={
+                'w-6 h-6 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
+              }
+            >
+              <FontAwesomeIcon icon={faLinkedinIn} className={'text-red-700'} />
+            </div>
+          </LinkedinShareButton>
 
-        <PinterestShareButton
-          url={`https://www.americanfirearms.org/${slug}/`}
-          title={title}
-        >
-          <div
-            className={
-              'w-6 h-6 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
-            }
+          <PinterestShareButton
+            url={`https://www.americanfirearms.org/${slug}/`}
+            title={title}
           >
-            <FontAwesomeIcon icon={faPinterestP} className={'text-red-700'} />
-          </div>
-        </PinterestShareButton>
+            <div
+              className={
+                'w-6 h-6 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
+              }
+            >
+              <FontAwesomeIcon icon={faPinterestP} className={'text-red-700'} />
+            </div>
+          </PinterestShareButton>
 
-        <EmailShareButton
-          url={`https://www.americanfirearms.org/${slug}/`}
-          title={title}
-        >
-          <div
-            className={
-              'w-6 h-6 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
-            }
+          <EmailShareButton
+            url={`https://www.americanfirearms.org/${slug}/`}
+            title={title}
           >
-            <FontAwesomeIcon icon={faEnvelope} className={'text-red-700'} />
-          </div>
-        </EmailShareButton>
+            <div
+              className={
+                'w-6 h-6 rounded border border-red-800 flex flex-row justify-center items-center hover:bg-red-100'
+              }
+            >
+              <FontAwesomeIcon icon={faEnvelope} className={'text-red-700'} />
+            </div>
+          </EmailShareButton>
+        </div>
       </div>
     </div>
   )

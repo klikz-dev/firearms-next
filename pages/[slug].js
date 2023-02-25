@@ -1,6 +1,7 @@
 import { client } from '@/lib/apollo'
 import GET_POST_QUERY from '@/const/schema/getPost.graphql'
 import GET_POST_SLUGS_QUERY from '@/const/schema/getPostSlugs.graphql'
+import GET_AUTHOR_QUERY from '@/const/schema/getAuthor.graphql'
 import Layout from '@/components/common/Layout'
 import { useRouter } from 'next/router'
 import Container from '@/components/atoms/Container'
@@ -14,17 +15,9 @@ import Image from '@/components/atoms/Image'
 import HTMLContent from '@/components/atoms/HTMLContent'
 import { NextSeo } from 'next-seo'
 
-export default function Post({ postData }) {
-  const {
-    title,
-    slug,
-    seo,
-    author,
-    content,
-    date,
-    featuredImage,
-    postContent,
-  } = postData?.post ?? {}
+export default function Post({ postData, michael }) {
+  const { title, slug, seo, author, content, featuredImage, postContent } =
+    postData?.post ?? {}
   const { metaDesc, opengraphDescription } = seo ?? {}
 
   const router = useRouter()
@@ -54,7 +47,12 @@ export default function Post({ postData }) {
 
             {metaDesc && <p className={'mt-4 mb-8'}>{metaDesc}</p>}
 
-            <PostMeta title={title} slug={slug} author={author} date={date} />
+            <PostMeta
+              title={title}
+              slug={slug}
+              author={author}
+              michael={michael}
+            />
 
             <div
               className={
@@ -113,9 +111,20 @@ export async function getStaticProps({ params }) {
     }
   }
 
+  /**
+   * Main Author - Michael
+   */
+  const { data: authorData } = await client.query({
+    query: GET_AUTHOR_QUERY,
+    variables: {
+      slug: 'michael-crites',
+    },
+  })
+
   return {
     props: {
       postData,
+      michael: authorData?.user,
     },
     revalidate: 30,
   }

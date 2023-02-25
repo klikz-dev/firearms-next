@@ -127,7 +127,7 @@ export default function Authors({ authors }) {
                   <Image
                     src={author.author?.image?.sourceUrl}
                     alt={author.author?.image?.altText}
-                    wid={384}
+                    width={384}
                     height={384}
                   />
                 </div>

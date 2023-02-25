@@ -34,7 +34,7 @@ export default function Category({ categoryData }) {
             <h1>{name}</h1>
           </Title>
 
-          <p className={'max-w-sm my-6'}>{description}</p>
+          <p className={'mb-8'}>{description}</p>
 
           <div className={'grid md:grid-cols-2 lg:grid-cols-4 gap-4'}>
             {posts?.nodes?.map((post, index) => (

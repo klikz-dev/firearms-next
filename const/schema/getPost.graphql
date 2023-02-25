@@ -9,10 +9,25 @@ query GetPost($slug: ID!) {
     author {
       node {
         name
+        description
         avatar {
           url
         }
         slug
+        author {
+          image {
+            altText
+            mediaDetails {
+              height
+              width
+            }
+            sourceUrl
+          }
+          position
+          credentials {
+            credential
+          }
+        }
       }
     }
     content

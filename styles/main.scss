@@ -2,11 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './_font.scss';
-
 html,
 body {
-  scroll-behavior: smooth;
+  @apply scroll-smooth;
 }
 
 h1,
@@ -43,7 +41,7 @@ a {
   @apply font-display;
 }
 
-p,
-.p {
-  @apply text-base;
+div,
+p {
+  @apply font-sans;
 }

@@ -7,10 +7,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Roboto', 'sans-serif'],
-        display: ['Oswald', 'sans-serif'],
+        sans: ['var(--font-roboto)'],
+        display: ['var(--font-oswald)'],
       },
-      colors: {},
     },
   },
   plugins: [require('@tailwindcss/line-clamp')],

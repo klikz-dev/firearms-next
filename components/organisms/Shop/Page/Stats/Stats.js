@@ -2,15 +2,25 @@ import { faChartColumn } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 
-function Stat({ label, attr }) {
+function Stat({ label, attr, small }) {
   return (
-    <div className='mb-4'>
-      <div className='flex flex-row justify-between mb-1'>
+    <div className={classNames(small ? 'mb-2' : 'mb-4')}>
+      <div
+        className={classNames(
+          'flex flex-row justify-between',
+          !small && 'mb-1'
+        )}
+      >
         <span className={'text-sm'}>{label}</span>
         <span className={'text-sm'}>{`${attr}/10`}</span>
       </div>
 
-      <div className='bg-zinc-200 w-full h-2 rounded'>
+      <div
+        className={classNames(
+          'bg-zinc-200 w-full rounded',
+          small ? 'h-1.5' : 'h02'
+        )}
+      >
         <div
           style={{ width: `${attr * 10}%` }}
           className={classNames(
@@ -27,15 +37,28 @@ function Stat({ label, attr }) {
   )
 }
 
-export default function Stats({ pageStats }) {
+export default function Stats({ pageStats, small = false }) {
   return (
-    <div className='border border-zinc-200 rounded shadow mb-8'>
-      <div className='px-3 py-2 bg-gradient-to-r from-red-800 to-red-600 text-white flex flex-row items-center gap-2'>
+    <div
+      className={classNames(
+        !small && 'border border-zinc-200 rounded shadow mb-8'
+      )}
+    >
+      <div
+        className={classNames(
+          'px-3 py-2 flex flex-row items-center gap-2',
+          !small && 'text-white bg-gradient-to-r from-red-800 to-red-600'
+        )}
+      >
         <FontAwesomeIcon icon={faChartColumn} />
         <h6 className='font-sans'>Performance Scores</h6>
       </div>
 
-      <div className='py-3 px-5'>
+      <div
+        className={classNames(
+          small ? 'grid grid-cols-2 gap-x-4 px-3' : 'py-3 px-5'
+        )}
+      >
         {[
           { attr: pageStats.acc, label: 'Accuracy' },
           { attr: pageStats.erg, label: 'Ergonomics' },
@@ -44,7 +67,7 @@ export default function Stats({ pageStats }) {
           { attr: pageStats.rel, label: 'Reliability' },
           { attr: pageStats.val, label: 'Value' },
         ].map((stat, index) => (
-          <Stat key={index} {...stat} />
+          <Stat key={index} {...stat} small={small} />
         ))}
       </div>
     </div>

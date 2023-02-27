@@ -2,21 +2,31 @@ import Link from '@/components/atoms/Link'
 import toCapitalize from '@/functions/toCapitalize'
 import { faTrophy, faAward } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import classNames from 'classnames'
 import moment from 'moment'
 
-export default function Awards({ page, brandRank, categoryRank }) {
+export default function Awards({ page, brandRank, categoryRank, small }) {
   const year = moment().format('YYYY')
 
   return (
     <>
       {(brandRank > 0 || categoryRank > 0) && (
-        <div className='border border-zinc-200 rounded shadow mb-8'>
-          <div className='px-3 py-2 bg-gradient-to-r from-zinc-800 to-zinc-600 text-white flex flex-row items-center gap-2'>
+        <div
+          className={classNames(
+            !small && 'border border-zinc-200 rounded shadow mb-8'
+          )}
+        >
+          <div
+            className={classNames(
+              'px-3 py-2 flex flex-row items-center gap-2',
+              !small && 'text-white bg-gradient-to-r from-zinc-800 to-zinc-600'
+            )}
+          >
             <FontAwesomeIcon icon={faAward} />
             <h6 className='font-sans'>{year} Awards & Rankings</h6>
           </div>
 
-          <div className='py-3 px-5'>
+          <div className={classNames(small ? 'px-2.5 py-2' : 'py-3 px-5')}>
             {brandRank ? (
               <div className='flex flex-row items-center mb-2'>
                 <FontAwesomeIcon icon={faTrophy} className='text-yellow-600' />

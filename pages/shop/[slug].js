@@ -113,7 +113,9 @@ export default function Page({
               {product && <MainProduct product={product} />}
 
               <div className='block lg:hidden'>
-                {pageStats.showStats && page && <Stats pageStats={pageStats} />}
+                <Badge pageStats={pageStats} />
+
+                <Stats pageStats={pageStats} />
 
                 {page && (
                   <Awards

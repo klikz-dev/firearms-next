@@ -34,7 +34,7 @@ export default function DisplayImage({
         height={height}
         alt={alt ?? 'Image'}
         className={className}
-        style={{ height: 'auto' }}
+        style={style}
         {...props}
       />
     )

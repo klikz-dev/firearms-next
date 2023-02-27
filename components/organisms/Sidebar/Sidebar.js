@@ -11,7 +11,6 @@ import GET_POSTS_QUERY from '@/const/schema/getPosts.graphql'
 import HTMLContent from '@/components/atoms/HTMLContent'
 
 export default function Sidebar({ alert }) {
-  console.log(alert)
   /**
    * Category - Reviews
    */

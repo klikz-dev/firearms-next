@@ -16,7 +16,6 @@ import {
 import Author from './Author'
 
 export default function PostMeta({ title, slug, author, michael }) {
-  console.log(michael)
   return (
     <div
       className={

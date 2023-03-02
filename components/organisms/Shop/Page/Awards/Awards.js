@@ -9,7 +9,7 @@ export default function Awards({ page, brandRank, categoryRank, small }) {
   const year = moment().format('YYYY')
 
   return (
-    <>
+    <div>
       {(brandRank > 0 || categoryRank > 0) && (
         <div
           className={classNames(
@@ -61,6 +61,6 @@ export default function Awards({ page, brandRank, categoryRank, small }) {
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }

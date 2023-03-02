@@ -78,7 +78,7 @@ export default function CTA({
             </Link>
           </div>
 
-          <div className={'px-4 pb-4'}>
+          <div className={'px-4 pb-4 md:w-1/2 flex flex-row justify-center'}>
             {pageStats && <Badge pageStats={pageStats} small />}
           </div>
         </div>

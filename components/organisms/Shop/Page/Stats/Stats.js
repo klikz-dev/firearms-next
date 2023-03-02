@@ -18,7 +18,7 @@ function Stat({ label, attr, small }) {
       <div
         className={classNames(
           'bg-zinc-200 w-full rounded',
-          small ? 'h-1.5' : 'h02'
+          small ? 'h-1.5' : 'h-2'
         )}
       >
         <div

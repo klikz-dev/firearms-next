@@ -2,27 +2,27 @@ import { brandLevels } from '@/const/setting/shop'
 
 export default function getStats(brand, category, count) {
   const stats = {
-    acc: 6,
-    erg: 6,
-    ftr: 6,
-    fit: 6,
-    rel: 6,
-    val: 6,
+    acc: 4 + (count % 4),
+    erg: 4 + (count % 2),
+    ftr: 4 + (count % 3),
+    fit: 4 + (count % 2),
+    rel: 4 + (count % 1),
+    val: 4 + (count % 1),
   }
   if (count > 99) {
-    stats.acc = 8
-    stats.erg = 8
-    stats.ftr = 8
-    stats.fit = 8
-    stats.rel = 8
-    stats.val = 8
+    stats.acc = 8 + (count % 1)
+    stats.erg = 8 + (count % 2)
+    stats.ftr = 8 + (count % 2)
+    stats.fit = 8 + (count % 3)
+    stats.rel = 8 + (count % 1)
+    stats.val = 8 + (count % 3)
   } else if (count > 49) {
-    stats.acc = 7
-    stats.erg = 7
-    stats.ftr = 7
-    stats.fit = 7
-    stats.rel = 7
-    stats.val = 7
+    stats.acc = 6 + (count % 1)
+    stats.erg = 6 + (count % 2)
+    stats.ftr = 6 + (count % 2)
+    stats.fit = 6 + (count % 3)
+    stats.rel = 6 + (count % 1)
+    stats.val = 6 + (count % 3)
   }
 
   if (category.includes('Handgun')) {
@@ -64,6 +64,10 @@ export default function getStats(brand, category, count) {
     stats.rel += -1
     stats.val += 1
   }
+
+  Object.keys(stats)?.map((key) => {
+    stats[key] = stats[key] > 10 ? 10 : stats[key]
+  })
 
   return stats
 }

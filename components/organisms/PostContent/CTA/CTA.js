@@ -19,16 +19,17 @@ export default function CTA({
 }) {
   const { data: page } = getPage(productSlug)
 
-  const pageStats = page
-    ? getStats(page.brand.name, page.category.name, page.product.length, {
-        acc: page.stat_acc,
-        erg: page.stat_erg,
-        ftr: page.stat_ftr,
-        fit: page.stat_fit,
-        rel: page.stat_rel,
-        val: page.stat_val,
-      })
-    : undefined
+  const pageStats =
+    page && page.brand && page.category && page.product
+      ? getStats(page.brand.name, page.category.name, page.product.length, {
+          acc: page.stat_acc,
+          erg: page.stat_erg,
+          ftr: page.stat_ftr,
+          fit: page.stat_fit,
+          rel: page.stat_rel,
+          val: page.stat_val,
+        })
+      : undefined
 
   const search =
     page?.title

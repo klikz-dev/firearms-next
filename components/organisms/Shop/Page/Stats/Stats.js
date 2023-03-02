@@ -27,7 +27,7 @@ function Stat({ label, attr, small }) {
             'h-full rounded',
             attr > 7
               ? 'bg-green-700'
-              : attr > 5
+              : attr > 4
               ? 'bg-yellow-400'
               : 'bg-red-700'
           )}
@@ -60,11 +60,20 @@ export default function Stats({ pageStats, small = false }) {
         )}
       >
         {[
-          { attr: pageStats.acc, label: 'Accuracy' },
-          { attr: pageStats.erg, label: 'Ergonomics' },
+          {
+            attr: pageStats.acc,
+            label: pageStats.showStats ? 'Accuracy' : 'Quality',
+          },
+          {
+            attr: pageStats.erg,
+            label: pageStats.showStats ? 'Ergonomics' : 'Durability',
+          },
           { attr: pageStats.ftr, label: 'Features' },
           { attr: pageStats.fit, label: 'Fit & Finish' },
-          { attr: pageStats.rel, label: 'Reliability' },
+          {
+            attr: pageStats.rel,
+            label: pageStats.showStats ? 'Reliability' : 'Design',
+          },
           { attr: pageStats.val, label: 'Value' },
         ].map((stat, index) => (
           <Stat key={index} {...stat} small={small} />

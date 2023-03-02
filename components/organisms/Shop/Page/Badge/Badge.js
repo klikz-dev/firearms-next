@@ -1,6 +1,12 @@
 import Image from '@/components/atoms/Image'
+import Link from '@/components/atoms/Link'
 
-export default function Badge({ pageStats, small = false, reviewCount }) {
+export default function Badge({
+  pageStats,
+  small = false,
+  reviewCount,
+  pageSlug,
+}) {
   const score =
     pageStats.acc +
     pageStats.erg +
@@ -58,10 +64,15 @@ export default function Badge({ pageStats, small = false, reviewCount }) {
         </div>
 
         {reviewCount && (
-          <p className={'text-center text-xs'}>
+          <Link
+            href={`/shop/${pageSlug}`}
+            className={'block font-sans text-center text-xs'}
+          >
             Based On{' '}
-            <span className={'font-semibold'}>{`${reviewCount} Rating`}</span>
-          </p>
+            <span className={'font-semibold'}>{`${reviewCount} ${
+              reviewCount > 1 ? 'Ratings' : 'Rating'
+            }`}</span>
+          </Link>
         )}
       </div>
     )
@@ -115,10 +126,15 @@ export default function Badge({ pageStats, small = false, reviewCount }) {
       </div>
 
       {reviewCount && (
-        <p className={'text-center text-sm'}>
+        <Link
+          href={`/shop/${pageSlug}`}
+          className={'block font-sans text-center text-sm'}
+        >
           Based On{' '}
-          <span className={'font-semibold'}>{`${reviewCount} Rating`}</span>
-        </p>
+          <span className={'font-semibold'}>{`${reviewCount} ${
+            reviewCount > 1 ? 'Ratings' : 'Rating'
+          }`}</span>
+        </Link>
       )}
     </div>
   )

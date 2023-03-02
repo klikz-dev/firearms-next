@@ -24,6 +24,7 @@ export default function PopularCategory({ pages }) {
                   pageStats={page.pageStats}
                   small={true}
                   reviewCount={page.product_num}
+                  pageSlug={page.slug}
                 />
               </div>
 

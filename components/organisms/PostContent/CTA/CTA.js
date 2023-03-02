@@ -85,6 +85,7 @@ export default function CTA({
                 pageStats={pageStats}
                 small={true}
                 reviewCount={page.product.length}
+                pageSlug={page.slug}
               />
             )}
           </div>

@@ -125,6 +125,7 @@ export default function Page({
                 <Badge
                   pageStats={pageStats}
                   reviewCount={page.product.length}
+                  pageSlug={page.slug}
                 />
 
                 <Stats pageStats={pageStats} />
@@ -167,6 +168,7 @@ export default function Page({
                 <Badge
                   pageStats={pageStats}
                   reviewCount={page.product.length}
+                  pageSlug={page.slug}
                 />
 
                 <Stats pageStats={pageStats} />

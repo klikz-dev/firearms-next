@@ -1,17 +1,2 @@
-# *
 User-agent: *
-Allow: /
-Disallow: /404
-Disallow: /500
-Disallow: /504
-Disallow: /search
-
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://www.americanfirearms.org
-
-# Sitemaps
-Sitemap: https://www.americanfirearms.org/sitemap.xml
+Disallow: /

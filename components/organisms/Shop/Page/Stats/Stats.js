@@ -1,92 +1,83 @@
-export default function Stats({ header, pageStats }) {
+import { faChartColumn } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import classNames from 'classnames'
+
+function Stat({ label, attr, small }) {
   return (
-    <div className='border border-zinc-200 rounded shadow mb-8'>
-      <div className='px-3 py-2 bg-zinc-700 text-white font-bold'>{header}</div>
+    <div className={classNames(small ? 'mb-2' : 'mb-4')}>
+      <div
+        className={classNames(
+          'flex flex-row justify-between',
+          !small && 'mb-1'
+        )}
+      >
+        <span className={'text-sm'}>{label}</span>
+        <span className={'text-sm'}>{`${attr}/10`}</span>
+      </div>
 
-      <div className='py-3 px-5'>
-        <div className='mb-3'>
-          <div className='flex flex-row justify-between font-bold mb-1'>
-            <span>Accuracy</span>
-            <span>{pageStats.acc * 10}</span>
-          </div>
+      <div
+        className={classNames(
+          'bg-zinc-200 w-full rounded',
+          small ? 'h-1.5' : 'h-2'
+        )}
+      >
+        <div
+          style={{ width: `${attr * 10}%` }}
+          className={classNames(
+            'h-full rounded',
+            attr > 7
+              ? 'bg-green-700'
+              : attr > 4
+              ? 'bg-yellow-400'
+              : 'bg-red-700'
+          )}
+        ></div>
+      </div>
+    </div>
+  )
+}
 
-          <div className='bg-zinc-200 w-full h-3'>
-            <div
-              style={{ width: `${pageStats.acc * 10}%` }}
-              className='h-full bg-red-700'
-            ></div>
-          </div>
-        </div>
+export default function Stats({ pageStats, small = false }) {
+  return (
+    <div
+      className={classNames(
+        !small && 'border border-zinc-200 rounded shadow mb-8'
+      )}
+    >
+      <div
+        className={classNames(
+          'px-3 py-2 flex flex-row items-center gap-2',
+          !small && 'text-white bg-gradient-to-r from-red-800 to-red-600'
+        )}
+      >
+        <FontAwesomeIcon icon={faChartColumn} />
+        <h6 className='font-sans'>Performance Scores</h6>
+      </div>
 
-        <div className='mb-3'>
-          <div className='flex flex-row justify-between font-bold mb-1'>
-            <span>Ergonomics</span>
-            <span>{pageStats.erg * 10}</span>
-          </div>
-
-          <div className='bg-zinc-200 w-full h-3'>
-            <div
-              style={{ width: `${pageStats.erg * 10}%` }}
-              className='h-full bg-red-700'
-            ></div>
-          </div>
-        </div>
-
-        <div className='mb-3'>
-          <div className='flex flex-row justify-between font-bold mb-1'>
-            <span>Fit & Finish</span>
-            <span>{pageStats.fit * 10}</span>
-          </div>
-
-          <div className='bg-zinc-200 w-full h-3'>
-            <div
-              style={{ width: `${pageStats.fit * 10}%` }}
-              className='h-full bg-red-700'
-            ></div>
-          </div>
-        </div>
-
-        <div className='mb-3'>
-          <div className='flex flex-row justify-between font-bold mb-1'>
-            <span>Range</span>
-            <span>{pageStats.rng}</span>
-          </div>
-
-          <div className='bg-zinc-200 w-full h-3'>
-            <div
-              style={{ width: `${pageStats.rngVal * 10}%` }}
-              className='h-full bg-red-700'
-            ></div>
-          </div>
-        </div>
-
-        <div className='mb-3'>
-          <div className='flex flex-row justify-between font-bold mb-1'>
-            <span>Recoil</span>
-            <span>{pageStats.rec * 10}</span>
-          </div>
-
-          <div className='bg-zinc-200 w-full h-3'>
-            <div
-              style={{ width: `${pageStats.rec * 10}%` }}
-              className='h-full bg-red-700'
-            ></div>
-          </div>
-        </div>
-
-        <div className='mb-3'>
-          <div className='flex flex-row justify-between font-bold mb-1'>
-            <span>Reliability</span>
-            <span>{pageStats.rel * 10}</span>
-          </div>
-
-          <div className='bg-zinc-200 w-full h-3'>
-            <div
-              style={{ width: `${pageStats.rel * 10}%` }}
-              className='h-full bg-red-700'
-            ></div>
-          </div>
-        </div>
+      <div
+        className={classNames(
+          small ? 'grid grid-cols-2 gap-x-4 px-3' : 'py-3 px-5'
+        )}
+      >
+        {[
+          {
+            attr: pageStats.acc,
+            label: pageStats.showStats ? 'Accuracy' : 'Quality',
+          },
+          {
+            attr: pageStats.erg,
+            label: pageStats.showStats ? 'Ergonomics' : 'Durability',
+          },
+          { attr: pageStats.ftr, label: 'Features' },
+          { attr: pageStats.fit, label: 'Fit & Finish' },
+          {
+            attr: pageStats.rel,
+            label: pageStats.showStats ? 'Reliability' : 'Design',
+          },
+          { attr: pageStats.val, label: 'Value' },
+        ].map((stat, index) => (
+          <Stat key={index} {...stat} small={small} />
+        ))}
       </div>
     </div>
   )

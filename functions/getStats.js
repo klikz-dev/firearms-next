@@ -1,36 +1,39 @@
 import { brandLevels } from '@/const/setting/shop'
 
-export default function getStats(brand, category) {
+export default function getStats(brand, category, count, customStats) {
   const stats = {
-    acc: 5,
-    cap: '10 + 1 rounds',
-    capVal: 3.5,
-    erg: 5,
-    fit: 5,
-    rng: '10-50 Yards',
-    rngVal: 3.5,
-    rec: 5,
-    rel: 5,
-    showStats: false,
+    acc: 4 + (count % 4),
+    erg: 4 + (count % 2),
+    ftr: 4 + (count % 3),
+    fit: 4 + (count % 2),
+    rel: 4 + (count % 1),
+    val: 4 + (count % 1),
+  }
+  if (count > 99) {
+    stats.acc = 8 + (count % 1)
+    stats.erg = 8 + (count % 2)
+    stats.ftr = 8 + (count % 2)
+    stats.fit = 8 + (count % 3)
+    stats.rel = 8 + (count % 1)
+    stats.val = 8 + (count % 3)
+  } else if (count > 49) {
+    stats.acc = 6 + (count % 1)
+    stats.erg = 6 + (count % 2)
+    stats.ftr = 6 + (count % 2)
+    stats.fit = 6 + (count % 3)
+    stats.rel = 6 + (count % 1)
+    stats.val = 6 + (count % 3)
   }
 
-  if (category.name?.includes('Handgun')) {
+  if (category.includes('Handgun')) {
     stats.showStats = true
   }
 
-  if (category.name?.includes('Rifle')) {
-    stats.cap = '30 + 1 rounds'
-    stats.capVal = 5
-    stats.rng = '1,000 Yards'
-    stats.rngVal = 5
+  if (category.includes('Rifle')) {
     stats.showStats = true
   }
 
-  if (category.name?.includes('Shotgun')) {
-    stats.cap = '6 + 1 rounds'
-    stats.capVal = 6.5
-    stats.rng = '50-100 Yards'
-    stats.rngVal = 6.5
+  if (category.includes('Shotgun')) {
     stats.showStats = true
   }
 
@@ -39,25 +42,33 @@ export default function getStats(brand, category) {
     return accumulator
   }, {})
 
-  if (levels[brand.name?.toLowerCase()] === 'Premium') {
+  if (levels[brand.toLowerCase()] === 'Premium') {
     stats.acc += 2
-    stats.erg += 0.5
+    stats.erg += 1
+    stats.ftr += 1
     stats.fit += 2
-    stats.rec += 1
-    stats.rel += 3
-  } else if (levels[brand.name?.toLowerCase()] === 'Mid-Range') {
+    stats.rel += 2
+    stats.val += 0
+  } else if (levels[brand.toLowerCase()] === 'Mid-Range') {
     stats.acc += 1
     stats.erg += 0
-    stats.fit += 1.5
-    stats.rec += 0
-    stats.rel += 2.5
-  } else if (levels[brand.name?.toLowerCase()] === 'Budget') {
+    stats.ftr += 0
+    stats.fit += 1
+    stats.rel += 1
+    stats.val += 0
+  } else if (levels[brand.toLowerCase()] === 'Budget') {
     stats.acc += 0
-    stats.erg += -0.5
+    stats.erg += -1
+    stats.ftr += -1
     stats.fit += -1
-    stats.rec += 1
-    stats.rel += -2
+    stats.rel += -1
+    stats.val += 1
   }
+
+  Object.keys(stats)?.map((key) => {
+    stats[key] = stats[key] > 10 ? 10 : stats[key]
+    stats[key] = customStats?.[key] > 0 ? customStats[key] : stats[key]
+  })
 
   return stats
 }

@@ -1,6 +1,7 @@
 import { client } from '@/lib/apollo'
 import GET_POST_QUERY from '@/const/schema/getPost.graphql'
 import GET_POST_SLUGS_QUERY from '@/const/schema/getPostSlugs.graphql'
+import GET_AUTHOR_QUERY from '@/const/schema/getAuthor.graphql'
 import Layout from '@/components/common/Layout'
 import { useRouter } from 'next/router'
 import Container from '@/components/atoms/Container'
@@ -13,16 +14,18 @@ import Link from '@/components/atoms/Link'
 import Image from '@/components/atoms/Image'
 import HTMLContent from '@/components/atoms/HTMLContent'
 import { NextSeo } from 'next-seo'
+import moment from 'moment'
 
-export default function Post({ postData }) {
+export default function Post({ postData, michael }) {
   const {
     title,
     slug,
     seo,
     author,
     content,
-    date,
     featuredImage,
+    date,
+    modified,
     postContent,
   } = postData?.post ?? {}
   const { metaDesc, opengraphDescription } = seo ?? {}
@@ -54,7 +57,12 @@ export default function Post({ postData }) {
 
             {metaDesc && <p className={'mt-4 mb-8'}>{metaDesc}</p>}
 
-            <PostMeta title={title} slug={slug} author={author} date={date} />
+            <PostMeta
+              title={title}
+              slug={slug}
+              author={author}
+              michael={michael}
+            />
 
             <div
               className={
@@ -74,13 +82,26 @@ export default function Post({ postData }) {
               </p>
             </div>
 
-            <Image
-              src={featuredImage?.node?.sourceUrl}
-              alt={featuredImage?.node?.alt}
-              width={featuredImage?.node?.mediaDetails?.width}
-              height={featuredImage?.node?.mediaDetails?.height}
-              priority={true}
-            />
+            <div className={'relative mb-10'}>
+              <Image
+                src={featuredImage?.node?.sourceUrl}
+                alt={featuredImage?.node?.alt}
+                width={featuredImage?.node?.mediaDetails?.width}
+                height={featuredImage?.node?.mediaDetails?.height}
+                priority={true}
+              />
+
+              <div
+                className={
+                  'absolute left-10 -bottom-10 w-20 h-20 text-center bg-red-600 rounded-full text-white flex flex-col justify-center'
+                }
+              >
+                <p className={'text-sm font-bold'}>
+                  {moment(date) === moment(modified) ? 'Published' : 'Updated'}
+                </p>
+                <p className='text-xs'>{moment(modified).format('MMM YYYY')}</p>
+              </div>
+            </div>
 
             <HTMLContent className={'py-8'}>{content}</HTMLContent>
 
@@ -88,7 +109,7 @@ export default function Post({ postData }) {
           </div>
 
           <div className={'lg:col-span-1'}>
-            <Sidebar />
+            <Sidebar alert={postContent?.alert} />
           </div>
         </Container>
       </Layout>
@@ -113,9 +134,20 @@ export async function getStaticProps({ params }) {
     }
   }
 
+  /**
+   * Main Author - Michael
+   */
+  const { data: authorData } = await client.query({
+    query: GET_AUTHOR_QUERY,
+    variables: {
+      slug: 'michael-crites',
+    },
+  })
+
   return {
     props: {
       postData,
+      michael: authorData?.user,
     },
     revalidate: 30,
   }

@@ -54,7 +54,7 @@ export default function Author({ authorData }) {
 
               <GradientBorder height={2} className={'w-40 my-4'} />
 
-              <HTMLContent>{description}</HTMLContent>
+              <HTMLContent>{author?.fullBio ?? description}</HTMLContent>
 
               <div className={'flex flex-row gap-2 mt-4'}>
                 {author?.website && (
@@ -167,7 +167,7 @@ export default function Author({ authorData }) {
 
 export async function getStaticProps({ params }) {
   /**
-   * Category
+   * Author
    */
   const { data: authorData, error } = await client.query({
     query: GET_AUTHOR_QUERY,

@@ -1,6 +1,10 @@
 query GetAuthor($slug: ID!) {
   user(id: $slug, idType: SLUG) {
+    slug
     name
+    avatar {
+      url
+    }
     description
     posts(first: 100) {
       nodes {
@@ -21,7 +25,6 @@ query GetAuthor($slug: ID!) {
       }
     }
     author {
-      position
       image {
         altText
         mediaDetails {
@@ -30,6 +33,11 @@ query GetAuthor($slug: ID!) {
         }
         sourceUrl
       }
+      position
+      credentials {
+        credential
+      }
+      fullBio
       website
       facebook
       twitter

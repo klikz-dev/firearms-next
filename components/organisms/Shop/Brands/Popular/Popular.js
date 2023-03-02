@@ -1,47 +1,35 @@
 import Button from '@/components/atoms/Button'
 import Image from '@/components/atoms/Image'
 import Link from '@/components/atoms/Link'
-import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import getBulkStats from '@/functions/getBulkStats'
+import moment from 'moment'
+import Badge from '../../Page/Badge'
 
-export default function PopularBrand({ pages }) {
+export default function PopularCategory({ pages }) {
+  pages = getBulkStats(pages)
+
   return (
-    <>
-      <table className='table-auto mx-auto relative w-full'>
-        <thead className='bg-white sticky w-full top-0 z-10 shadow hidden lg:table-header-group'>
-          <tr>
-            <th>Rank</th>
-            <th></th>
-            <th></th>
-            <th className='hidden lg:table-cell'>Condition</th>
-            <th className='p-4 w-40 text-center  hidden lg:table-cell'>
-              Previous Rank
-            </th>
-            <th></th>
-          </tr>
-        </thead>
-
-        <tbody>
+    <div className={'overflow-auto'}>
+      <div style={{ minWidth: '1200px' }}>
+        <div className={'my-8'}>
           {pages.map((page, index) => (
-            <tr key={index}>
-              <td className='font-bold lg:px-2 text-center w-12 lg:w-24'>
-                <div className='flex justify-center items-center'>
-                  <div className='w-6 h-6 rounded-full bg-red-700 text-white inline-flex justify-center items-center text-xs mr-3'>
-                    {index + 1}
-                  </div>
+            <div
+              key={index}
+              className={
+                'bg-white h-40 my-3 border border-zinc-300 hover:border-red-600 hover:shadow-xl flex items-center'
+              }
+            >
+              <div className='px-6 py-2 w-1/6 flex justify-center items-center'>
+                <Badge
+                  pageStats={page.pageStats}
+                  small={true}
+                  reviewCount={page.product_num}
+                  pageSlug={page.slug}
+                />
+              </div>
 
-                  {index + 1 < page.pre_category_rank && (
-                    <FontAwesomeIcon icon={faArrowUp} />
-                  )}
-
-                  {index + 1 > page.pre_category_rank && (
-                    <FontAwesomeIcon icon={faArrowDown} />
-                  )}
-                </div>
-              </td>
-
-              <td className='lg:px-6 lg:py-4'>
-                <div className='relative w-16 h-16 lg:w-32 lg:h-32'>
+              <div className='px-6 py-2 w-1/6'>
+                <div className='relative h-32 w-32 rounded-lg border border-zinc-200 overflow-hidden flex justify-center items-center'>
                   <Image
                     src={page.thumb_url}
                     width={128}
@@ -49,27 +37,35 @@ export default function PopularBrand({ pages }) {
                     alt={page.title}
                   />
                 </div>
-              </td>
+              </div>
 
-              <td className='px-2 lg:px-4 text-sm lg:text-base font-bold capitalize'>
-                {page.title.toLowerCase()}
-              </td>
+              <div className='px-6 py-2 w-1/2 capitalize'>
+                <h5 className={'mb-1'}>{page.title.toLowerCase()}</h5>
 
-              <td className='px-4 text-center hidden lg:table-cell'>New</td>
+                <h6 className={'text-sm'}>
+                  <span className={'font-semibold'}>Style: </span>
+                  {page.subcategory ?? ''}
+                </h6>
 
-              <td className='px-4 text-center hidden lg:table-cell'>
-                {page.pre_brand_rank}
-              </td>
+                <h6 className={'text-sm mb-2'}>
+                  <span className={'font-semibold'}>Updated: </span>
+                  {moment(page.updated_at).calendar()}
+                </h6>
 
-              <td className='text-sm lg:text-base lg:w-40 py-4'>
+                <p className={'text-sm'}>
+                  {`${page.description?.split(' ').slice(0, 25).join(' ')} ...`}
+                </p>
+              </div>
+
+              <div className='px-6 py-2 w-1/6'>
                 <Link href={`/shop/${page.slug}/`}>
-                  <Button color={'red'}>View Prices</Button>
+                  <Button color={'white'}>View Prices</Button>
                 </Link>
-              </td>
-            </tr>
+              </div>
+            </div>
           ))}
-        </tbody>
-      </table>
-    </>
+        </div>
+      </div>
+    </div>
   )
 }

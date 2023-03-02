@@ -26,8 +26,6 @@ export default function DisplayImage({
         className={className}
         style={style}
         {...props}
-        placeholder='blur'
-        blurDataURL='/images/blur.png'
       />
     ) : (
       <Image
@@ -36,7 +34,7 @@ export default function DisplayImage({
         height={height}
         alt={alt ?? 'Image'}
         className={className}
-        style={{ height: 'auto' }}
+        style={style}
         {...props}
       />
     )

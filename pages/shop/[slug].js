@@ -8,15 +8,13 @@ import getStats from '@/functions/getStats'
 import MainProduct from '@/components/organisms/Shop/Page/MainProduct'
 import Awards from '@/components/organisms/Shop/Page/Awards'
 import Stats from '@/components/organisms/Shop/Page/Stats'
-import Ranking from '@/components/organisms/Shop/Page/Ranking'
-import MoreEssentials from '@/components/organisms/Shop/Page/MoreEssentials'
+import Rating from '@/components/organisms/Shop/Page/Rating'
 import Estimate from '@/components/organisms/Shop/Page/Estimate'
 import getPriceEstimates from '@/functions/getPriceEstimates'
 import Cost from '@/components/organisms/Shop/Page/Cost'
 import getCosts from '@/functions/getCosts'
 import TrendChart from '@/components/organisms/Shop/Page/TrendChart'
 import OtherProducts from '@/components/organisms/Shop/Page/OtherProducts'
-import MorePrices from '@/components/organisms/Shop/Page/MorePrices'
 import Loading from '@/components/atoms/Loading'
 import { useRouter } from 'next/router'
 import Container from '@/components/atoms/Container'
@@ -24,6 +22,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHomeAlt, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 import Breadcrumbs from '@/components/molecules/Breadcrumbs'
 import Title from '@/components/molecules/Title'
+import Badge from '@/components/organisms/Shop/Page/Badge'
 
 export default function Page({
   page,
@@ -31,7 +30,6 @@ export default function Page({
   products,
   categoryPages,
   brandPages,
-  relatedCategories,
 }) {
   const router = useRouter()
   if (router.isFallback) {
@@ -81,11 +79,20 @@ export default function Page({
     .slice(0, 15)
     .map((rate) => relatedPageSlugs.push(rate.target))
 
-  const relatedPages = categoryPages?.filter((page) =>
-    relatedPageSlugs.includes(page.slug)
+  const pageStats = getStats(
+    page.brand.name,
+    page.category.name,
+    page.product.length,
+    {
+      acc: page.stat_acc,
+      erg: page.stat_erg,
+      ftr: page.stat_ftr,
+      fit: page.stat_fit,
+      rel: page.stat_rel,
+      val: page.stat_val,
+    }
   )
 
-  const pageStats = getStats(page.brand, page.category)
   const categoryRank = getRank(page, categoryPages)
   const brandRank = getRank(page, brandPages)
   const estimates = getPriceEstimates(product) || {}
@@ -115,18 +122,19 @@ export default function Page({
               {product && <MainProduct product={product} />}
 
               <div className='block lg:hidden'>
+                <Badge
+                  pageStats={pageStats}
+                  reviewCount={page.product.length}
+                  pageSlug={page.slug}
+                />
+
+                <Stats pageStats={pageStats} />
+
                 {page && (
                   <Awards
                     page={page}
                     brandRank={brandRank}
                     categoryRank={categoryRank}
-                  />
-                )}
-
-                {pageStats.showStats && page && (
-                  <Stats
-                    header={`${toCapitalize(page?.title)} Stats`}
-                    pageStats={pageStats}
                   />
                 )}
               </div>
@@ -157,6 +165,14 @@ export default function Page({
 
             <div className='w-full lg:w-80 flex-shrink-0'>
               <div className='hidden lg:block'>
+                <Badge
+                  pageStats={pageStats}
+                  reviewCount={page.product.length}
+                  pageSlug={page.slug}
+                />
+
+                <Stats pageStats={pageStats} />
+
                 {page && (
                   <Awards
                     page={page}
@@ -164,29 +180,13 @@ export default function Page({
                     categoryRank={categoryRank}
                   />
                 )}
-
-                {pageStats.showStats && page && (
-                  <Stats
-                    header={`${toCapitalize(page.title)} Stats`}
-                    pageStats={pageStats}
-                  />
-                )}
               </div>
 
               {page && brandPages && categoryPages && (
-                <Ranking
+                <Rating
                   page={page}
                   brandPages={brandPages}
                   categoryPages={categoryPages}
-                />
-              )}
-
-              <MoreEssentials relatedCategories={relatedCategories} />
-
-              {page && (
-                <MorePrices
-                  category={page.category}
-                  relatedPages={relatedPages}
                 />
               )}
             </div>
@@ -241,17 +241,6 @@ export async function getStaticProps({ params }) {
     )
     const { results: brandPages } = await brandPagesRes.json()
 
-    /**
-     * Related Category Slugs
-     */
-    const categoriesRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/categories/?limit=10&offset=0`
-    )
-    const categories = await categoriesRes.json()
-    const relatedCategories = categories.results?.filter(
-      (category) => category && category.slug !== 'general'
-    )
-
     return {
       props: {
         page,
@@ -259,9 +248,8 @@ export async function getStaticProps({ params }) {
         products,
         categoryPages,
         brandPages,
-        relatedCategories,
       },
-      revalidate: 1000,
+      revalidate: 100,
     }
   } catch (error) {
     console.log(error)

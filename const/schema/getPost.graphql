@@ -9,14 +9,30 @@ query GetPost($slug: ID!) {
     author {
       node {
         name
+        description
         avatar {
           url
         }
         slug
+        author {
+          image {
+            altText
+            mediaDetails {
+              height
+              width
+            }
+            sourceUrl
+          }
+          position
+          credentials {
+            credential
+          }
+        }
       }
     }
     content
     date
+    modified
     featuredImage {
       node {
         altText
@@ -28,6 +44,11 @@ query GetPost($slug: ID!) {
       }
     }
     postContent {
+      alert {
+        display
+        title
+        alert
+      }
       contents {
         ... on Post_Postcontent_Contents_Heading {
           text
@@ -74,6 +95,7 @@ query GetPost($slug: ID!) {
               width
             }
           }
+          productSlug
         }
         ... on Post_Postcontent_Contents_AmazonProduct {
           productId

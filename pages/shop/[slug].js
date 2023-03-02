@@ -8,7 +8,7 @@ import getStats from '@/functions/getStats'
 import MainProduct from '@/components/organisms/Shop/Page/MainProduct'
 import Awards from '@/components/organisms/Shop/Page/Awards'
 import Stats from '@/components/organisms/Shop/Page/Stats'
-import Ranking from '@/components/organisms/Shop/Page/Ranking'
+import Rating from '@/components/organisms/Shop/Page/Rating'
 import Estimate from '@/components/organisms/Shop/Page/Estimate'
 import getPriceEstimates from '@/functions/getPriceEstimates'
 import Cost from '@/components/organisms/Shop/Page/Cost'
@@ -166,7 +166,7 @@ export default function Page({
               </div>
 
               {page && brandPages && categoryPages && (
-                <Ranking
+                <Rating
                   page={page}
                   brandPages={brandPages}
                   categoryPages={categoryPages}

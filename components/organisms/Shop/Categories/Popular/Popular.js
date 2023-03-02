@@ -1,35 +1,12 @@
 import Button from '@/components/atoms/Button'
 import Image from '@/components/atoms/Image'
 import Link from '@/components/atoms/Link'
-import getStats from '@/functions/getStats'
+import getBulkStats from '@/functions/getBulkStats'
 import moment from 'moment'
 import Badge from '../../Page/Badge'
 
 export default function PopularCategory({ pages }) {
-  pages = pages?.map((page) => {
-    return {
-      ...page,
-      pageStats: getStats(page.brand, page.category, page.product_num),
-    }
-  })
-
-  pages.sort((a, b) => {
-    const scoreA =
-      a.pageStats.acc +
-      a.pageStats.erg +
-      a.pageStats.ftr +
-      a.pageStats.fit +
-      a.pageStats.rel +
-      a.pageStats.val
-    const scoreB =
-      b.pageStats.acc +
-      b.pageStats.erg +
-      b.pageStats.ftr +
-      b.pageStats.fit +
-      b.pageStats.rel +
-      b.pageStats.val
-    return scoreA < scoreB ? 1 : -1
-  })
+  pages = getBulkStats(pages)
 
   return (
     <div className={'overflow-auto'}>

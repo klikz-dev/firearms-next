@@ -32,6 +32,7 @@ query GetPost($slug: ID!) {
     }
     content
     date
+    modified
     featuredImage {
       node {
         altText

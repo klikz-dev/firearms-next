@@ -1,6 +1,6 @@
 import { brandLevels } from '@/const/setting/shop'
 
-export default function getStats(brand, category, count) {
+export default function getStats(brand, category, count, customStats) {
   const stats = {
     acc: 4 + (count % 4),
     erg: 4 + (count % 2),
@@ -67,6 +67,7 @@ export default function getStats(brand, category, count) {
 
   Object.keys(stats)?.map((key) => {
     stats[key] = stats[key] > 10 ? 10 : stats[key]
+    stats[key] = customStats?.[key] > 0 ? customStats[key] : stats[key]
   })
 
   return stats

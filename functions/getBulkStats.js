@@ -2,7 +2,15 @@ import getStats from './getStats'
 
 export default function getBulkStats(pages) {
   pages = pages?.map((page) => {
-    const pageStats = getStats(page.brand, page.category, page.product_num)
+    const pageStats = getStats(page.brand, page.category, page.product_num, {
+      acc: page.stat_acc,
+      erg: page.stat_erg,
+      ftr: page.stat_ftr,
+      fit: page.stat_fit,
+      rel: page.stat_rel,
+      val: page.stat_val,
+    })
+
     const statScore =
       pageStats.acc +
       pageStats.erg +

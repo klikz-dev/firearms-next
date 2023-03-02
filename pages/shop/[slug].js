@@ -31,6 +31,8 @@ export default function Page({
   categoryPages,
   brandPages,
 }) {
+  console.log(page)
+
   const router = useRouter()
   if (router.isFallback) {
     return (
@@ -82,8 +84,17 @@ export default function Page({
   const pageStats = getStats(
     page.brand.name,
     page.category.name,
-    products.length
+    page.product.length,
+    {
+      acc: page.stat_acc,
+      erg: page.stat_erg,
+      ftr: page.stat_ftr,
+      fit: page.stat_fit,
+      rel: page.stat_rel,
+      val: page.stat_val,
+    }
   )
+
   const categoryRank = getRank(page, categoryPages)
   const brandRank = getRank(page, brandPages)
   const estimates = getPriceEstimates(product) || {}

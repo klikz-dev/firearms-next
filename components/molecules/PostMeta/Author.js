@@ -11,7 +11,6 @@ import { Popover, Transition } from '@headlessui/react'
 import { useState } from 'react'
 
 export default function Author({ author, headline = 'Written By' }) {
-  console.log(author)
   const [isOpen, setIsOpen] = useState(false)
 
   return (

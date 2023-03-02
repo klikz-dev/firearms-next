@@ -80,7 +80,13 @@ export default function CTA({
           </div>
 
           <div className={'px-4 pb-4 md:w-1/2 flex flex-row justify-center'}>
-            {pageStats && <Badge pageStats={pageStats} small />}
+            {pageStats && (
+              <Badge
+                pageStats={pageStats}
+                small={true}
+                reviewCount={page.product.length}
+              />
+            )}
           </div>
         </div>
 

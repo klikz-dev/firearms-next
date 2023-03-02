@@ -31,8 +31,6 @@ export default function Page({
   categoryPages,
   brandPages,
 }) {
-  console.log(page)
-
   const router = useRouter()
   if (router.isFallback) {
     return (
@@ -124,7 +122,10 @@ export default function Page({
               {product && <MainProduct product={product} />}
 
               <div className='block lg:hidden'>
-                <Badge pageStats={pageStats} />
+                <Badge
+                  pageStats={pageStats}
+                  reviewCount={page.product.length}
+                />
 
                 <Stats pageStats={pageStats} />
 
@@ -163,7 +164,10 @@ export default function Page({
 
             <div className='w-full lg:w-80 flex-shrink-0'>
               <div className='hidden lg:block'>
-                <Badge pageStats={pageStats} />
+                <Badge
+                  pageStats={pageStats}
+                  reviewCount={page.product.length}
+                />
 
                 <Stats pageStats={pageStats} />
 

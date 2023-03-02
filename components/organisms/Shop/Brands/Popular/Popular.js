@@ -20,7 +20,11 @@ export default function PopularCategory({ pages }) {
               }
             >
               <div className='px-6 py-2 w-1/6 flex justify-center items-center'>
-                <Badge pageStats={page.pageStats} small={true} />
+                <Badge
+                  pageStats={page.pageStats}
+                  small={true}
+                  reviewCount={page.product_num}
+                />
               </div>
 
               <div className='px-6 py-2 w-1/6'>

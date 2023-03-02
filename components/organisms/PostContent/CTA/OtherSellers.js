@@ -1,6 +1,7 @@
 import Image from '@/components/atoms/Image'
 import Link from '@/components/atoms/Link'
 import { otherSellers } from '@/const/setting/sellers'
+import classNames from 'classnames'
 
 export default function OtherSellers({ buttonText, search }) {
   const sellers = otherSellers.filter((seller) => {
@@ -13,7 +14,12 @@ export default function OtherSellers({ buttonText, search }) {
     <div className={'flex flex-col lg:flex-row lg:items-center lg:gap-8 p-4'}>
       <h4 className='text-center'>Other Sellers:</h4>
 
-      <div className={'flex-grow grid lg:grid-cols-3 lg:gap-8'}>
+      <div
+        className={classNames(
+          'flex-grow grid lg:gap-8',
+          sellers?.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'
+        )}
+      >
         {sellers?.map((seller) => (
           <div
             key={seller.brand}

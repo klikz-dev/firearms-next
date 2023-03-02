@@ -1,5 +1,6 @@
 query GetAuthor($slug: ID!) {
   user(id: $slug, idType: SLUG) {
+    slug
     name
     avatar {
       url

@@ -11,6 +11,7 @@ import { Popover, Transition } from '@headlessui/react'
 import { useState } from 'react'
 
 export default function Author({ author, headline = 'Written By' }) {
+  console.log(author)
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -143,7 +144,7 @@ export default function Author({ author, headline = 'Written By' }) {
                 Want to read more about all our experts in the field?
               </p>
               <Link
-                href={'/author/'}
+                href={'/about-us/'}
                 className={'text-white text-sm hover:underline'}
               >
                 Learn About The Editorial Team

@@ -1,3 +1,4 @@
+import Link from '@/components/atoms/Link'
 import {
   faFacebookF,
   faLinkedinIn,
@@ -29,8 +30,16 @@ export default function PostMeta({ title, slug, author, michael }) {
       >
         <Author author={author.node} />
 
-        {author.node?.slug !== 'michael-crites' && (
+        {author.node?.slug !== 'michael-crites' ? (
           <Author author={michael} headline={'Edited By'} />
+        ) : (
+          <Link href={'/about-us/'} className={'font-sans'}>
+            <p className={'text-sm'}>Reviewed by</p>
+            <h5>Editorial Team</h5>
+            <p className={'text-sm underline'}>
+              Learn About The Editorial Team
+            </p>
+          </Link>
         )}
       </div>
 

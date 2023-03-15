@@ -16,7 +16,7 @@ export default function Document() {
           }}
         />
 
-        <script src='/tw-element.min.js' />
+        <script src='https://www.google.com/recaptcha/api.js' async defer />
 
         <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
       </Head>

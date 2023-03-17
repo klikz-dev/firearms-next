@@ -186,7 +186,7 @@ export async function getStaticProps({ params }) {
     props: {
       authorData,
     },
-    revalidate: 30,
+    revalidate: 100,
   }
 }
 

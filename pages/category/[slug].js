@@ -70,7 +70,7 @@ export async function getStaticProps({ params }) {
     props: {
       categoryData,
     },
-    revalidate: 30,
+    revalidate: 100,
   }
 }
 

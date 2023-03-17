@@ -175,13 +175,12 @@ export async function getStaticProps({ params }) {
         subcategory,
         brands,
       },
-      revalidate: 1000,
+      revalidate: 100,
     }
   } catch (error) {
     console.log(error)
     return {
       notFound: true,
-      revalidate: 5,
     }
   }
 }

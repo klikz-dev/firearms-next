@@ -1,4 +1,4 @@
-import NextLink from 'next/link'
+// import NextLink from 'next/link'
 import PropTypes from 'prop-types'
 
 export default function TextLink({
@@ -23,9 +23,12 @@ export default function TextLink({
       {children}
     </a>
   ) : (
-    <NextLink href={href} className={className} {...props}>
+    // <NextLink href={href} className={className} {...props}>
+    //   {children}
+    // </NextLink>
+    <a href={href} className={className} {...props}>
       {children}
-    </NextLink>
+    </a>
   )
 }
 

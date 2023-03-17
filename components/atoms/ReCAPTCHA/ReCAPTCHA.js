@@ -3,7 +3,7 @@ import GoogleReCAPTCHA from 'react-google-recaptcha'
 const ReCAPTCHA = ({ setRecaptchaResponse }) => {
   return (
     <GoogleReCAPTCHA
-      sitekey='6LdgFwIlAAAAAJod3-83lPHdGjhrL6kEFkQs4KsI'
+      sitekey='6LfKJgslAAAAAJxGJS0sIiwGhxpFxwyROnJZjdhN'
       onChange={(response) => setRecaptchaResponse(response)}
     />
   )

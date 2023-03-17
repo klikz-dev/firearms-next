@@ -22,6 +22,8 @@ export default function Review({ pageStats }) {
     console.log('submit')
   }
 
+  console.log(recaptchaResponse)
+
   return (
     <div className='mb-12'>
       <Title>

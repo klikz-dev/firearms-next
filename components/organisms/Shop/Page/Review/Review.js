@@ -3,9 +3,10 @@ import Link from '@/components/atoms/Link'
 import RangeSlider from '@/components/atoms/RangeSlider'
 import ReCAPTCHA from '@/components/atoms/ReCAPTCHA'
 import Title from '@/components/molecules/Title'
+import { submitReview } from '@/functions/fetch/submitReview'
 import { useState } from 'react'
 
-export default function Review({ pageStats }) {
+export default function Review({ pageSlug, pageStats }) {
   const [acc, setAcc] = useState(pageStats.acc)
   const [erg, setErg] = useState(pageStats.erg)
   const [ftr, setFtr] = useState(pageStats.ftr)
@@ -18,11 +19,34 @@ export default function Review({ pageStats }) {
   const [review, setReview] = useState('')
   const [recaptchaResponse, setRecaptchaResponse] = useState(null)
 
-  function handleSubmit() {
-    console.log('submit')
-  }
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
 
-  console.log(recaptchaResponse)
+  async function handleSubmit() {
+    setLoading(true)
+    const response = await submitReview({
+      page: pageSlug,
+      name: name,
+      email: email,
+      review: review,
+      stat_acc: acc,
+      stat_erg: erg,
+      stat_ftr: ftr,
+      stat_fit: fit,
+      stat_rel: rel,
+      stat_val: val,
+    })
+
+    if (response?.page) {
+      setSuccess(true)
+      setError(false)
+    } else {
+      setSuccess(false)
+      setError(true)
+    }
+    setLoading(false)
+  }
 
   return (
     <div className='mb-12'>
@@ -110,13 +134,25 @@ export default function Review({ pageStats }) {
           color='black'
           size={'lg'}
           onClick={handleSubmit}
-          disabled={!recaptchaResponse?.success}
+          disabled={success || error || loading || recaptchaResponse === null}
         >
-          Submit
+          {loading ? 'Sending' : 'Submit'}
         </Button>
 
         <ReCAPTCHA setRecaptchaResponse={setRecaptchaResponse} />
       </div>
+
+      {error && (
+        <p className={'text-red-700 text-sm'}>
+          {'Sorry, your review has been declined.'}
+        </p>
+      )}
+
+      {success && (
+        <p className={'text-sky-800 text-sm my-2'}>
+          {'Thanks for your submission!'}
+        </p>
+      )}
     </div>
   )
 }

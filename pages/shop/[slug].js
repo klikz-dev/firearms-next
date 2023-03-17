@@ -163,7 +163,7 @@ export default function Page({
                 />
               )}
 
-              <Review pageStats={pageStats} />
+              <Review pageSlug={page.slug} pageStats={pageStats} />
             </div>
 
             <div className='w-full lg:w-80 flex-shrink-0'>

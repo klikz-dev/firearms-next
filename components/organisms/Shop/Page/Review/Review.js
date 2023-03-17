@@ -4,9 +4,11 @@ import RangeSlider from '@/components/atoms/RangeSlider'
 import ReCAPTCHA from '@/components/atoms/ReCAPTCHA'
 import Title from '@/components/molecules/Title'
 import { submitReview } from '@/functions/fetch/submitReview'
+import moment from 'moment'
 import { useState } from 'react'
+import Stats from '../Stats'
 
-export default function Review({ pageSlug, pageStats }) {
+export default function Review({ pageSlug, pageStats, reviews }) {
   const [acc, setAcc] = useState(pageStats.acc)
   const [erg, setErg] = useState(pageStats.erg)
   const [ftr, setFtr] = useState(pageStats.ftr)
@@ -50,6 +52,38 @@ export default function Review({ pageSlug, pageStats }) {
 
   return (
     <div className='mb-12'>
+      <Title>
+        <h3>Community Ratings</h3>
+      </Title>
+
+      <div className='mb-12'>
+        {reviews?.map((review, index) => (
+          <div key={index} className={'border-b py-6'}>
+            <p className='font-semibold mb-3'>{`${review.name} - ${moment(
+              review.created_at
+            ).calendar()}`}</p>
+
+            <div className={'grid lg:grid-cols-2'}>
+              <p className={'text-zinc-600'}>{review.review}</p>
+
+              <Stats
+                small={true}
+                showTitle={false}
+                pageStats={{
+                  acc: review.stat_acc,
+                  erg: review.stat_erg,
+                  ftr: review.stat_ftr,
+                  fit: review.stat_fit,
+                  rel: review.stat_rel,
+                  val: review.stat_val,
+                  showStats: pageStats.showStats,
+                }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
       <Title>
         <h3>Rate the product</h3>
       </Title>

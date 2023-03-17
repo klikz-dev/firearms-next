@@ -37,22 +37,24 @@ function Stat({ label, attr, small }) {
   )
 }
 
-export default function Stats({ pageStats, small = false }) {
+export default function Stats({ pageStats, small = false, showTitle = true }) {
   return (
     <div
       className={classNames(
         !small && 'border border-zinc-200 rounded shadow mb-8'
       )}
     >
-      <div
-        className={classNames(
-          'px-3 py-2 flex flex-row items-center gap-2',
-          !small && 'text-white bg-gradient-to-r from-red-800 to-red-600'
-        )}
-      >
-        <FontAwesomeIcon icon={faChartColumn} />
-        <h6 className='font-sans'>Performance Scores</h6>
-      </div>
+      {showTitle && (
+        <div
+          className={classNames(
+            'px-3 py-2 flex flex-row items-center gap-2',
+            !small && 'text-white bg-gradient-to-r from-red-800 to-red-600'
+          )}
+        >
+          <FontAwesomeIcon icon={faChartColumn} />
+          <h6 className='font-sans'>Performance Scores</h6>
+        </div>
+      )}
 
       <div
         className={classNames(

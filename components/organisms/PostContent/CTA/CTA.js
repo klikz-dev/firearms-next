@@ -46,7 +46,7 @@ export default function CTA({
       .replace(/&+/g, 'and') ?? title
 
   return (
-    <div className={'p-1 overflow-hidden mb-8'}>
+    <div id={productSlug} className={'p-1 overflow-hidden mb-8'}>
       <div className={'relative border border-zinc-300'}>
         <Link href={link}>
           <Image

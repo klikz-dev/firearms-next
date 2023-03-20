@@ -1,5 +1,6 @@
 import PostInnerMenu from '@/components/molecules/PostInnerMenu'
 import convertToSlug from '@/functions/convertToSlug'
+import AdvancedComparisonTable from './AdvancedComparisonTable'
 import AmazonProduct from './AmazonProduct'
 import CTA from './CTA'
 import FAQ from './FAQ'
@@ -20,6 +21,10 @@ export default function PostContent({ contents }) {
       id: convertToSlug(content.text),
       label: content.text,
     }))
+
+  const ctas = contents.filter(
+    (content) => content.__typename === 'Post_Postcontent_Contents_Cta'
+  )
 
   return (
     <>
@@ -56,6 +61,11 @@ export default function PostContent({ contents }) {
 
           case 'Post_Postcontent_Contents_FeatureList':
             return <FeatureList key={index} {...section} />
+
+          case 'Post_Postcontent_Contents_AdvancedComparisonTable':
+            return (
+              <AdvancedComparisonTable key={index} {...section} ctas={ctas} />
+            )
 
           default:
             return <div key={index}></div>

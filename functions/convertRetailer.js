@@ -1,40 +1,40 @@
 export default function convertRetailer(originRetailer) {
   let retailer = ''
 
-  switch (originRetailer) {
-    case 'Guns':
+  switch (originRetailer.toLowerCase().replace(' ', '')) {
+    case 'guns':
       retailer = 'Guns.com'
       break
 
-    case 'EuroOptic':
+    case 'eurooptic':
       retailer = 'EuroOptic'
       break
 
-    case 'SportsmansGuide':
+    case 'sportsmansguide':
       retailer = "Sportsman's Guide"
       break
 
-    case 'Brownells':
+    case 'brownells':
       retailer = 'Brownells'
       break
 
-    case 'DanielDefense':
+    case 'danieldefense':
       retailer = 'Daniel Defense'
       break
 
-    case 'Gear1800':
+    case 'gear1800':
       retailer = 'Gritr Outdoors'
       break
 
-    case 'AeroPrecision':
+    case 'aeroprecision':
       retailer = 'Aero Precision'
       break
 
-    case 'Palmetto':
+    case 'palmetto':
       retailer = 'Palmetto State Armory'
       break
 
-    case 'PrimaryArms':
+    case 'primaryarms':
       retailer = 'Primary Arms'
       break
 

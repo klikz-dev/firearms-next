@@ -113,6 +113,13 @@ query GetPost($slug: ID!) {
             title
           }
         }
+        ... on Post_Postcontent_Contents_AdvancedComparisonTable {
+          item {
+            ctaId
+            award
+            description
+          }
+        }
       }
     }
   }

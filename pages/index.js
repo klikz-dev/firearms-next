@@ -131,6 +131,6 @@ export async function getStaticProps() {
       pageData,
       postsData,
     },
-    revalidate: 30,
+    revalidate: 100,
   }
 }

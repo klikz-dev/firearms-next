@@ -149,7 +149,7 @@ export async function getStaticProps({ params }) {
       postData,
       michael: authorData?.user,
     },
-    revalidate: 30,
+    revalidate: 100,
   }
 }
 

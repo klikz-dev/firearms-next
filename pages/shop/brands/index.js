@@ -114,6 +114,6 @@ export async function getStaticProps() {
     props: {
       brands,
     },
-    revalidate: 10,
+    revalidate: 100,
   }
 }

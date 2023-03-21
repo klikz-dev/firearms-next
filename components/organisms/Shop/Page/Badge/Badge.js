@@ -65,7 +65,7 @@ export default function Badge({
 
         {reviewCount && (
           <Link
-            href={`/shop/${pageSlug}`}
+            href={`/shop/${pageSlug}#community`}
             className={'block font-sans text-center text-xs'}
           >
             Based On{' '}
@@ -127,7 +127,7 @@ export default function Badge({
 
       {reviewCount && (
         <Link
-          href={`/shop/${pageSlug}`}
+          href={`#community`}
           className={'block font-sans text-center text-sm'}
         >
           Based On{' '}

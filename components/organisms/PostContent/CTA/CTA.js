@@ -45,8 +45,10 @@ export default function CTA({
       }, '')
       .replace(/&+/g, 'and') ?? title
 
+  const { sale_price } = page?.product?.[0] ?? {}
+
   return (
-    <div className={'p-1 overflow-hidden mb-8'}>
+    <div id={productSlug} className={'p-1 overflow-hidden mb-8'}>
       <div className={'relative border border-zinc-300'}>
         <Link href={link}>
           <Image
@@ -63,7 +65,7 @@ export default function CTA({
               'absolute -top-20 -right-20 w-40 h-40 p-4 flex items-end justify-center rotate-45 bg-gradient-to-r from-red-800 to-red-500'
             }
           >
-            <h4 className={'text-white'}>{`$${price}`}</h4>
+            <h4 className={'text-white'}>{`$${sale_price ?? price}`}</h4>
           </div>
         )}
 

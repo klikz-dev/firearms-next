@@ -167,6 +167,6 @@ export async function getStaticProps() {
       riflesPages: riflesPages?.slice(0, 10) || [],
       shotgunsPages: shotgunsPages?.slice(0, 10) || [],
     },
-    revalidate: 10,
+    revalidate: 100,
   }
 }

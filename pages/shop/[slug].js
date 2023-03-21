@@ -23,6 +23,7 @@ import { faHomeAlt, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 import Breadcrumbs from '@/components/molecules/Breadcrumbs'
 import Title from '@/components/molecules/Title'
 import Badge from '@/components/organisms/Shop/Page/Badge'
+import Review from '@/components/organisms/Shop/Page/Review'
 
 export default function Page({
   page,
@@ -161,6 +162,12 @@ export default function Page({
                   product={product}
                 />
               )}
+
+              <Review
+                pageSlug={page.slug}
+                pageStats={pageStats}
+                reviews={page.reviews}
+              />
             </div>
 
             <div className='w-full lg:w-80 flex-shrink-0'>

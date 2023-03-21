@@ -112,6 +112,6 @@ export async function getStaticProps() {
       pageData,
       authorsData,
     },
-    revalidate: 30,
+    revalidate: 100,
   }
 }

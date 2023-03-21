@@ -1,3 +1,4 @@
+import Image from '@/components/atoms/Image'
 import Link from '@/components/atoms/Link'
 import { getPage } from '@/functions/fetch/getPage'
 import getStats from '@/functions/getStats'
@@ -25,8 +26,10 @@ function Stat({ attr }) {
   )
 }
 
-export default function TableStats({ description, cta, productSlug }) {
-  const { data: page } = getPage(productSlug)
+export default function TableColumn({ description, cta, award }) {
+  const { data: page } = getPage(cta.productSlug)
+
+  const { sale_price } = page?.product?.[0] ?? {}
 
   const pageStats =
     page && page.brand && page.category && page.product
@@ -51,21 +54,78 @@ export default function TableStats({ description, cta, productSlug }) {
   if (!pageStats) return null
 
   return (
-    <>
+    <div className={'w-full'}>
+      <div className={'p-2 h-36 border'}>
+        <div className={'w-full h-20 relative'}>
+          <Image
+            src={cta.image?.sourceUrl}
+            alt={cta.image?.altText}
+            layout='fill'
+            className={'object-contain'}
+          />
+        </div>
+
+        <Link
+          href={cta.link}
+          className={'text-sm text-red-700 hover:underline'}
+        >
+          {cta.title}
+        </Link>
+      </div>
+
+      <div className='p-2 h-20 border'>
+        {award === 'editors_choice' ? (
+          <Image
+            src={'/images/editors-choice.png'}
+            alt='Badge'
+            width={125}
+            height={57}
+          />
+        ) : award === 'top_pick' ? (
+          <Image
+            src={'/images/top-pick.png'}
+            alt='Badge'
+            width={125}
+            height={57}
+          />
+        ) : award === 'best_buy' ? (
+          <Image
+            src={'/images/best-buy.png'}
+            alt='Badge'
+            width={125}
+            height={57}
+          />
+        ) : (
+          <></>
+        )}
+      </div>
+
+      <div className={'p-2 h-14 border'}>
+        <p className='text-sm text-sky-700 line-clamp-1'>{`$${
+          sale_price ?? cta.price
+        } ${cta.buttonText?.replace('View', '').trim()}`}</p>
+
+        <Link
+          href={`#${cta.productSlug}`}
+          className={'text-sm underline hover:text-red-700'}
+        >
+          Jump to Details
+        </Link>
+      </div>
       <div className={'p-2 h-12 border'}>
         <div
           style={{ width: `${(totalScore / 60) * 100}%` }}
           className={classNames(
             'h-4 rounded mt-2',
-            (totalScore / 60) * 10 > 7
+            totalScore > 39
               ? 'bg-green-700'
-              : (totalScore / 60) * 10 > 4
+              : totalScore > 19
               ? 'bg-yellow-400'
               : 'bg-red-700'
           )}
         >
           <p className='text-xs text-white text-right px-1'>{`${parseInt(
-            (totalScore / 60) * 100
+            totalScore
           )}`}</p>
         </div>
       </div>
@@ -76,7 +136,7 @@ export default function TableStats({ description, cta, productSlug }) {
 
       <div className={'p-2 h-16 border'}>
         <Link
-          href={cta.link}
+          href={`#${cta.productSlug}`}
           className={'text-sm text-red-700 hover:underline'}
         >
           {cta.title}
@@ -102,6 +162,6 @@ export default function TableStats({ description, cta, productSlug }) {
       ].map((stat, index) => (
         <Stat key={index} {...stat} />
       ))}
-    </>
+    </div>
   )
 }

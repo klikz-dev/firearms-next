@@ -51,12 +51,14 @@ export default function Review({ pageSlug, pageStats, reviews }) {
   }
 
   return (
-    <div className='mb-12'>
+    <div id='community' className='mb-12'>
       <Title>
         <h3>Community Ratings</h3>
       </Title>
 
       <div className='mb-12'>
+        {reviews?.length < 1 && <div className='py-4 bg-zinc-50'></div>}
+
         {reviews?.map((review, index) => (
           <div key={index} className={'border-b py-6'}>
             <p className='font-semibold mb-3'>{`${review.name} - ${moment(

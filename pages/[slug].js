@@ -16,7 +16,7 @@ import HTMLContent from '@/components/atoms/HTMLContent'
 import { NextSeo } from 'next-seo'
 import moment from 'moment'
 
-export default function Post({ postData, michael }) {
+export default function Post({ post, michael }) {
   const {
     title,
     slug,
@@ -27,7 +27,7 @@ export default function Post({ postData, michael }) {
     date,
     modified,
     postContent,
-  } = postData?.post ?? {}
+  } = post ?? {}
   const { metaDesc, opengraphDescription } = seo ?? {}
 
   const router = useRouter()
@@ -134,6 +134,28 @@ export async function getStaticProps({ params }) {
     }
   }
 
+  const updatedPost = { ...postData.post }
+  if (postData?.post?.postContent?.contents) {
+    const { contents } = postData.post.postContent
+    const updatedContents = await Promise.all(
+      contents.map(async (content) => {
+        if (content.__typename === 'Post_Postcontent_Contents_Cta') {
+          const page = await fetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/pages/${content.productSlug}`
+          )
+          const pageData = await page.json()
+          return { ...content, page: pageData }
+        }
+        return { ...content }
+      })
+    )
+
+    updatedPost.postContent = {
+      ...updatedPost.postContent,
+      contents: updatedContents,
+    }
+  }
+
   /**
    * Main Author - Michael
    */
@@ -146,7 +168,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      postData,
+      post: updatedPost,
       michael: authorData?.user,
     },
     revalidate: 100,

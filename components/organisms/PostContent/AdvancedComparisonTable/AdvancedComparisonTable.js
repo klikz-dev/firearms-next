@@ -81,7 +81,7 @@ export default function AdvancedComparisonTable({ item, ctas }) {
 
       <div className={'flex flex-row'}>
         <div className={'w-28'}>
-          <TableMenu productSlug={tables?.[0]?.cta?.productSlug} />
+          <TableMenu page={tables?.[0]?.cta?.page} />
         </div>
 
         <Slider

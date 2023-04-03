@@ -1,10 +1,7 @@
-import { getPage } from '@/functions/fetch/getPage'
 import getStats from '@/functions/getStats'
 import classNames from 'classnames'
 
-export default function TableMenu({ productSlug }) {
-  const { data: page } = getPage(productSlug)
-
+export default function TableMenu({ page }) {
   const pageStats =
     page && page.brand && page.category && page.product
       ? getStats(page.brand.name, page.category.name, page.product.length, {

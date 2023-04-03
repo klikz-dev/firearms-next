@@ -1,6 +1,5 @@
 import Image from '@/components/atoms/Image'
 import Link from '@/components/atoms/Link'
-import { getPage } from '@/functions/fetch/getPage'
 import getStats from '@/functions/getStats'
 import classNames from 'classnames'
 
@@ -27,8 +26,7 @@ function Stat({ attr }) {
 }
 
 export default function TableColumn({ description, cta, award }) {
-  const { data: page } = getPage(cta.productSlug)
-
+  const { page } = cta
   const { sale_price } = page?.product?.[0] ?? {}
 
   const pageStats =

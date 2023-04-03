@@ -2,7 +2,6 @@ import Button from '@/components/atoms/Button'
 import GradientBorder from '@/components/atoms/GradientBorder'
 import Image from '@/components/atoms/Image'
 import Link from '@/components/atoms/Link'
-import { getPage } from '@/functions/fetch/getPage'
 import getStats from '@/functions/getStats'
 import Badge from '../../Shop/Page/Badge'
 import Stats from '../../Shop/Page/Stats'
@@ -16,9 +15,8 @@ export default function CTA({
   title,
   image,
   productSlug,
+  page,
 }) {
-  const { data: page } = getPage(productSlug)
-
   const pageStats =
     page && page.brand && page.category && page.product
       ? getStats(page.brand.name, page.category.name, page.product.length, {

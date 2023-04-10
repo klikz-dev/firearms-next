@@ -16,7 +16,7 @@ export async function getServerSideProps({ res }) {
   const { data } = await client.query({
     query: GET_POST_SLUGS_QUERY,
     variables: {
-      first: 999,
+      first: 600,
     },
   })
 

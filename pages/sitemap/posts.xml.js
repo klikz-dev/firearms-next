@@ -16,13 +16,13 @@ export async function getServerSideProps({ res }) {
   const { data } = await client.query({
     query: GET_POST_SLUGS_QUERY,
     variables: {
-      first: 600,
+      first: 500,
     },
   })
 
   const sitemaps = data.posts.nodes.map((node) => ({
     loc: node.slug,
-    lastmod: new Date().toISOString(node.date),
+    lastmod: new Date(node.date).toISOString(),
     changefreq: 'monthly',
     priority: '1.0',
   }))

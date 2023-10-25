@@ -24,7 +24,7 @@ export async function getServerSideProps({ res }) {
 
   const sitemaps = data.pages.nodes.map((node) => ({
     loc: node.slug === 'homepage' ? '' : node.slug,
-    lastmod: new Date().toISOString(node.date),
+    lastmod: new Date(node.date).toISOString(),
     changefreq: 'monthly',
     priority: '1.0',
   }))

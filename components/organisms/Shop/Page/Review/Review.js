@@ -165,7 +165,7 @@ export default function Review({ pageSlug, pageStats, reviews }) {
         }
       />
 
-      <div className={'flex flex-row items-center gap-4'}>
+      <div className={'flex flex-col md:flex-row items-center gap-4'}>
         <Button
           color='black'
           size={'lg'}

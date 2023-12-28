@@ -3,6 +3,9 @@ query GetPost($slug: ID!) {
     seo {
       metaDesc
       opengraphDescription
+      schema {
+        raw
+      }
     }
     title
     slug

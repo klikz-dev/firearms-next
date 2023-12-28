@@ -15,6 +15,7 @@ import Image from '@/components/atoms/Image'
 import HTMLContent from '@/components/atoms/HTMLContent'
 import { NextSeo } from 'next-seo'
 import moment from 'moment'
+import Head from 'next/head'
 
 export default function Post({ post, michael }) {
   const {
@@ -28,7 +29,8 @@ export default function Post({ post, michael }) {
     modified,
     postContent,
   } = post ?? {}
-  const { metaDesc, opengraphDescription } = seo ?? {}
+  const { metaDesc, opengraphDescription, schema: { raw } = {} } = seo ?? {}
+  const schema = JSON.parse(raw)
 
   const router = useRouter()
   if (router.isFallback) {
@@ -44,6 +46,13 @@ export default function Post({ post, michael }) {
   return (
     <>
       <NextSeo title={title} description={metaDesc || opengraphDescription} />
+
+      <Head>
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      </Head>
 
       <Layout>
         <Container className={'pt-8 lg:pt-20 lg:grid lg:grid-cols-3 gap-12'}>

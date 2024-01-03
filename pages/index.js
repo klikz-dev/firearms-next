@@ -8,7 +8,7 @@ import {
   PostCardOverlay,
   PostCardVertical,
 } from '@/components/molecules/PostCard'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import Button from '@/components/atoms/Button'
 import Container from '@/components/atoms/Container'
 import Title from '@/components/molecules/Title'
@@ -16,8 +16,10 @@ import PageContent from '@/components/organisms/PageContent'
 import { NextSeo } from 'next-seo'
 import HomeHero from '@/components/organisms/HomeHero'
 import Head from 'next/head'
+import getSidebarData from '@/functions/getSidebarData'
+import { loadMorePosts } from '@/functions/fetch/loadMorePosts'
 
-export default function Page({ pageData, postsData }) {
+export default function Page({ pageData, postsData, sidebarData }) {
   const { title, pageContent, seo } = pageData?.page ?? {}
   const { hero, content } = pageContent ?? {}
   const { metaDesc, opengraphDescription, schema } = seo ?? {}
@@ -28,21 +30,18 @@ export default function Page({ pageData, postsData }) {
   const [hasNextPage, setHasNextPage] = useState(posts?.pageInfo?.hasNextPage)
   const [endCursor, setEndCursor] = useState(posts?.pageInfo?.endCursor)
 
-  async function loadMorePosts() {
-    const { data: postsData, error } = await client.query({
-      query: GET_POSTS_QUERY,
-      variables: {
-        first: 10,
-        after: endCursor,
-      },
-    })
+  const { data, error } = loadMorePosts(endCursor)
 
-    if (!error) {
-      setPostList([...postList, ...postsData.posts.nodes])
-      setHasNextPage(postsData.posts?.pageInfo.hasNextPage)
-      setEndCursor(postsData.posts?.pageInfo.endCursor)
+  const loadMoreHandler = useCallback(() => {
+    if (!error && data) {
+      setPostList((currentPostList) => [
+        ...currentPostList,
+        ...data.posts.nodes,
+      ])
+      setHasNextPage(data.posts?.pageInfo.hasNextPage)
+      setEndCursor(data.posts?.pageInfo.endCursor)
     }
-  }
+  }, [error, data])
 
   return (
     <>
@@ -87,7 +86,7 @@ export default function Page({ pageData, postsData }) {
               <div>
                 <Button
                   size={'full'}
-                  onClick={() => loadMorePosts()}
+                  onClick={() => loadMoreHandler()}
                   disabled={!hasNextPage}
                   className={'my-12'}
                 >
@@ -97,7 +96,7 @@ export default function Page({ pageData, postsData }) {
             </div>
 
             <div className={'lg:col-span-1'}>
-              <Sidebar />
+              <Sidebar data={sidebarData} />
             </div>
           </div>
         </Container>
@@ -134,10 +133,16 @@ export async function getStaticProps() {
     }
   }
 
+  /**
+   * Sidebar Data
+   */
+  const sidebarData = await getSidebarData()
+
   return {
     props: {
       pageData,
       postsData,
+      sidebarData,
     },
     revalidate: 100,
   }

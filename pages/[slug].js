@@ -16,8 +16,9 @@ import HTMLContent from '@/components/atoms/HTMLContent'
 import { NextSeo } from 'next-seo'
 import moment from 'moment'
 import Head from 'next/head'
+import getSidebarData from '@/functions/getSidebarData'
 
-export default function Post({ post, michael }) {
+export default function Post({ post, michael, sidebarData }) {
   const {
     title,
     slug,
@@ -117,7 +118,7 @@ export default function Post({ post, michael }) {
           </div>
 
           <div className={'lg:col-span-1'}>
-            <Sidebar alert={postContent?.alert} />
+            <Sidebar alert={postContent?.alert} data={sidebarData} />
           </div>
         </Container>
       </Layout>
@@ -176,10 +177,16 @@ export async function getStaticProps({ params }) {
     },
   })
 
+  /**
+   * Sidebar Data
+   */
+  const sidebarData = await getSidebarData()
+
   return {
     props: {
       post: updatedPost,
       michael: authorData?.user,
+      sidebarData,
     },
     revalidate: 100,
   }

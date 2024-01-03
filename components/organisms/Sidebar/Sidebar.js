@@ -1,105 +1,25 @@
 import Image from '@/components/atoms/Image'
 import Title from '@/components/molecules/Title'
-import { useQuery } from '@apollo/client'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import { useState } from 'react'
 import Category from './Category'
 import Subscribe from './Subscribe'
-import GET_POSTS_QUERY from '@/const/schema/getPosts.graphql'
 import HTMLContent from '@/components/atoms/HTMLContent'
 
-export default function Sidebar({ alert }) {
-  /**
-   * Category - Reviews
-   */
-  const { data: reviews } = useQuery(GET_POSTS_QUERY, {
-    variables: {
-      first: 3,
-      category: 'reviews',
-    },
-  })
-
-  /**
-   * Category - News
-   */
-  const { data: news } = useQuery(GET_POSTS_QUERY, {
-    variables: {
-      first: 3,
-      category: 'news',
-    },
-  })
-
-  /**
-   * Tag - Comparison
-   */
-  const { data: comparison } = useQuery(GET_POSTS_QUERY, {
-    variables: {
-      first: 3,
-      tag: 'comparison',
-    },
-  })
-
-  /**
-   * Tag - Ammo
-   */
-  const { data: ammo } = useQuery(GET_POSTS_QUERY, {
-    variables: {
-      first: 3,
-      tag: 'ammo',
-    },
-  })
-
-  /**
-   * Category - Guides
-   */
-  const { data: guides } = useQuery(GET_POSTS_QUERY, {
-    variables: {
-      first: 3,
-      category: 'guides',
-    },
-  })
-
-  /**
-   * Tag - Accessories
-   */
-  const { data: accessories } = useQuery(GET_POSTS_QUERY, {
-    variables: {
-      first: 3,
-      tag: 'accessories',
-    },
-  })
-
-  /**
-   * Category - Gun Safes
-   */
-  const { data: gunSafes } = useQuery(GET_POSTS_QUERY, {
-    variables: {
-      first: 3,
-      category: 'gun-safes',
-    },
-  })
-
-  /**
-   * Category - Scopes Optics
-   */
-  const { data: scopesOptics } = useQuery(GET_POSTS_QUERY, {
-    variables: {
-      first: 3,
-      category: 'scopes-optics',
-    },
-  })
-
-  /**
-   * Tag - Holsters Carry
-   */
-  const { data: holstersCarry } = useQuery(GET_POSTS_QUERY, {
-    variables: {
-      first: 3,
-      tag: 'holsters-carry',
-    },
-  })
+export default function Sidebar({ alert, data }) {
+  const {
+    reviews,
+    news,
+    comparison,
+    ammo,
+    guides,
+    accessories,
+    gunSafes,
+    scopesOptics,
+    holstersCarry,
+  } = data
 
   const [active, setActive] = useState('')
 
@@ -174,10 +94,10 @@ export default function Sidebar({ alert }) {
           </div>
 
           <Title className={'mb-4'}>
-            <h4>{alert.title}</h4>
+            <h4>{alert?.title}</h4>
           </Title>
 
-          <HTMLContent>{alert.alert}</HTMLContent>
+          <HTMLContent>{alert?.alert}</HTMLContent>
         </div>
       )}
 

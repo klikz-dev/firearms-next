@@ -1,22 +1,18 @@
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import SEARCH_POSTS_QUERY from '@/const/schema/searchPosts.graphql'
 import Container from '@/components/atoms/Container'
 import Layout from '@/components/common/Layout'
 import Loading from '@/components/atoms/Loading'
 import { PostCardHorizontal } from '@/components/molecules/PostCard'
 import Search from '@/components/molecules/Search'
-import { useQuery } from '@apollo/client'
+import { getSearchResults } from '@/functions/fetch/search'
 
-export default function Page() {
+export default function SearchComponent() {
   const router = useRouter()
   const { q } = router.query
 
-  const { data, loading } = useQuery(SEARCH_POSTS_QUERY, {
-    variables: {
-      keyword: q,
-    },
-  })
+  const { data, loading } = getSearchResults(q)
+
   const posts = data?.posts?.nodes ?? []
 
   if (loading) {

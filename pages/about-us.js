@@ -13,8 +13,9 @@ import convertToSlug from '@/functions/convertToSlug'
 import { NextSeo } from 'next-seo'
 import Authors from '@/components/organisms/Authors'
 import Head from 'next/head'
+import getSidebarData from '@/functions/getSidebarData'
 
-export default function Page({ pageData, authorsData }) {
+export default function Page({ pageData, authorsData, sidebarData }) {
   const { title, pageContent, seo } = pageData?.page ?? {}
   const { layout, hero, content } = pageContent ?? {}
   const { metaDesc, opengraphDescription, schema } = seo ?? {}
@@ -66,7 +67,7 @@ export default function Page({ pageData, authorsData }) {
               <Authors authors={authorsData.users?.nodes} />
             </div>
             <div className={'lg:col-span-1 pt-20'}>
-              <Sidebar />
+              <Sidebar data={sidebarData} />
             </div>
           </div>
         )}
@@ -115,10 +116,16 @@ export async function getStaticProps() {
     }
   }
 
+  /**
+   * Sidebar Data
+   */
+  const sidebarData = await getSidebarData()
+
   return {
     props: {
       pageData,
       authorsData,
+      sidebarData,
     },
     revalidate: 100,
   }

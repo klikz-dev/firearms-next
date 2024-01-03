@@ -10,11 +10,13 @@ import Hero from '@/components/organisms/PageContent/Hero'
 import TOCNav from '@/components/organisms/TOCNav'
 import convertToSlug from '@/functions/convertToSlug'
 import { NextSeo } from 'next-seo'
+import Head from 'next/head'
+import getSidebarData from '@/functions/getSidebarData'
 
-export default function Page({ pageData }) {
+export default function Page({ pageData, sidebarData }) {
   const { title, pageContent, seo } = pageData?.page ?? {}
   const { layout, hero, content } = pageContent ?? {}
-  const { metaDesc, opengraphDescription } = seo ?? {}
+  const { metaDesc, opengraphDescription, schema } = seo ?? {}
 
   const router = useRouter()
   if (router.isFallback) {
@@ -39,6 +41,13 @@ export default function Page({ pageData }) {
     <>
       <NextSeo title={title} description={metaDesc || opengraphDescription} />
 
+      <Head>
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: schema?.raw || '' }}
+        />
+      </Head>
+
       <Layout>
         <Hero {...hero} />
 
@@ -50,7 +59,7 @@ export default function Page({ pageData }) {
               <PageContent content={content} />
             </div>
             <div className={'lg:col-span-1 pt-20'}>
-              <Sidebar />
+              <Sidebar data={sidebarData} />
             </div>
           </div>
         )}
@@ -91,9 +100,15 @@ export async function getStaticProps() {
     }
   }
 
+  /**
+   * Sidebar Data
+   */
+  const sidebarData = await getSidebarData()
+
   return {
     props: {
       pageData,
+      sidebarData,
     },
     revalidate: 100,
   }

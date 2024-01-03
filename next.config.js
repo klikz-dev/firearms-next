@@ -1,4 +1,8 @@
 const { removeDuplicates } = require('./functions/removeDuplicates')
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+  openAnalyzer: false,
+})
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -8,6 +12,7 @@ const nextConfig = {
   images: {
     domains: process.env.NEXT_PUBLIC_IMAGE_DOMAINS.split('|'),
   },
+  compress: true,
   async redirects() {
     const response = await fetch(
       'https://cms.americanfirearms.org/wp-json/acf/v3/options/options'
@@ -75,14 +80,17 @@ const nextConfig = {
 
     return removeDuplicates(rules)
   },
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     config.module.rules.push({
       test: /\.(graphql|gql)$/,
       exclude: /node_modules/,
       loader: 'graphql-tag/loader',
     })
+    if (!isServer) {
+      config.resolve.alias['@apollo/client'] = false
+    }
     return config
   },
 }
 
-module.exports = nextConfig
+module.exports = withBundleAnalyzer(nextConfig)

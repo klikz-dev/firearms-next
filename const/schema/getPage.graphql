@@ -3,6 +3,9 @@ query GetPage($slug: ID!) {
     seo {
       metaDesc
       opengraphDescription
+      schema {
+        raw
+      }
     }
     content
     slug

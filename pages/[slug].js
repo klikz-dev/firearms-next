@@ -15,8 +15,10 @@ import Image from '@/components/atoms/Image'
 import HTMLContent from '@/components/atoms/HTMLContent'
 import { NextSeo } from 'next-seo'
 import moment from 'moment'
+import Head from 'next/head'
+import getSidebarData from '@/functions/getSidebarData'
 
-export default function Post({ post, michael }) {
+export default function Post({ post, michael, sidebarData }) {
   const {
     title,
     slug,
@@ -28,7 +30,7 @@ export default function Post({ post, michael }) {
     modified,
     postContent,
   } = post ?? {}
-  const { metaDesc, opengraphDescription } = seo ?? {}
+  const { metaDesc, opengraphDescription, schema } = seo ?? {}
 
   const router = useRouter()
   if (router.isFallback) {
@@ -44,6 +46,13 @@ export default function Post({ post, michael }) {
   return (
     <>
       <NextSeo title={title} description={metaDesc || opengraphDescription} />
+
+      <Head>
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: schema?.raw || '' }}
+        />
+      </Head>
 
       <Layout>
         <Container className={'pt-8 lg:pt-20 lg:grid lg:grid-cols-3 gap-12'}>
@@ -109,7 +118,7 @@ export default function Post({ post, michael }) {
           </div>
 
           <div className={'lg:col-span-1'}>
-            <Sidebar alert={postContent?.alert} />
+            <Sidebar alert={postContent?.alert} data={sidebarData} />
           </div>
         </Container>
       </Layout>
@@ -144,7 +153,9 @@ export async function getStaticProps({ params }) {
             `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/pages/${content.productSlug}`
           )
           const pageData = await page.json()
-          return { ...content, page: pageData }
+          if (pageData) {
+            return { ...content, page: pageData }
+          }
         }
         return { ...content }
       })
@@ -166,10 +177,16 @@ export async function getStaticProps({ params }) {
     },
   })
 
+  /**
+   * Sidebar Data
+   */
+  const sidebarData = await getSidebarData()
+
   return {
     props: {
       post: updatedPost,
       michael: authorData?.user,
+      sidebarData,
     },
     revalidate: 100,
   }

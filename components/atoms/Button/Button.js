@@ -21,6 +21,18 @@ export default function Button({
     className
   )
 
+  function getTextFromReactChildren(children) {
+    let text = ''
+    React.Children.forEach(children, (child) => {
+      if (typeof child === 'string' || typeof child === 'number') {
+        text += child.toString()
+      } else if (React.isValidElement(child) && child.props.children) {
+        text += getTextFromReactChildren(child.props.children)
+      }
+    })
+    return text
+  }
+
   return (
     <button
       className={buttonClassNames}
@@ -28,6 +40,7 @@ export default function Button({
       disabled={disabled}
       style={style}
       {...props}
+      aria-label={getTextFromReactChildren(children)}
     >
       {children}
     </button>

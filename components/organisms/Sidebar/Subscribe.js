@@ -41,7 +41,7 @@ export default function Subscribe() {
 
       <div
         className={
-          'max-w-2xl mx-auto bg-white/20 px-3 py-2 mb-6 flex flex-row gap-2 items-center'
+          'max-w-2xl mx-auto bg-white/10 px-3 py-2 mb-6 flex flex-row gap-2 items-center'
         }
       >
         <FontAwesomeIcon
@@ -54,7 +54,7 @@ export default function Subscribe() {
           setValue={setEmail}
           type={'email'}
           className={
-            'bg-transparent text-sm placeholder:text-white/60 text-white'
+            'px-4 py-1.5 w-full placeholder:italic outline-none border-none ring-0 mt-1 bg-transparent text-sm placeholder:text-white/80 text-white'
           }
         />
       </div>

@@ -10,6 +10,7 @@ import { NextSeo } from 'next-seo'
 import { client } from '@/lib/apollo'
 import GET_PAGE_QUERY from '@/const/schema/getPage.graphql'
 import PageContent from '@/components/organisms/PageContent'
+import Head from 'next/head'
 
 export default function Page({
   pageData,
@@ -19,13 +20,20 @@ export default function Page({
 }) {
   const { title, pageContent, seo } = pageData?.page ?? {}
   const { hero, content } = pageContent ?? {}
-  const { metaDesc, opengraphDescription } = seo ?? {}
+  const { metaDesc, opengraphDescription, schema } = seo ?? {}
 
   const today = moment().format('MMMM YYYY')
 
   return (
     <>
       <NextSeo title={title} description={metaDesc || opengraphDescription} />
+
+      <Head>
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: schema?.raw || '' }}
+        />
+      </Head>
 
       <Layout>
         <Hero {...hero} />

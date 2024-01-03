@@ -66,6 +66,7 @@ export default function Footer() {
                   value={email}
                   setValue={setEmail}
                   type={'email'}
+                  className='px-4 py-1.5 w-full placeholder:italic placeholder:text-black/50 text-black outline-none border-none ring-0 mt-1'
                 />
               </div>
 

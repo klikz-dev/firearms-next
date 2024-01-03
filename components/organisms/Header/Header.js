@@ -42,6 +42,7 @@ export default function Header() {
                       'group ring-0 outline-none w-10 h-10 rounded-full bg-gradient-to-r from-red-800 to-red-500',
                       open && 'border-red-700'
                     )}
+                    aria-label='Button'
                   >
                     <FontAwesomeIcon
                       icon={faBarsStaggered}

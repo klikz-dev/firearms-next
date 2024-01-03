@@ -29,8 +29,7 @@ export default function Post({ post, michael }) {
     modified,
     postContent,
   } = post ?? {}
-  const { metaDesc, opengraphDescription, schema: { raw } = {} } = seo ?? {}
-  const schema = JSON.parse(raw)
+  const { metaDesc, opengraphDescription, schema } = seo ?? {}
 
   const router = useRouter()
   if (router.isFallback) {
@@ -50,7 +49,7 @@ export default function Post({ post, michael }) {
       <Head>
         <script
           type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          dangerouslySetInnerHTML={{ __html: schema?.raw || '' }}
         />
       </Head>
 
@@ -153,7 +152,9 @@ export async function getStaticProps({ params }) {
             `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/pages/${content.productSlug}`
           )
           const pageData = await page.json()
-          return { ...content, page: pageData }
+          if (pageData) {
+            return { ...content, page: pageData }
+          }
         }
         return { ...content }
       })

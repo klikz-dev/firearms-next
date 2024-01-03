@@ -3,6 +3,9 @@ query GetCategory($slug: ID!) {
     seo {
       metaDesc
       opengraphDescription
+      schema {
+        raw
+      }
     }
     name
     description

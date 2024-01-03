@@ -4,6 +4,9 @@ query SearchPosts($keyword: String) {
       seo {
         metaDesc
         opengraphDescription
+        schema {
+          raw
+        }
       }
       slug
       title

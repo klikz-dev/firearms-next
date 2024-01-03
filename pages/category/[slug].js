@@ -8,10 +8,11 @@ import Loading from '@/components/atoms/Loading'
 import Title from '@/components/molecules/Title'
 import { PostCardVertical } from '@/components/molecules/PostCard'
 import { NextSeo } from 'next-seo'
+import Head from 'next/head'
 
 export default function Category({ categoryData }) {
   const { name, description, seo, posts } = categoryData?.category ?? {}
-  const { metaDesc, opengraphDescription } = seo ?? {}
+  const { metaDesc, opengraphDescription, schema } = seo ?? {}
 
   const router = useRouter()
   if (router.isFallback) {
@@ -27,6 +28,13 @@ export default function Category({ categoryData }) {
   return (
     <>
       <NextSeo title={name} description={metaDesc || opengraphDescription} />
+
+      <Head>
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: schema?.raw || '' }}
+        />
+      </Head>
 
       <Layout>
         <Container className={'py-20'}>

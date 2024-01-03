@@ -15,11 +15,12 @@ import Title from '@/components/molecules/Title'
 import PageContent from '@/components/organisms/PageContent'
 import { NextSeo } from 'next-seo'
 import HomeHero from '@/components/organisms/HomeHero'
+import Head from 'next/head'
 
 export default function Page({ pageData, postsData }) {
   const { title, pageContent, seo } = pageData?.page ?? {}
   const { hero, content } = pageContent ?? {}
-  const { metaDesc, opengraphDescription } = seo ?? {}
+  const { metaDesc, opengraphDescription, schema } = seo ?? {}
 
   const { posts } = postsData ?? {}
 
@@ -46,6 +47,13 @@ export default function Page({ pageData, postsData }) {
   return (
     <>
       <NextSeo title={title} description={metaDesc || opengraphDescription} />
+
+      <Head>
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: schema?.raw || '' }}
+        />
+      </Head>
 
       <Layout>
         <HomeHero post={posts?.nodes?.[0]} hero={hero} />

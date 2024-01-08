@@ -18,6 +18,7 @@ import HomeHero from '@/components/organisms/HomeHero'
 import Head from 'next/head'
 import getSidebarData from '@/functions/getSidebarData'
 import { loadMorePosts } from '@/functions/fetch/loadMorePosts'
+import filterSchema from '@/functions/filterSchema'
 
 export default function Page({ pageData, postsData, sidebarData }) {
   const { title, pageContent, seo } = pageData?.page ?? {}
@@ -50,7 +51,7 @@ export default function Page({ pageData, postsData, sidebarData }) {
       <Head>
         <script
           type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: schema?.raw || '' }}
+          dangerouslySetInnerHTML={{ __html: filterSchema(schema?.raw) || '' }}
         />
       </Head>
 

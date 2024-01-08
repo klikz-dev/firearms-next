@@ -17,6 +17,7 @@ import { NextSeo } from 'next-seo'
 import moment from 'moment'
 import Head from 'next/head'
 import getSidebarData from '@/functions/getSidebarData'
+import filterSchema from '@/functions/filterSchema'
 
 export default function Post({ post, michael, sidebarData }) {
   const {
@@ -50,7 +51,7 @@ export default function Post({ post, michael, sidebarData }) {
       <Head>
         <script
           type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: schema?.raw || '' }}
+          dangerouslySetInnerHTML={{ __html: filterSchema(schema?.raw) || '' }}
         />
       </Head>
 

@@ -9,6 +9,7 @@ import Title from '@/components/molecules/Title'
 import { PostCardVertical } from '@/components/molecules/PostCard'
 import { NextSeo } from 'next-seo'
 import Head from 'next/head'
+import filterSchema from '@/functions/filterSchema'
 
 export default function Tag({ tagData }) {
   const { name, description, seo, posts } = tagData?.tag ?? {}
@@ -32,7 +33,7 @@ export default function Tag({ tagData }) {
       <Head>
         <script
           type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: schema?.raw || '' }}
+          dangerouslySetInnerHTML={{ __html: filterSchema(schema?.raw) || '' }}
         />
       </Head>
 

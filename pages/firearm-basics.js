@@ -12,6 +12,7 @@ import convertToSlug from '@/functions/convertToSlug'
 import { NextSeo } from 'next-seo'
 import Head from 'next/head'
 import getSidebarData from '@/functions/getSidebarData'
+import filterSchema from '@/functions/filterSchema'
 
 export default function Page({ pageData, sidebarData }) {
   const { title, pageContent, seo } = pageData?.page ?? {}
@@ -44,7 +45,7 @@ export default function Page({ pageData, sidebarData }) {
       <Head>
         <script
           type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: schema?.raw || '' }}
+          dangerouslySetInnerHTML={{ __html: filterSchema(schema?.raw) || '' }}
         />
       </Head>
 

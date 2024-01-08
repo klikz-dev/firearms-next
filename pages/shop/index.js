@@ -11,6 +11,7 @@ import { client } from '@/lib/apollo'
 import GET_PAGE_QUERY from '@/const/schema/getPage.graphql'
 import PageContent from '@/components/organisms/PageContent'
 import Head from 'next/head'
+import filterSchema from '@/functions/filterSchema'
 
 export default function Page({
   pageData,
@@ -31,7 +32,7 @@ export default function Page({
       <Head>
         <script
           type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: schema?.raw || '' }}
+          dangerouslySetInnerHTML={{ __html: filterSchema(schema?.raw) || '' }}
         />
       </Head>
 

@@ -33,10 +33,6 @@ export const menu = [
     path: '/category/reviews',
   },
   {
-    label: 'Interviews',
-    path: '/category/videos',
-  },
-  {
     label: 'Best Ofs',
     subMenus: [
       {
@@ -80,9 +76,5 @@ export const menu = [
   {
     label: 'About Us',
     path: '/about-us',
-  },
-  {
-    label: 'Contact',
-    path: '/contact-us',
   },
 ]

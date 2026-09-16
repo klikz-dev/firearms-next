@@ -2,12 +2,16 @@ import { client } from '@/lib/apollo'
 import GET_POST_QUERY from '@/const/schema/getPost.graphql'
 import GET_POST_SLUGS_QUERY from '@/const/schema/getPostSlugs.graphql'
 import GET_AUTHOR_QUERY from '@/const/schema/getAuthor.graphql'
+import GET_RELATED_POSTS_QUERY from '@/const/schema/getRelatedPosts.graphql'
 import Layout from '@/components/common/Layout'
 import { useRouter } from 'next/router'
 import Container from '@/components/atoms/Container'
 import Loading from '@/components/atoms/Loading'
 import PostContent from '@/components/organisms/PostContent'
 import Sidebar from '@/components/organisms/Sidebar'
+import PostNav from '@/components/organisms/PostNav'
+import MeetTheExperts from '@/components/organisms/MeetTheExperts'
+import FurtherReading from '@/components/organisms/FurtherReading'
 import GradientBorder from '@/components/atoms/GradientBorder'
 import PostMeta from '@/components/molecules/PostMeta'
 import Link from '@/components/atoms/Link'
@@ -16,10 +20,15 @@ import HTMLContent from '@/components/atoms/HTMLContent'
 import { NextSeo } from 'next-seo'
 import moment from 'moment'
 import Head from 'next/head'
+import Script from 'next/script'
 import getSidebarData from '@/functions/getSidebarData'
 import filterSchema from '@/functions/filterSchema'
+import getPicks from '@/functions/getPicks'
+import convertToSlug from '@/functions/convertToSlug'
 
-export default function Post({ post, michael, sidebarData }) {
+const EDITOR_SLUG = 'michael-crites'
+
+export default function Post({ post, michael, sidebarData, related, picks }) {
   const {
     title,
     slug,
@@ -44,6 +53,29 @@ export default function Post({ post, michael, sidebarData }) {
     )
   }
 
+  const experts = [
+    author?.node && { author: author.node, headline: 'Written By' },
+    michael &&
+      author?.node?.slug !== EDITOR_SLUG && {
+        author: michael,
+        headline: 'Edited By',
+      },
+  ].filter(Boolean)
+
+  const headings = (postContent?.contents ?? [])
+    .filter((block) => block.__typename === 'Post_Postcontent_Contents_Heading')
+    .map((block) => ({ id: convertToSlug(block.text), label: block.text }))
+
+  const sections = [
+    experts.length > 0 && { id: 'meet-the-experts', label: 'Meet the Experts' },
+    headings.length > 0 && { id: 'in-this-article', label: 'In This Article' },
+    ...headings,
+    related?.posts?.length > 0 && {
+      id: 'further-reading',
+      label: 'Further Reading',
+    },
+  ].filter(Boolean)
+
   return (
     <>
       <NextSeo title={title} description={metaDesc || opengraphDescription} />
@@ -55,7 +87,15 @@ export default function Post({ post, michael, sidebarData }) {
         />
       </Head>
 
+      {/* Google "Add as preferred source" button, rendered in PostMeta */}
+      <Script
+        src='https://news.google.com/swg/js/v1/publisher.js'
+        strategy='afterInteractive'
+      />
+
       <Layout>
+        <PostNav sections={sections} picks={picks ?? []} />
+
         <Container className={'pt-8 lg:pt-20 lg:grid lg:grid-cols-3 gap-12'}>
           <div className={'lg:col-span-2 mb-20'}>
             <h1>{title}</h1>
@@ -115,16 +155,62 @@ export default function Post({ post, michael, sidebarData }) {
 
             <HTMLContent className={'py-8'}>{content}</HTMLContent>
 
+            <MeetTheExperts experts={experts} />
+
             <PostContent contents={postContent?.contents} />
+
+            <FurtherReading
+              posts={related?.posts ?? []}
+              category={related?.category}
+            />
           </div>
 
           <div className={'lg:col-span-1'}>
-            <Sidebar alert={postContent?.alert} data={sidebarData} />
+            <Sidebar
+              alert={postContent?.alert}
+              data={sidebarData}
+              picks={picks ?? []}
+            />
           </div>
         </Container>
       </Layout>
     </>
   )
+}
+
+function buildAmazonLink({ productId, link }) {
+  const override = link?.trim()
+  if (override) return override
+
+  const asin = productId?.trim()
+  if (!asin) return null
+
+  const tag = process.env.AMAZON_PARTNER_TAG
+  return `https://www.amazon.com/dp/${encodeURIComponent(asin)}/${
+    tag ? `?tag=${encodeURIComponent(tag)}` : ''
+  }`
+}
+
+async function getRelatedPosts(post) {
+  const category = post?.categories?.nodes?.[0]
+  if (!category?.slug) return { category: null, posts: [] }
+
+  try {
+    const { data } = await client.query({
+      query: GET_RELATED_POSTS_QUERY,
+      variables: { first: 7, category: category.slug },
+    })
+
+    return {
+      category: category.name ?? null,
+      posts: (data?.posts?.nodes ?? [])
+        .filter((node) => node.slug !== post.slug)
+        .slice(0, 6),
+    }
+  } catch (error) {
+    console.error(`[related] lookup failed for ${post.slug}`, error)
+    return { category: category.name ?? null, posts: [] }
+  }
 }
 
 export async function getStaticProps({ params }) {
@@ -150,14 +236,23 @@ export async function getStaticProps({ params }) {
     const updatedContents = await Promise.all(
       contents.map(async (content) => {
         if (content.__typename === 'Post_Postcontent_Contents_Cta') {
-          const page = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/pages/${content.productSlug}`
-          )
-          const pageData = await page.json()
-          if (pageData) {
-            return { ...content, page: pageData }
+          try {
+            const page = await fetch(
+              `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/pages/${content.productSlug}`
+            )
+            const pageData = await page.json()
+            if (pageData) {
+              return { ...content, page: pageData }
+            }
+          } catch (error) {
+            console.error(`[cta] page lookup failed for ${content.productSlug}`)
           }
         }
+
+        if (content.__typename === 'Post_Postcontent_Contents_AmazonProduct') {
+          return { ...content, amazonLink: buildAmazonLink(content) }
+        }
+
         return { ...content }
       })
     )
@@ -168,26 +263,36 @@ export async function getStaticProps({ params }) {
     }
   }
 
+  const picks = getPicks(updatedPost.postContent?.contents ?? [])
+
   /**
    * Main Author - Michael
    */
   const { data: authorData } = await client.query({
     query: GET_AUTHOR_QUERY,
     variables: {
-      slug: 'michael-crites',
+      slug: EDITOR_SLUG,
     },
   })
 
   /**
-   * Sidebar Data
+   * Further reading
    */
-  const sidebarData = await getSidebarData()
+  const related = await getRelatedPosts(updatedPost)
+
+  /**
+   * Sidebar Data - only needed when the post has no CTAs, otherwise the
+   * sticky "Our Top Picks" rail replaces the newsletter and category blocks.
+   */
+  const sidebarData = picks.length ? null : await getSidebarData()
 
   return {
     props: {
       post: updatedPost,
-      michael: authorData?.user,
+      michael: authorData?.user ?? null,
       sidebarData,
+      related,
+      picks,
     },
     revalidate: 100,
   }
@@ -203,7 +308,7 @@ export async function getStaticPaths() {
 
   return {
     paths: data.posts.nodes.map((node) => ({
-      params: node,
+      params: { slug: node.slug },
     })),
     fallback: true,
   }

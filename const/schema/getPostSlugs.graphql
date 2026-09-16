@@ -1,8 +1,13 @@
-query GetPostSlugs($first: Int) {
-  posts(first: $first) {
+query GetPostSlugs($first: Int, $after: String) {
+  posts(first: $first, after: $after) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
     nodes {
       slug
       date
+      modified
     }
   }
 }

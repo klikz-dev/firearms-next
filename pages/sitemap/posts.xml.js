@@ -3,6 +3,10 @@ import GET_POST_SLUGS_QUERY from '@/const/schema/getPostSlugs.graphql'
 
 export default function Sitemap() {}
 
+// WPGraphQL caps a single request at 100 nodes (and the WordPress host runs
+// out of memory on larger requests), so the post list is walked page by page.
+const PAGE_SIZE = 100
+
 function addPage(page) {
   return `  <url>
     <loc>${`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${page.loc}/`}</loc>
@@ -12,17 +16,32 @@ function addPage(page) {
   </url>`
 }
 
-export async function getServerSideProps({ res }) {
-  const { data } = await client.query({
-    query: GET_POST_SLUGS_QUERY,
-    variables: {
-      first: 500,
-    },
-  })
+async function getAllPostSlugs() {
+  const nodes = []
+  let after = null
 
-  const sitemaps = data.posts.nodes.map((node) => ({
+  do {
+    const { data } = await client.query({
+      query: GET_POST_SLUGS_QUERY,
+      variables: { first: PAGE_SIZE, after },
+      fetchPolicy: 'no-cache',
+    })
+
+    nodes.push(...(data?.posts?.nodes ?? []))
+    after = data?.posts?.pageInfo?.hasNextPage
+      ? data.posts.pageInfo.endCursor
+      : null
+  } while (after)
+
+  return nodes
+}
+
+export async function getServerSideProps({ res }) {
+  const nodes = await getAllPostSlugs()
+
+  const sitemaps = nodes.map((node) => ({
     loc: node.slug,
-    lastmod: new Date(node.date).toISOString(),
+    lastmod: new Date(node.modified ?? node.date).toISOString(),
     changefreq: 'monthly',
     priority: '1.0',
   }))

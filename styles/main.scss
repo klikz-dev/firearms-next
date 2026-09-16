@@ -2,9 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --header-h: 0px;
+  --subnav-h: 0px;
+}
+
 html,
 body {
   @apply scroll-smooth;
+}
+
+/* Keep jump targets clear of the sticky header and post section nav */
+#page-content [id] {
+  scroll-margin-top: calc(var(--header-h) + var(--subnav-h) + 1rem);
 }
 
 h1,

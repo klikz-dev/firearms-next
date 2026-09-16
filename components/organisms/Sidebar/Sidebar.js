@@ -6,9 +6,10 @@ import classNames from 'classnames'
 import { useState } from 'react'
 import Category from './Category'
 import Subscribe from './Subscribe'
+import TopPicks from './TopPicks'
 import HTMLContent from '@/components/atoms/HTMLContent'
 
-export default function Sidebar({ alert, data }) {
+export default function Sidebar({ alert, data, picks = [] }) {
   const {
     reviews,
     news,
@@ -19,7 +20,7 @@ export default function Sidebar({ alert, data }) {
     gunSafes,
     scopesOptics,
     holstersCarry,
-  } = data
+  } = data ?? {}
 
   const [active, setActive] = useState('')
 
@@ -101,51 +102,59 @@ export default function Sidebar({ alert, data }) {
         </div>
       )}
 
-      <div className={'hidden lg:block'}>
-        <Subscribe />
-      </div>
+      {picks.length > 0 ? (
+        // Posts with product CTAs get the sticky "Our Top Picks" rail in place
+        // of the newsletter and category sections.
+        <TopPicks picks={picks} />
+      ) : (
+        <>
+          <div className={'hidden lg:block'}>
+            <Subscribe />
+          </div>
 
-      <Title>
-        <h3>View by Category</h3>
-      </Title>
+          <Title>
+            <h3>View by Category</h3>
+          </Title>
 
-      {categories?.map((category, index) => (
-        <div key={index} className={'mb-3'}>
-          <div
-            onClick={() =>
-              setActive(active === category.link ? '' : category.link)
-            }
-            className={classNames(
-              'p-4 flex flex-row justify-between items-center gap-3 cursor-pointer',
-              active === category.link ? 'bg-zinc-200' : 'bg-zinc-200/50'
-            )}
-          >
-            <div className={'flex flex-row items-center gap-2'}>
-              <Image
-                src={category.icon}
-                width={20}
-                height={20}
-                alt={category.name}
-              />
-              <h5>{category.name}</h5>
+          {categories?.map((category, index) => (
+            <div key={index} className={'mb-3'}>
+              <div
+                onClick={() =>
+                  setActive(active === category.link ? '' : category.link)
+                }
+                className={classNames(
+                  'p-4 flex flex-row justify-between items-center gap-3 cursor-pointer',
+                  active === category.link ? 'bg-zinc-200' : 'bg-zinc-200/50'
+                )}
+              >
+                <div className={'flex flex-row items-center gap-2'}>
+                  <Image
+                    src={category.icon}
+                    width={20}
+                    height={20}
+                    alt={category.name}
+                  />
+                  <h5>{category.name}</h5>
+                </div>
+
+                {active === category.link ? (
+                  <FontAwesomeIcon icon={faChevronUp} />
+                ) : (
+                  <FontAwesomeIcon icon={faChevronDown} />
+                )}
+              </div>
+
+              <div
+                className={classNames(
+                  active === category.link ? 'bg-zinc-200' : 'hidden'
+                )}
+              >
+                <Category posts={category.posts} link={category.link} />
+              </div>
             </div>
-
-            {active === category.link ? (
-              <FontAwesomeIcon icon={faChevronUp} />
-            ) : (
-              <FontAwesomeIcon icon={faChevronDown} />
-            )}
-          </div>
-
-          <div
-            className={classNames(
-              active === category.link ? 'bg-zinc-200' : 'hidden'
-            )}
-          >
-            <Category posts={category.posts} link={category.link} />
-          </div>
-        </div>
-      ))}
+          ))}
+        </>
+      )}
     </div>
   )
 }

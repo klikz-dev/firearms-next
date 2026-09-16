@@ -2,14 +2,14 @@ import Link from '@/components/atoms/Link'
 
 export default function PostInnerMenu({ menus }) {
   return (
-    <div className='mb-12'>
+    <div className='mb-12' id='in-this-article' data-section='In This Article'>
       <div className={'px-5 py-3 bg-gradient-to-r from-red-800 to-red-500'}>
         <h5 className={'text-white'}>{'In This Article'}</h5>
       </div>
 
       <div className={'px-1 py-5 border border-zinc-300 bg-zinc-100'}>
         {menus?.map((menu, index) => (
-          <div key={index} className={'mb-2 max-w-xs'}>
+          <div key={index} className={'mb-2'}>
             <Link
               href={`#${menu.id}`}
               className={

@@ -9,6 +9,12 @@ query GetPost($slug: ID!) {
     }
     title
     slug
+    categories {
+      nodes {
+        name
+        slug
+      }
+    }
     author {
       node {
         name
@@ -102,6 +108,17 @@ query GetPost($slug: ID!) {
         }
         ... on Post_Postcontent_Contents_AmazonProduct {
           productId
+          title
+          price
+          link
+          image {
+            altText
+            sourceUrl
+            mediaDetails {
+              height
+              width
+            }
+          }
         }
         ... on Post_Postcontent_Contents_Faq {
           qA {
@@ -120,6 +137,7 @@ query GetPost($slug: ID!) {
           item {
             ctaId
             award
+            customAward
             description
           }
         }

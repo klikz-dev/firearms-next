@@ -10,7 +10,7 @@ import Awards from '../../Shop/Page/Awards'
 import OtherSellers from './OtherSellers'
 
 export default function CTA(cta) {
-  const { buttonText, link, price, title, image, page } = cta
+  const { buttonText, link, price, title, image, page, isAmazon } = cta
 
   const pageStats =
     page && page.brand && page.category && page.product
@@ -97,7 +97,9 @@ export default function CTA(cta) {
           {pageStats && <Stats pageStats={pageStats} small />}
         </div>
 
-        {search && <OtherSellers buttonText={buttonText} search={search} />}
+        {search && !isAmazon && (
+          <OtherSellers buttonText={buttonText} search={search} />
+        )}
       </div>
     </div>
   )

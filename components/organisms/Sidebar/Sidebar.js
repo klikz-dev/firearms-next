@@ -82,7 +82,7 @@ export default function Sidebar({ alert, data, picks = [] }) {
   ]
 
   return (
-    <div className={'mb-8 lg:mb-20'}>
+    <div className={'mb-8 lg:mb-0 lg:h-full lg:pb-20'}>
       {alert?.display && (
         <div className={'p-4 bg-zinc-200/60 mb-12 relative'}>
           <div className={'absolute right-5 top-4'}>

@@ -25,8 +25,18 @@ import getSidebarData from '@/functions/getSidebarData'
 import filterSchema from '@/functions/filterSchema'
 import getPicks from '@/functions/getPicks'
 import convertToSlug from '@/functions/convertToSlug'
+import { getAffiliateDestination } from '@/functions/acfOptions'
 
 const EDITOR_SLUG = 'michael-crites'
+const AMAZON_PATTERN = /amazon.|amzn.to/i
+
+async function isAmazonCta({ buttonText, link }) {
+  if (AMAZON_PATTERN.test(link ?? '') || /amazon/i.test(buttonText ?? '')) {
+    return true
+  }
+  const destination = await getAffiliateDestination(link)
+  return AMAZON_PATTERN.test(destination ?? '')
+}
 
 export default function Post({ post, michael, sidebarData, related, picks }) {
   const {
@@ -236,17 +246,20 @@ export async function getStaticProps({ params }) {
     const updatedContents = await Promise.all(
       contents.map(async (content) => {
         if (content.__typename === 'Post_Postcontent_Contents_Cta') {
+          // CTAs that send the reader to Amazon get no "Other Sellers" row
+          const isAmazon = await isAmazonCta(content)
           try {
             const page = await fetch(
               `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/pages/${content.productSlug}`
             )
             const pageData = await page.json()
             if (pageData) {
-              return { ...content, page: pageData }
+              return { ...content, page: pageData, isAmazon }
             }
           } catch (error) {
             console.error(`[cta] page lookup failed for ${content.productSlug}`)
           }
+          return { ...content, isAmazon }
         }
 
         if (content.__typename === 'Post_Postcontent_Contents_AmazonProduct') {

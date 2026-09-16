@@ -27,4 +27,42 @@ async function fetchAcfOptions() {
   return data?.acf ?? {}
 }
 
-module.exports = { ACF_OPTIONS_URL, normalizePath, fetchAcfOptions }
+let affiliatesPromise = null
+
+/**
+ * Resolves an affiliate source path (e.g. /recommends/foo) to its destination
+ * URL using the ACF Affiliates options page, cached for the life of the
+ * process (one fetch per build). Returns null when there is no rule.
+ */
+async function getAffiliateDestination(source) {
+  const key = normalizePath(source)
+  if (!key.startsWith('/recommends')) return null
+
+  if (!affiliatesPromise) {
+    affiliatesPromise = fetchAcfOptions()
+      .then((options) => {
+        const map = new Map()
+        for (const rule of options?.affiliates ?? []) {
+          if (rule?.source && rule?.destination) {
+            map.set(normalizePath(rule.source), rule.destination.trim())
+          }
+        }
+        return map
+      })
+      .catch((error) => {
+        console.error('[affiliates] lookup unavailable', error)
+        affiliatesPromise = null
+        return new Map()
+      })
+  }
+
+  const map = await affiliatesPromise
+  return map.get(key) ?? null
+}
+
+module.exports = {
+  ACF_OPTIONS_URL,
+  normalizePath,
+  fetchAcfOptions,
+  getAffiliateDestination,
+}

@@ -70,7 +70,7 @@ export default function MeetTheExperts({ experts = [] }) {
                 )}
 
                 {author.description && (
-                  <HTMLContent className={'text-sm mb-3'}>
+                  <HTMLContent className={'text-sm mb-3 line-clamp-6'}>
                     {author.description}
                   </HTMLContent>
                 )}

@@ -104,8 +104,17 @@ export default function Sidebar({ alert, data, picks = [] }) {
 
       {picks.length > 0 ? (
         // Posts with product CTAs get the sticky "Our Top Picks" rail in place
-        // of the newsletter and category sections.
-        <TopPicks picks={picks} />
+        // of the category section. Without an "Updated" box the newsletter
+        // stays on top so the rail is not mostly empty.
+        <>
+          {!alert?.display && (
+            <div className={'hidden lg:block'}>
+              <Subscribe />
+            </div>
+          )}
+
+          <TopPicks picks={picks} />
+        </>
       ) : (
         <>
           <div className={'hidden lg:block'}>

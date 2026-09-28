@@ -93,7 +93,11 @@ export default function PostNav({ sections = [], picks = [] }) {
       style={{ top: 'var(--header-h, 0px)' }}
     >
       {sections.length > 0 && (
-        <div className={'relative bg-white border-b shadow-sm'}>
+        <div
+          className={
+            'relative z-20 bg-zinc-100 border-b border-zinc-200 shadow-sm'
+          }
+        >
           <Container>
             <div
               className={
@@ -149,7 +153,7 @@ export default function PostNav({ sections = [], picks = [] }) {
             id='post-nav-sections'
             hidden={!open}
             className={
-              'absolute left-0 right-0 top-full bg-white border-b shadow-lg max-h-[70vh] overflow-y-auto'
+              'absolute left-0 right-0 top-full bg-zinc-100 border-y border-zinc-200 shadow-lg max-h-[70vh] overflow-y-auto'
             }
           >
             <Container>
@@ -160,7 +164,7 @@ export default function PostNav({ sections = [], picks = [] }) {
                       href={`#${section.id}`}
                       onClick={() => setOpen(false)}
                       className={classNames(
-                        'block py-2 border-b border-zinc-100 hover:text-red-700',
+                        'block py-2 border-b border-zinc-200 hover:text-red-700',
                         section.id === activeId && 'text-red-700 font-semibold'
                       )}
                     >

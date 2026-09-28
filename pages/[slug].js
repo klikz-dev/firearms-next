@@ -4,9 +4,7 @@ import GET_POST_SLUGS_QUERY from '@/const/schema/getPostSlugs.graphql'
 import GET_AUTHOR_QUERY from '@/const/schema/getAuthor.graphql'
 import GET_RELATED_POSTS_QUERY from '@/const/schema/getRelatedPosts.graphql'
 import Layout from '@/components/common/Layout'
-import { useRouter } from 'next/router'
 import Container from '@/components/atoms/Container'
-import Loading from '@/components/atoms/Loading'
 import PostContent from '@/components/organisms/PostContent'
 import Sidebar from '@/components/organisms/Sidebar'
 import PostNav from '@/components/organisms/PostNav'
@@ -52,17 +50,6 @@ export default function Post({ post, michael, sidebarData, related, picks }) {
   } = post ?? {}
   const { metaDesc, opengraphDescription, schema } = seo ?? {}
 
-  const router = useRouter()
-  if (router.isFallback) {
-    return (
-      <Layout>
-        <Container>
-          <Loading />
-        </Container>
-      </Layout>
-    )
-  }
-
   const experts = [
     author?.node && { author: author.node, headline: 'Written By' },
     michael &&
@@ -76,10 +63,11 @@ export default function Post({ post, michael, sidebarData, related, picks }) {
     .filter((block) => block.__typename === 'Post_Postcontent_Contents_Heading')
     .map((block) => ({ id: convertToSlug(block.text), label: block.text }))
 
+  // Keep in page order: the section nav tracks position by walking this list
   const sections = [
-    experts.length > 0 && { id: 'meet-the-experts', label: 'Meet the Experts' },
     headings.length > 0 && { id: 'in-this-article', label: 'In This Article' },
     ...headings,
+    experts.length > 0 && { id: 'meet-the-experts', label: 'Meet the Experts' },
     related?.posts?.length > 0 && {
       id: 'further-reading',
       label: 'Further Reading',
@@ -165,9 +153,9 @@ export default function Post({ post, michael, sidebarData, related, picks }) {
 
             <HTMLContent className={'py-8'}>{content}</HTMLContent>
 
-            <MeetTheExperts experts={experts} />
-
             <PostContent contents={postContent?.contents} />
+
+            <MeetTheExperts experts={experts} />
 
             <FurtherReading
               posts={related?.posts ?? []}
@@ -323,6 +311,8 @@ export async function getStaticPaths() {
     paths: data.posts.nodes.map((node) => ({
       params: { slug: node.slug },
     })),
-    fallback: true,
+    // Older posts render on the server on first visit instead of showing a
+    // loading shell
+    fallback: 'blocking',
   }
 }

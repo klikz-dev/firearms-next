@@ -24,6 +24,7 @@ import filterSchema from '@/functions/filterSchema'
 import getPicks from '@/functions/getPicks'
 import convertToSlug from '@/functions/convertToSlug'
 import { getAffiliateDestination } from '@/functions/acfOptions'
+import { getAmazonItems } from '@/lib/amazon/creators'
 
 const EDITOR_SLUG = 'michael-crites'
 const AMAZON_PATTERN = /amazon.|amzn.to/i
@@ -176,9 +177,10 @@ export default function Post({ post, michael, sidebarData, related, picks }) {
   )
 }
 
-function buildAmazonLink({ productId, link }) {
+function buildAmazonLink({ productId, link }, detailPageURL) {
   const override = link?.trim()
   if (override) return override
+  if (detailPageURL) return detailPageURL
 
   const asin = productId?.trim()
   if (!asin) return null
@@ -231,6 +233,18 @@ export async function getStaticProps({ params }) {
   const updatedPost = { ...postData.post }
   if (postData?.post?.postContent?.contents) {
     const { contents } = postData.post.postContent
+
+    // Name, image and price for Amazon blocks come from Amazon's Creators API;
+    // anything entered in WordPress takes priority.
+    const amazonItems = await getAmazonItems(
+      contents
+        .filter(
+          (content) =>
+            content.__typename === 'Post_Postcontent_Contents_AmazonProduct'
+        )
+        .map((content) => content.productId)
+    )
+
     const updatedContents = await Promise.all(
       contents.map(async (content) => {
         if (content.__typename === 'Post_Postcontent_Contents_Cta') {
@@ -251,7 +265,16 @@ export async function getStaticProps({ params }) {
         }
 
         if (content.__typename === 'Post_Postcontent_Contents_AmazonProduct') {
-          return { ...content, amazonLink: buildAmazonLink(content) }
+          const item = amazonItems.get(content.productId?.trim()) ?? {}
+          return {
+            ...content,
+            title: content.title || item.title || null,
+            image: content.image?.sourceUrl
+              ? content.image
+              : item.image ?? null,
+            price: content.price ?? item.price ?? null,
+            amazonLink: buildAmazonLink(content, item.detailPageURL),
+          }
         }
 
         return { ...content }

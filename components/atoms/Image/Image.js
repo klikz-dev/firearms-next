@@ -45,10 +45,22 @@ export default function DisplayImage({
       // eslint-disable-next-line @next/next/no-img-element
       <img
         src={src}
-        width='100%'
-        height='auto'
+        width={props.fill ? undefined : '100%'}
+        height={props.fill ? undefined : 'auto'}
         alt={alt}
         className={className}
+        loading={props.priority ? 'eager' : 'lazy'}
+        style={
+          props.fill
+            ? {
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                ...style,
+              }
+            : style
+        }
       />
     )
   }

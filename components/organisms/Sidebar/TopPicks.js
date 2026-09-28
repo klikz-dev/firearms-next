@@ -44,7 +44,7 @@ export default function TopPicks({ picks = [] }) {
 
           <p
             className={
-              'px-3 pb-3 text-center font-display font-semibold uppercase text-sm group-hover:text-red-700'
+              'px-3 pb-3 text-center font-display font-semibold uppercase text-sm line-clamp-2 group-hover:text-red-700'
             }
           >
             {pick.title}

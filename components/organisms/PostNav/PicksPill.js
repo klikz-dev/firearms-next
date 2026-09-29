@@ -9,11 +9,14 @@ import { MOBILE_CTA_EVENT } from './MobileCTA'
 
 /**
  * Mobile-only floating "See all our picks" pill. It slides up once the
- * reader has passed the first in-page CTA and opens a scrollable overlay of
- * every product CTA in the article.
+ * reader has scrolled past the first H2 (or the first in-page CTA, if one
+ * comes earlier) and opens a scrollable overlay of every product CTA in the
+ * article.
  */
-export default function PicksPill({ picks = [] }) {
-  const [visible, setVisible] = useState(false)
+export default function PicksPill({ picks = [], firstHeadingId }) {
+  const [ctaActive, setCtaActive] = useState(false)
+  const [headingPassed, setHeadingPassed] = useState(false)
+  const visible = ctaActive || headingPassed
   const [open, setOpen] = useState(false)
   // Render the list from the first open on, so it does not vanish while the
   // sheet slides away
@@ -24,10 +27,52 @@ export default function PicksPill({ picks = [] }) {
   }, [open])
 
   useEffect(() => {
-    const onChange = (event) => setVisible(Boolean(event.detail))
+    const onChange = (event) => setCtaActive(Boolean(event.detail))
     window.addEventListener(MOBILE_CTA_EVENT, onChange)
     return () => window.removeEventListener(MOBILE_CTA_EVENT, onChange)
   }, [])
+
+  // Show once the first H2 has scrolled under the sticky header and section
+  // nav. Their heights (not positions) set the line, so it stays put while
+  // the header slides out.
+  useEffect(() => {
+    if (!firstHeadingId || !picks.length) return undefined
+
+    let ticking = false
+    const update = () => {
+      ticking = false
+      const heading = document.getElementById(firstHeadingId)
+      if (!heading) return
+      const headerHeight =
+        parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue(
+            '--header-h'
+          )
+        ) || 0
+      const navHeight =
+        document.querySelector('.post-nav')?.firstElementChild?.offsetHeight ??
+        0
+      setHeadingPassed(
+        heading.getBoundingClientRect().top <= headerHeight + navHeight
+      )
+    }
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true
+        window.requestAnimationFrame(update)
+      }
+    }
+
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [firstHeadingId, picks.length])
 
   // Lock page scroll and close on Escape while the overlay is open
   useEffect(() => {

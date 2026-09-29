@@ -95,7 +95,7 @@ export default function Post({ post, michael, sidebarData, related, picks }) {
 
       <Layout>
         <PostNav sections={sections} picks={picks ?? []} />
-        <PicksPill picks={picks ?? []} />
+        <PicksPill picks={picks ?? []} firstHeadingId={headings[0]?.id} />
 
         <Container className={'pt-8 lg:pt-20 lg:grid lg:grid-cols-3 gap-12'}>
           <div className={'lg:col-span-2 mb-20'}>

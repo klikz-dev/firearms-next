@@ -72,7 +72,10 @@ export default function Header() {
   }, [])
 
   return (
-    <header ref={headerRef} className={'sticky top-0 z-40 bg-white'}>
+    <header
+      ref={headerRef}
+      className={'site-header sticky top-0 z-40 bg-white'}
+    >
       <div className={'border-b shadow'}>
         <GradientBorder height={4} />
 

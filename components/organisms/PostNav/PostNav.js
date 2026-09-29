@@ -89,7 +89,7 @@ export default function PostNav({ sections = [], picks = [] }) {
   return (
     <div
       ref={wrapperRef}
-      className={'sticky z-30'}
+      className={'post-nav sticky z-30'}
       style={{ top: 'var(--header-h, 0px)' }}
     >
       {sections.length > 0 && (

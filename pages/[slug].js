@@ -8,6 +8,7 @@ import Container from '@/components/atoms/Container'
 import PostContent from '@/components/organisms/PostContent'
 import Sidebar from '@/components/organisms/Sidebar'
 import PostNav from '@/components/organisms/PostNav'
+import PicksPill from '@/components/organisms/PostNav/PicksPill'
 import MeetTheExperts from '@/components/organisms/MeetTheExperts'
 import FurtherReading from '@/components/organisms/FurtherReading'
 import GradientBorder from '@/components/atoms/GradientBorder'
@@ -94,6 +95,7 @@ export default function Post({ post, michael, sidebarData, related, picks }) {
 
       <Layout>
         <PostNav sections={sections} picks={picks ?? []} />
+        <PicksPill picks={picks ?? []} />
 
         <Container className={'pt-8 lg:pt-20 lg:grid lg:grid-cols-3 gap-12'}>
           <div className={'lg:col-span-2 mb-20'}>

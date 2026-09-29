@@ -24,6 +24,7 @@ export default function getPicks(contents = []) {
         return {
           id: getCtaId(content),
           title: content.title,
+          buttonText: content.buttonText || 'View Deal',
           link: content.link,
           image: content.image ?? null,
           price:
@@ -39,6 +40,7 @@ export default function getPicks(contents = []) {
         return {
           id: `amazon-${content.productId}`,
           title: content.title,
+          buttonText: 'View on Amazon',
           link: content.amazonLink,
           image: content.image ?? null,
           price: content.price ?? null,

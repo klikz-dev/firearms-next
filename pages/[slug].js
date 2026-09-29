@@ -275,7 +275,12 @@ export async function getStaticProps({ params }) {
               ? content.image
               : item.image ?? null,
             price: content.price ?? item.price ?? null,
-            amazonLink: buildAmazonLink(content, item.detailPageURL),
+            // Amazon no longer has this product (its page is a 404): hide
+            // the CTA unless an editor entered a replacement link
+            amazonLink:
+              item.invalid && !content.link?.trim()
+                ? null
+                : buildAmazonLink(content, item.detailPageURL),
           }
         }
 

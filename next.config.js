@@ -14,6 +14,9 @@ const nextConfig = {
     domains: process.env.NEXT_PUBLIC_IMAGE_DOMAINS.split('|'),
   },
   compress: true,
+  // The CMS and product API slow down under the load of a full build; give
+  // each page up to 3 minutes before Next.js gives up on it (default 60s).
+  staticPageGenerationTimeout: 180,
   async redirects() {
     // Affiliate (/recommends) rules are served at request time by
     // middleware.js so that edits in WordPress go live without a rebuild.

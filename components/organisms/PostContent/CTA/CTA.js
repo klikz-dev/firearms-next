@@ -3,20 +3,15 @@ import GradientBorder from '@/components/atoms/GradientBorder'
 import Image from '@/components/atoms/Image'
 import Link from '@/components/atoms/Link'
 import getStats from '@/functions/getStats'
+import { getCtaId } from '@/functions/getPicks'
 import Badge from '../../Shop/Page/Badge'
 import Stats from '../../Shop/Page/Stats'
 import Awards from '../../Shop/Page/Awards'
 import OtherSellers from './OtherSellers'
 
-export default function CTA({
-  buttonText,
-  link,
-  price,
-  title,
-  image,
-  productSlug,
-  page,
-}) {
+export default function CTA(cta) {
+  const { buttonText, link, price, title, image, page, isAmazon } = cta
+
   const pageStats =
     page && page.brand && page.category && page.product
       ? getStats(page.brand.name, page.category.name, page.product.length, {
@@ -46,7 +41,7 @@ export default function CTA({
   const { sale_price } = page?.product?.[0] ?? {}
 
   return (
-    <div id={productSlug} className={'p-1 overflow-hidden mb-8'}>
+    <div id={getCtaId(cta)} className={'p-1 overflow-hidden mb-8'}>
       <div className={'relative border border-zinc-300'}>
         <Link href={link}>
           <Image
@@ -102,7 +97,9 @@ export default function CTA({
           {pageStats && <Stats pageStats={pageStats} small />}
         </div>
 
-        {search && <OtherSellers buttonText={buttonText} search={search} />}
+        {search && !isAmazon && (
+          <OtherSellers buttonText={buttonText} search={search} />
+        )}
       </div>
     </div>
   )

@@ -37,3 +37,4 @@ next-env.d.ts
 public/robots.prod.txt
 public/robots.stage.txt
 analyze/nodejs.html
+docs/

@@ -1,7 +1,6 @@
-import Image from '@/components/atoms/Image'
+import { Fragment } from 'react'
 import Link from '@/components/atoms/Link'
 import { otherSellers } from '@/const/setting/sellers'
-import classNames from 'classnames'
 
 export default function OtherSellers({ buttonText, search }) {
   const sellers = otherSellers.filter((seller) => {
@@ -10,35 +9,33 @@ export default function OtherSellers({ buttonText, search }) {
     )
   })
 
-  return (
-    <div className={'flex flex-col lg:flex-row lg:items-center lg:gap-8 p-4'}>
-      <h4 className='text-center'>Other Sellers:</h4>
+  if (!sellers.length) return null
 
-      <div
-        className={classNames(
-          'flex-grow grid lg:gap-8',
-          sellers?.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'
-        )}
+  return (
+    <div
+      className={
+        'flex flex-row flex-wrap items-center gap-x-2 gap-y-1 px-4 pb-4 text-sm'
+      }
+    >
+      <span
+        className={
+          'font-display uppercase text-xs tracking-wider text-zinc-500'
+        }
       >
-        {sellers?.map((seller) => (
-          <div
-            key={seller.brand}
-            className={'cols-span-1 flex flex-row justify-center'}
+        Other sellers:
+      </span>
+
+      {sellers.map((seller, index) => (
+        <Fragment key={seller.brand}>
+          {index > 0 && <span className={'text-zinc-400'}>&middot;</span>}
+          <Link
+            href={`${seller.baseURL}${search}`}
+            className={'text-red-700 hover:underline'}
           >
-            <Link
-              href={`${seller.baseURL}${search}`}
-              className={'block relative col-span-1 w-40 h-16'}
-            >
-              <Image
-                src={seller.image}
-                fill={true}
-                alt={seller.brand}
-                className={'object-contain'}
-              />
-            </Link>
-          </div>
-        ))}
-      </div>
+            {seller.name}
+          </Link>
+        </Fragment>
+      ))}
     </div>
   )
 }

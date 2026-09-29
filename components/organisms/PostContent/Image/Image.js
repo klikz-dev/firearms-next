@@ -2,7 +2,7 @@ import Image from '@/components/atoms/Image'
 
 export default function PostImage({ image, description }) {
   return (
-    <div className={'mb-8 bg-zinc-50 border border-zinc-300'}>
+    <figure className={'mb-8'}>
       <Image
         src={image?.sourceUrl}
         alt={description || image?.altText}
@@ -10,13 +10,11 @@ export default function PostImage({ image, description }) {
         height={image?.mediaDetails?.height}
       />
 
-      <div
-        className={
-          'bg-gradient-to-r from-red-800 to-red-500 text-white text-center text-sm px-3 py-1'
-        }
-      >
-        {description}
-      </div>
-    </div>
+      {description && (
+        <figcaption className={'text-zinc-500 text-sm text-center px-3 py-2'}>
+          {description}
+        </figcaption>
+      )}
+    </figure>
   )
 }

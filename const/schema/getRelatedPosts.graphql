@@ -1,0 +1,19 @@
+query GetRelatedPosts($first: Int, $category: String) {
+  posts(first: $first, where: { categoryName: $category }) {
+    nodes {
+      slug
+      title
+      date
+      featuredImage {
+        node {
+          altText
+          sourceUrl
+          mediaDetails {
+            height
+            width
+          }
+        }
+      }
+    }
+  }
+}

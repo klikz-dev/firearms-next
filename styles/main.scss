@@ -2,9 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --header-h: 0px;
+  --subnav-h: 0px;
+}
+
 html,
 body {
   @apply scroll-smooth;
+}
+
+/* Keep jump targets clear of the sticky header and post section nav */
+/*
+ * Mobile: while a sticky product CTA is showing, the site header slides out
+ * and the section nav moves up to the top (data attribute set by MobileCTA)
+ */
+@media (max-width: 1023px) {
+  .site-header {
+    transition: transform 0.3s ease-out;
+  }
+
+  .post-nav {
+    transition: top 0.3s ease-out;
+  }
+
+  html[data-mobile-cta='on'] .site-header {
+    transform: translateY(-100%);
+  }
+
+  html[data-mobile-cta='on'] .post-nav {
+    top: 0 !important;
+  }
+}
+
+#page-content [id] {
+  scroll-margin-top: calc(var(--header-h) + var(--subnav-h) + 1rem);
 }
 
 h1,

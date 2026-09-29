@@ -1,97 +1,106 @@
-import Button from '@/components/atoms/Button'
-import Slider from '@/components/molecules/Slider'
-import Title from '@/components/molecules/Title'
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect, useRef, useState } from 'react'
-import TableColumn from './TableColumn'
-import TableMenu from './TableMenu'
+import Link from '@/components/atoms/Link'
+import { getCtaId } from '@/functions/getPicks'
 
+const AWARD_LABELS = {
+  editors_choice: "Editors' Choice",
+  top_pick: 'Top Pick',
+  best_buy: 'Best Buy',
+}
+
+function getAwardLabel({ award, customAward }) {
+  if (award === 'custom') return customAward || ''
+  return AWARD_LABELS[award] ?? ''
+}
+
+/**
+ * Simplified comparison table: award, product (affiliate link), price and a
+ * jump link to the matching in-page CTA.
+ */
 export default function AdvancedComparisonTable({ item, ctas }) {
-  const sliderRef = useRef(null)
-
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [slideWidth, setSlideWidth] = useState(0)
-  const [slidesPerView, setSlidesPerView] = useState(1)
-
-  const handleMoveLeft = () => {
-    setCurrentSlide(currentSlide === 0 ? slides.length - 1 : currentSlide - 1)
-  }
-
-  const handleMoveRight = () => {
-    setCurrentSlide(currentSlide === slides.length - 1 ? 0 : currentSlide + 1)
-  }
-
-  useEffect(() => {
-    setSlideWidth(sliderRef.current.offsetWidth)
-  }, [])
-
-  useEffect(() => {
-    setSlidesPerView(slideWidth > 640 ? 4 : slideWidth > 510 ? 3 : 2)
-  }, [slideWidth])
-
-  const tables = item
-    .map((table) => {
-      const cta = ctas?.filter(
-        (cta) =>
-          cta.title?.toLowerCase() === table.ctaId?.toLowerCase() &&
-          cta.productSlug
-      )?.[0]
-
-      return { ...table, cta: cta }
+  const rows = (item ?? [])
+    .map((row) => {
+      const cta = ctas?.find(
+        (candidate) =>
+          candidate.title?.toLowerCase() === row.ctaId?.toLowerCase()
+      )
+      return cta ? { ...row, cta } : null
     })
-    ?.filter((table) => table.cta)
+    .filter(Boolean)
 
-  const slides = tables?.map((table, index) => (
-    <TableColumn key={index} {...table} />
-  ))
+  if (!rows.length) return null
 
   return (
-    <div className={'mb-8'}>
-      <div className={'flex flex-row justify-between items-center'}>
-        <Title>
-          <h4>Our Top Picks</h4>
-        </Title>
-
-        <p className={'text-sm font-display'}>{`Displaying ${
-          currentSlide + 1
-        } - ${currentSlide + slidesPerView} of ${slides.length}`}</p>
-
-        <div>
-          <Button
-            color='white'
-            size='icon'
-            onClick={handleMoveLeft}
-            disabled={currentSlide < 1}
-            className={'mr-2'}
+    <div className={'mb-8 overflow-x-auto'}>
+      <table className={'w-full border border-zinc-300 text-sm'}>
+        <thead>
+          <tr
+            className={
+              'bg-zinc-100 text-left font-display uppercase text-xs tracking-wider'
+            }
           >
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </Button>
+            <th className={'p-3 hidden sm:table-cell w-40'}>Award</th>
+            <th className={'p-3'}>Product</th>
+            <th className={'p-3'}>Price</th>
+            <th className={'p-3'}>
+              <span className={'sr-only'}>Details</span>
+            </th>
+          </tr>
+        </thead>
 
-          <Button
-            color='white'
-            size='icon'
-            onClick={handleMoveRight}
-            disabled={currentSlide > slides.length - 1 - slidesPerView}
-          >
-            <FontAwesomeIcon icon={faArrowRight} />
-          </Button>
-        </div>
-      </div>
+        <tbody>
+          {rows.map((row, index) => {
+            const { cta } = row
+            const label = getAwardLabel(row)
+            const price = cta.page?.product?.[0]?.sale_price ?? cta.price
+            const ctaId = getCtaId(cta)
 
-      <div className={'flex flex-row'}>
-        <div className={'w-28'}>
-          <TableMenu page={tables?.[0]?.cta?.page} />
-        </div>
+            return (
+              <tr key={index} className={'border-t border-zinc-300 align-top'}>
+                <td
+                  className={
+                    'p-3 hidden sm:table-cell font-display font-semibold'
+                  }
+                >
+                  {label}
+                </td>
 
-        <Slider
-          sliderRef={sliderRef}
-          currentSlide={currentSlide}
-          slideWidth={slideWidth}
-          slidesPerView={slidesPerView}
-          slides={slides}
-        />
-      </div>
+                <td className={'p-3'}>
+                  {label && (
+                    <p
+                      className={
+                        'sm:hidden text-xs font-display font-semibold uppercase text-zinc-500 mb-1'
+                      }
+                    >
+                      {label}
+                    </p>
+                  )}
+                  <Link
+                    href={cta.link}
+                    className={'text-red-700 font-semibold hover:underline'}
+                  >
+                    {cta.title}
+                  </Link>
+                </td>
+
+                <td className={'p-3 whitespace-nowrap'}>
+                  {price ? `$${price}` : ''}
+                </td>
+
+                <td className={'p-3 whitespace-nowrap text-right'}>
+                  {ctaId && (
+                    <Link
+                      href={`#${ctaId}`}
+                      className={'underline hover:text-red-700'}
+                    >
+                      Jump to Details
+                    </Link>
+                  )}
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
     </div>
   )
 }

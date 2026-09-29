@@ -78,7 +78,10 @@ export default function TOCNav({ toc_items }) {
 
   return (
     <>
-      <div className={'sticky top-8 mb-12'}>
+      <div
+        className={'sticky mb-12'}
+        style={{ top: 'calc(var(--header-h, 0px) + 2rem)' }}
+      >
         <div className='hidden md:block md:w-72 bg-zinc-100 border-t-4 border-red-700'>
           <div
             className={
@@ -108,7 +111,10 @@ export default function TOCNav({ toc_items }) {
         </div>
       </div>
 
-      <div className='block md:hidden w-full sticky top-0 bg-zinc-100 z-30'>
+      <div
+        className='block md:hidden w-full sticky bg-zinc-100 z-30'
+        style={{ top: 'var(--header-h, 0px)' }}
+      >
         {toc_items?.length > 0 ? (
           <Popover>
             <Popover.Button className='toc_button group inline-flex items-center hover:text-red-900 w-full border rounded px-4 py-2 text-center justify-between'>

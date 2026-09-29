@@ -2,12 +2,15 @@ import { client } from '@/lib/apollo'
 import GET_POST_QUERY from '@/const/schema/getPost.graphql'
 import GET_POST_SLUGS_QUERY from '@/const/schema/getPostSlugs.graphql'
 import GET_AUTHOR_QUERY from '@/const/schema/getAuthor.graphql'
+import GET_RELATED_POSTS_QUERY from '@/const/schema/getRelatedPosts.graphql'
 import Layout from '@/components/common/Layout'
-import { useRouter } from 'next/router'
 import Container from '@/components/atoms/Container'
-import Loading from '@/components/atoms/Loading'
 import PostContent from '@/components/organisms/PostContent'
 import Sidebar from '@/components/organisms/Sidebar'
+import PostNav from '@/components/organisms/PostNav'
+import PicksPill from '@/components/organisms/PostNav/PicksPill'
+import MeetTheExperts from '@/components/organisms/MeetTheExperts'
+import FurtherReading from '@/components/organisms/FurtherReading'
 import GradientBorder from '@/components/atoms/GradientBorder'
 import PostMeta from '@/components/molecules/PostMeta'
 import Link from '@/components/atoms/Link'
@@ -16,10 +19,26 @@ import HTMLContent from '@/components/atoms/HTMLContent'
 import { NextSeo } from 'next-seo'
 import moment from 'moment'
 import Head from 'next/head'
+import Script from 'next/script'
 import getSidebarData from '@/functions/getSidebarData'
 import filterSchema from '@/functions/filterSchema'
+import getPicks from '@/functions/getPicks'
+import convertToSlug from '@/functions/convertToSlug'
+import { getAffiliateDestination } from '@/functions/acfOptions'
+import { getAmazonItems } from '@/lib/amazon/creators'
 
-export default function Post({ post, michael, sidebarData }) {
+const EDITOR_SLUG = 'michael-crites'
+const AMAZON_PATTERN = /amazon.|amzn.to/i
+
+async function isAmazonCta({ buttonText, link }) {
+  if (AMAZON_PATTERN.test(link ?? '') || /amazon/i.test(buttonText ?? '')) {
+    return true
+  }
+  const destination = await getAffiliateDestination(link)
+  return AMAZON_PATTERN.test(destination ?? '')
+}
+
+export default function Post({ post, michael, sidebarData, related, picks }) {
   const {
     title,
     slug,
@@ -33,16 +52,29 @@ export default function Post({ post, michael, sidebarData }) {
   } = post ?? {}
   const { metaDesc, opengraphDescription, schema } = seo ?? {}
 
-  const router = useRouter()
-  if (router.isFallback) {
-    return (
-      <Layout>
-        <Container>
-          <Loading />
-        </Container>
-      </Layout>
-    )
-  }
+  const experts = [
+    author?.node && { author: author.node, headline: 'Written By' },
+    michael &&
+      author?.node?.slug !== EDITOR_SLUG && {
+        author: michael,
+        headline: 'Edited By',
+      },
+  ].filter(Boolean)
+
+  const headings = (postContent?.contents ?? [])
+    .filter((block) => block.__typename === 'Post_Postcontent_Contents_Heading')
+    .map((block) => ({ id: convertToSlug(block.text), label: block.text }))
+
+  // Keep in page order: the section nav tracks position by walking this list
+  const sections = [
+    headings.length > 0 && { id: 'in-this-article', label: 'In This Article' },
+    ...headings,
+    experts.length > 0 && { id: 'meet-the-experts', label: 'Meet the Experts' },
+    related?.posts?.length > 0 && {
+      id: 'further-reading',
+      label: 'Further Reading',
+    },
+  ].filter(Boolean)
 
   return (
     <>
@@ -55,7 +87,16 @@ export default function Post({ post, michael, sidebarData }) {
         />
       </Head>
 
+      {/* Google "Add as preferred source" button, rendered in PostMeta */}
+      <Script
+        src='https://news.google.com/swg/js/v1/publisher.js'
+        strategy='afterInteractive'
+      />
+
       <Layout>
+        <PostNav sections={sections} picks={picks ?? []} />
+        <PicksPill picks={picks ?? []} firstHeadingId={headings[0]?.id} />
+
         <Container className={'pt-8 lg:pt-20 lg:grid lg:grid-cols-3 gap-12'}>
           <div className={'lg:col-span-2 mb-20'}>
             <h1>{title}</h1>
@@ -116,15 +157,62 @@ export default function Post({ post, michael, sidebarData }) {
             <HTMLContent className={'py-8'}>{content}</HTMLContent>
 
             <PostContent contents={postContent?.contents} />
+
+            <MeetTheExperts experts={experts} />
+
+            <FurtherReading
+              posts={related?.posts ?? []}
+              category={related?.category}
+            />
           </div>
 
           <div className={'lg:col-span-1'}>
-            <Sidebar alert={postContent?.alert} data={sidebarData} />
+            <Sidebar
+              alert={postContent?.alert}
+              data={sidebarData}
+              picks={picks ?? []}
+            />
           </div>
         </Container>
       </Layout>
     </>
   )
+}
+
+function buildAmazonLink({ productId, link }, detailPageURL) {
+  const override = link?.trim()
+  if (override) return override
+  if (detailPageURL) return detailPageURL
+
+  const asin = productId?.trim()
+  if (!asin) return null
+
+  const tag = process.env.AMAZON_PARTNER_TAG
+  return `https://www.amazon.com/dp/${encodeURIComponent(asin)}/${
+    tag ? `?tag=${encodeURIComponent(tag)}` : ''
+  }`
+}
+
+async function getRelatedPosts(post) {
+  const category = post?.categories?.nodes?.[0]
+  if (!category?.slug) return { category: null, posts: [] }
+
+  try {
+    const { data } = await client.query({
+      query: GET_RELATED_POSTS_QUERY,
+      variables: { first: 7, category: category.slug },
+    })
+
+    return {
+      category: category.name ?? null,
+      posts: (data?.posts?.nodes ?? [])
+        .filter((node) => node.slug !== post.slug)
+        .slice(0, 6),
+    }
+  } catch (error) {
+    console.error(`[related] lookup failed for ${post.slug}`, error)
+    return { category: category.name ?? null, posts: [] }
+  }
 }
 
 export async function getStaticProps({ params }) {
@@ -147,17 +235,55 @@ export async function getStaticProps({ params }) {
   const updatedPost = { ...postData.post }
   if (postData?.post?.postContent?.contents) {
     const { contents } = postData.post.postContent
+
+    // Name, image and price for Amazon blocks come from Amazon's Creators API;
+    // anything entered in WordPress takes priority.
+    const amazonItems = await getAmazonItems(
+      contents
+        .filter(
+          (content) =>
+            content.__typename === 'Post_Postcontent_Contents_AmazonProduct'
+        )
+        .map((content) => content.productId)
+    )
+
     const updatedContents = await Promise.all(
       contents.map(async (content) => {
         if (content.__typename === 'Post_Postcontent_Contents_Cta') {
-          const page = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/pages/${content.productSlug}`
-          )
-          const pageData = await page.json()
-          if (pageData) {
-            return { ...content, page: pageData }
+          // CTAs that send the reader to Amazon get no "Other Sellers" row
+          const isAmazon = await isAmazonCta(content)
+          try {
+            const page = await fetch(
+              `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/pages/${content.productSlug}`
+            )
+            const pageData = await page.json()
+            if (pageData) {
+              return { ...content, page: pageData, isAmazon }
+            }
+          } catch (error) {
+            console.error(`[cta] page lookup failed for ${content.productSlug}`)
+          }
+          return { ...content, isAmazon }
+        }
+
+        if (content.__typename === 'Post_Postcontent_Contents_AmazonProduct') {
+          const item = amazonItems.get(content.productId?.trim()) ?? {}
+          return {
+            ...content,
+            title: content.title || item.title || null,
+            image: content.image?.sourceUrl
+              ? content.image
+              : item.image ?? null,
+            price: content.price ?? item.price ?? null,
+            // Amazon no longer has this product (its page is a 404): hide
+            // the CTA unless an editor entered a replacement link
+            amazonLink:
+              item.invalid && !content.link?.trim()
+                ? null
+                : buildAmazonLink(content, item.detailPageURL),
           }
         }
+
         return { ...content }
       })
     )
@@ -168,26 +294,36 @@ export async function getStaticProps({ params }) {
     }
   }
 
+  const picks = getPicks(updatedPost.postContent?.contents ?? [])
+
   /**
    * Main Author - Michael
    */
   const { data: authorData } = await client.query({
     query: GET_AUTHOR_QUERY,
     variables: {
-      slug: 'michael-crites',
+      slug: EDITOR_SLUG,
     },
   })
 
   /**
-   * Sidebar Data
+   * Further reading
    */
-  const sidebarData = await getSidebarData()
+  const related = await getRelatedPosts(updatedPost)
+
+  /**
+   * Sidebar Data - only needed when the post has no CTAs, otherwise the
+   * sticky "Our Top Picks" rail replaces the newsletter and category blocks.
+   */
+  const sidebarData = picks.length ? null : await getSidebarData()
 
   return {
     props: {
       post: updatedPost,
-      michael: authorData?.user,
+      michael: authorData?.user ?? null,
       sidebarData,
+      related,
+      picks,
     },
     revalidate: 100,
   }
@@ -203,8 +339,10 @@ export async function getStaticPaths() {
 
   return {
     paths: data.posts.nodes.map((node) => ({
-      params: node,
+      params: { slug: node.slug },
     })),
-    fallback: true,
+    // Older posts render on the server on first visit instead of showing a
+    // loading shell
+    fallback: 'blocking',
   }
 }
